@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 using e.moiroServer.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace e.moiroServer.Controllers
 {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e-moiroServer", "WebApplication3\e-moiroServer.csproj", "{79E3992C-1872-47FE-AA0F-A5F496CC1CFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e.moiroServer", "WebApplication3\e.moiroServer.csproj", "{79E3992C-1872-47FE-AA0F-A5F496CC1CFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

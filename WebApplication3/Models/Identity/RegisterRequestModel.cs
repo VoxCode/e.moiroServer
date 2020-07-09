@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace e.moiroServer.Models.Identity
 {
-    public class RegisterUserRequestModel
+    public class RegisterRequestModel
     {
         [Required]
         public string UserName { get; set; }

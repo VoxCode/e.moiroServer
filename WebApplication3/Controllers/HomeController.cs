@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
 {
+    [Authorize]
     public class HomeController : ApiController
     {
-        [Authorize]
+        [HttpGet]
+
         public ActionResult Get()
         {
             return Ok("works");

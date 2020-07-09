@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 namespace e.moiroServer.Controllers
 {
     [ApiController]
-    [Route("[Controller]")]
+    [Route("[controller]")]
     public abstract class ApiController : ControllerBase
     {
-
     }
 }

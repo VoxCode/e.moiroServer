@@ -30,7 +30,7 @@ namespace e.moiroServer
             }
 
             app
-                //.UseSwaggerUI()
+                .UseSwaggerUI()
                 .UseRouting()
                 .UseCors(options => options
                     .AllowAnyOrigin()

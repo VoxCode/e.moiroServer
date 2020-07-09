@@ -16,7 +16,7 @@
       }
     },
     "Catstagram.Server": {
-      "commandName": "Project",
+      "commandName": "Moiro",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

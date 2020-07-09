@@ -86,8 +86,8 @@ namespace e.moiroServer.Extensions
                     "v1",
                     new OpenApiInfo
                     {
-                        Title = "My Catstagram API",
-                        Version = "v1"
+                        Title = "E.moiro.api",
+                        Version = "v 0.1"
                     });
             });
 

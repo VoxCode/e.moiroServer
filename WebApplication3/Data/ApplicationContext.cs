@@ -143,6 +143,7 @@ namespace e.moiroServer.Models
                 .WithMany(c => c.СurriculumTopicTranningPrograms)
                 .HasForeignKey(sc => sc.TranningProgramId);
 
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

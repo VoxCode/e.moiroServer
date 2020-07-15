@@ -9,7 +9,6 @@ namespace e.moiroServer.Data.Models
     {
         public int CurriculumTopicId { get; set; }
         public int DepartmensId { get; set; }
-
         public CurriculumTopic CurriculumTopic { get; set; }
         public Departmens Departmens { get; set; }
     }

@@ -29,15 +29,6 @@ namespace e.moiroServer.Models
         public DbSet<TheQuestions> TheQuestions { get; set; }
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
 
-        public DbSet<СurriculumTopicAdditionalLiterature> СurriculumTopicAdditionalLiteratures { get; set; }
-        public DbSet<СurriculumTopicConsultationTopics> СurriculumTopicConsultationTopics { get; set; }
-        public DbSet<СurriculumTopicDepartmens> СurriculumTopicDepartmens { get; set; }
-        public DbSet<СurriculumTopicMainLiterature> СurriculumTopicMainLiteratures { get; set; }
-        public DbSet<СurriculumTopicTeacher> СurriculumTopicTeachers { get; set; }
-        public DbSet<СurriculumTopicTeacherCategory> СurriculumTopicTeacherCategories { get; set; }
-        public DbSet<СurriculumTopicTheQuestions> СurriculumTopicTheQuestions { get; set; }
-        public DbSet<СurriculumTopicTranningProgram> СurriculumTopicTranningPrograms { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //СurriculumTopicAdditionalLiterature

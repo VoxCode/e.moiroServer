@@ -10,7 +10,7 @@ namespace e.moiroServer.Data.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int SectionNumberId { get; set; }
-
         public SectionNumber SectionNumber { get; set; }
+        public List<CurriculumTopic> CurriculumTopics { get; set; }
     }
 }

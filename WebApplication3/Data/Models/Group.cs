@@ -15,11 +15,11 @@ namespace e.moiroServer.Data.Models
         public DateTime ClassEndDate { get; set; }
         public int NumberOfHours { get; set; }
         public int FormOfEducationId { get; set; }
-        public int TeacherCategoryId { get; set; }
-        public int DepartmensId { get; set; }
-
         public FormOfEducation FormOfEducation { get; set; }
+        public int TeacherCategoryId { get; set; }
         public TeacherCategory TeacherCategory { get; set; }
+        public int DepartmensId { get; set; }
         public Departmens Departmens { get; set; }
+        public List<TrainingProgram> TrainingPrograms { get; set; }
     }
 }

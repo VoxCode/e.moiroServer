@@ -9,5 +9,11 @@ namespace e.moiroServer.Data.Models
     {
         public int Id { get; set; }
         public string Content { get; set; }
+        public List<СurriculumTopicAdditionalLiterature> СurriculumTopicAdditionalLiteratures { get; set; }
+
+        public AdditionalLiterature()
+        {
+            СurriculumTopicAdditionalLiteratures = new List<СurriculumTopicAdditionalLiterature>();
+        }
     }
 }

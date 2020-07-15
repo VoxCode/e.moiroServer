@@ -11,7 +11,11 @@ namespace e.moiroServer.Data.Models
         public string Name { get; set; }
         public bool Cathedra { get; set; }
         public int TeachingPositionId { get; set; }
-
         public TeachingPosition TeachingPosition { get; set; }
+        public List<СurriculumTopicTeacher> СurriculumTopicTeachers { get; set; }
+        public Teacher()
+        {
+            СurriculumTopicTeachers = new List<СurriculumTopicTeacher>();
+        }
     }
 }

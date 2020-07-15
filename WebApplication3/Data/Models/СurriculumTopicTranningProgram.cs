@@ -7,11 +7,11 @@ namespace e.moiroServer.Data.Models
 {
     public class СurriculumTopicTranningProgram
     {
-        public int Id { get; set; }
-        public int CuriculumTopicId { get; set; }
-        public int TrainingProgramId { get; set; }
+        public int CurriculumTopicId { get; set; }
+        public int TranningProgramId { get; set; }
 
-        public CuriculumTopic CuriculumTopic { get; set; }
-        public TrainingProgram TrainingProgram { get; set; }
+        public CurriculumTopic CurriculumTopic { get; set; }
+        public TrainingProgram TranningProgram { get; set; }
     }
 }
+

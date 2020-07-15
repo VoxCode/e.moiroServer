@@ -9,7 +9,11 @@ namespace e.moiroServer.Data.Models
     {
         public int Id { get; set; }
         public int GroupId { get; set; }
-
         public Group Group { get; set; }
+        public List<СurriculumTopicTranningProgram> СurriculumTopicTranningPrograms { get; set; }
+        public TrainingProgram()
+        {
+            СurriculumTopicTranningPrograms = new List<СurriculumTopicTranningProgram>();
+        }
     }
 }

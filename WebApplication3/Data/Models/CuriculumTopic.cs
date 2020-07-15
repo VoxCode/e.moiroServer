@@ -11,12 +11,11 @@ namespace e.moiroServer.Data.Models
         public string TopicTitle { get; set; }
         public int ClassHours { get; set; }
         public string Annotation { get; set; }
+        public bool DistanceLearning { get; set; }
         public int CurriculumSectionId { get; set; }
         public int OccupationFormId { get; set; }
-        public int DistanceLearningId { get; set; }
 
         public CurriculumSection CurriculumSection { get; set; }
         public OccupationForm OccupationForm { get; set; }
-        public DistanceLearning DistanceLearning { get; set; }
     }
 }

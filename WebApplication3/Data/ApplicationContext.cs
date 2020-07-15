@@ -14,12 +14,10 @@ namespace e.moiroServer.Models
 
         public DbSet<Product> Products { get; set; }
         public DbSet<AdditionalLiterature> AdditionalLiteratures { get; set; }
-        public DbSet<Cathedra> Cathedras { get; set; }
         public DbSet<ConsultationTopics> ConsultationTopics { get; set; }
         public DbSet<CuriculumTopic> CuriculumTopics { get; set; }
         public DbSet<CurriculumSection> CurriculumSections { get; set; }
         public DbSet<Departmens> Departmens { get; set; }
-        public DbSet<DistanceLearning> DistanceLearnings { get; set; }
         public DbSet<FormOfEducation> FormOfEducations { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<MainLiterature> MainLiteratures { get; set; }
@@ -38,12 +36,5 @@ namespace e.moiroServer.Models
         public DbSet<СurriculumTopicTeacherCategory> СurriculumTopicTeacherCategories { get; set; }
         public DbSet<СurriculumTopicTheQuestions> СurriculumTopicTheQuestions { get; set; }
         public DbSet<СurriculumTopicTranningProgram> СurriculumTopicTranningPrograms { get; set; }
-
-
-
-
-
-
     }
 }
-    

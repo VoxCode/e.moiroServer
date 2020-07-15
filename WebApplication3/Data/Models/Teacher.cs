@@ -9,10 +9,9 @@ namespace e.moiroServer.Data.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool Cathedra { get; set; }
         public int TeachingPositionId { get; set; }
-        public int CathedraId { get; set; }
 
         public TeachingPosition TeachingPosition { get; set; }
-        public Cathedra Cathedra { get; set; }
     }
 }

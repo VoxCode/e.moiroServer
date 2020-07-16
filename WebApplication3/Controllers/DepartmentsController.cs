@@ -12,11 +12,11 @@ namespace e.moiroServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmensController : ControllerBase
+    public class DepartmentsController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
-        public DepartmensController(ApplicationContext context)
+        public DepartmentsController(ApplicationContext context)
         {
             _context = context;
         }

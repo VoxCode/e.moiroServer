@@ -23,14 +23,14 @@ namespace e.moiroServer.Controllers
 
         // GET: api/TheQuestions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TheQuestions>>> GetTheQuestions()
+        public async Task<ActionResult<IEnumerable<TheQuestion>>> GetTheQuestions()
         {
             return await _context.TheQuestions.ToListAsync();
         }
 
         // GET: api/TheQuestions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TheQuestions>> GetTheQuestions(int id)
+        public async Task<ActionResult<TheQuestion>> GetTheQuestions(int id)
         {
             var theQuestions = await _context.TheQuestions.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace e.moiroServer.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTheQuestions(int id, TheQuestions theQuestions)
+        public async Task<IActionResult> PutTheQuestions(int id, TheQuestion theQuestions)
         {
             if (id != theQuestions.Id)
             {
@@ -78,7 +78,7 @@ namespace e.moiroServer.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TheQuestions>> PostTheQuestions(TheQuestions theQuestions)
+        public async Task<ActionResult<TheQuestion>> PostTheQuestions(TheQuestion theQuestions)
         {
             _context.TheQuestions.Add(theQuestions);
             await _context.SaveChangesAsync();
@@ -88,7 +88,7 @@ namespace e.moiroServer.Controllers
 
         // DELETE: api/TheQuestions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TheQuestions>> DeleteTheQuestions(int id)
+        public async Task<ActionResult<TheQuestion>> DeleteTheQuestions(int id)
         {
             var theQuestions = await _context.TheQuestions.FindAsync(id);
             if (theQuestions == null)

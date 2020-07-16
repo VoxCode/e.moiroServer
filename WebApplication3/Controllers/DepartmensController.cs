@@ -23,16 +23,16 @@ namespace e.moiroServer.Controllers
 
         // GET: api/Departmens
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Departmens>>> GetDepartmens()
+        public async Task<ActionResult<IEnumerable<Department>>> GetDepartmens()
         {
-            return await _context.Departmens.ToListAsync();
+            return await _context.Departments.ToListAsync();
         }
 
         // GET: api/Departmens/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Departmens>> GetDepartmens(int id)
+        public async Task<ActionResult<Department>> GetDepartmens(int id)
         {
-            var departmens = await _context.Departmens.FindAsync(id);
+            var departmens = await _context.Departments.FindAsync(id);
 
             if (departmens == null)
             {
@@ -46,7 +46,7 @@ namespace e.moiroServer.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartmens(int id, Departmens departmens)
+        public async Task<IActionResult> PutDepartmens(int id, Department departmens)
         {
             if (id != departmens.Id)
             {
@@ -78,9 +78,9 @@ namespace e.moiroServer.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Departmens>> PostDepartmens(Departmens departmens)
+        public async Task<ActionResult<Department>> PostDepartmens(Department departmens)
         {
-            _context.Departmens.Add(departmens);
+            _context.Departments.Add(departmens);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetDepartmens", new { id = departmens.Id }, departmens);
@@ -88,15 +88,15 @@ namespace e.moiroServer.Controllers
 
         // DELETE: api/Departmens/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Departmens>> DeleteDepartmens(int id)
+        public async Task<ActionResult<Department>> DeleteDepartmens(int id)
         {
-            var departmens = await _context.Departmens.FindAsync(id);
+            var departmens = await _context.Departments.FindAsync(id);
             if (departmens == null)
             {
                 return NotFound();
             }
 
-            _context.Departmens.Remove(departmens);
+            _context.Departments.Remove(departmens);
             await _context.SaveChangesAsync();
 
             return departmens;
@@ -104,7 +104,7 @@ namespace e.moiroServer.Controllers
 
         private bool DepartmensExists(int id)
         {
-            return _context.Departmens.Any(e => e.Id == id);
+            return _context.Departments.Any(e => e.Id == id);
         }
     }
 }

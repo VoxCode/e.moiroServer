@@ -18,8 +18,8 @@ namespace e.moiroServer.Data.Models
         public FormOfEducation FormOfEducation { get; set; }
         public int TeacherCategoryId { get; set; }
         public TeacherCategory TeacherCategory { get; set; }
-        public int DepartmensId { get; set; }
-        public Departmens Departmens { get; set; }
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
         public List<TrainingProgram> TrainingPrograms { get; set; }
     }
 }

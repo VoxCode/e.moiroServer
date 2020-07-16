@@ -8,8 +8,8 @@ namespace e.moiroServer.Data.Models
     public class СurriculumTopicTeacher
     {
         public int TeacherId { get; set; }
-        public int CurriculumTopicId { get; set; }
         public Teacher Teacher { get; set; }
+        public int CurriculumTopicId { get; set; }
         public CurriculumTopic CurriculumTopic { get; set; }
     }
 }

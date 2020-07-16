@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace e.moiroServer.Data.Models
 {
-    public class СurriculumTopicTranningProgram
+    public class СurriculumTopicTrainingProgram
     {
         public int CurriculumTopicId { get; set; }
-        public int TranningProgramId { get; set; }
         public CurriculumTopic CurriculumTopic { get; set; }
-        public TrainingProgram TranningProgram { get; set; }
+        public int TrainingProgramId { get; set; }
+        public TrainingProgram TrainingProgram { get; set; }
     }
 }
 

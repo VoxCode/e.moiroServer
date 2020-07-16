@@ -14,10 +14,10 @@ namespace e.moiroServer.Models
 
         public DbSet<Product> Products { get; set; }
         public DbSet<AdditionalLiterature> AdditionalLiteratures { get; set; }
-        public DbSet<ConsultationTopics> ConsultationTopics { get; set; }
+        public DbSet<ConsultationTopic> ConsultationTopics { get; set; }
         public DbSet<CurriculumTopic> CuriculumTopics { get; set; }
         public DbSet<CurriculumSection> CurriculumSections { get; set; }
-        public DbSet<Departmens> Departmens { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<FormOfEducation> FormOfEducations { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<MainLiterature> MainLiteratures { get; set; }
@@ -26,7 +26,7 @@ namespace e.moiroServer.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<TeacherCategory> TeacherCategories { get; set; }
         public DbSet<TeachingPosition> TeachingPositions { get; set; }
-        public DbSet<TheQuestions> TheQuestions { get; set; }
+        public DbSet<TheQuestion> TheQuestions { get; set; }
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,33 +45,33 @@ namespace e.moiroServer.Models
                 .WithMany(c => c.СurriculumTopicAdditionalLiteratures)
                 .HasForeignKey(sc => sc.AdditionalLiteratureId);
 
-            //СurriculumTopicConsultationTopics
-            modelBuilder.Entity<СurriculumTopicConsultationTopics>()
-                .HasKey(t => new { t.CurriculumTopicId, t.ConsultationTopicsId });
+            //СurriculumTopicConsultationTopic
+            modelBuilder.Entity<СurriculumTopicConsultationTopic>()
+                .HasKey(t => new { t.CurriculumTopicId, t.ConsultationTopicId });
 
-            modelBuilder.Entity<СurriculumTopicConsultationTopics>()
+            modelBuilder.Entity<СurriculumTopicConsultationTopic>()
                 .HasOne(sc => sc.CurriculumTopic)
                 .WithMany(s => s.СurriculumTopicConsultationTopics)
                 .HasForeignKey(sc => sc.CurriculumTopicId);
 
-            modelBuilder.Entity<СurriculumTopicConsultationTopics>()
+            modelBuilder.Entity<СurriculumTopicConsultationTopic>()
                 .HasOne(sc => sc.ConsultationTopics)
                 .WithMany(c => c.СurriculumTopicConsultationTopics)
-                .HasForeignKey(sc => sc.ConsultationTopicsId);
+                .HasForeignKey(sc => sc.ConsultationTopicId);
 
-            //СurriculumTopicDepartmens
-            modelBuilder.Entity<СurriculumTopicDepartmens>()
-                .HasKey(t => new { t.CurriculumTopicId, t.DepartmensId });
+            //СurriculumTopicDepartment
+            modelBuilder.Entity<СurriculumTopicDepartment>()
+                .HasKey(t => new { t.CurriculumTopicId, t.DepartmentId });
 
-            modelBuilder.Entity<СurriculumTopicDepartmens>()
+            modelBuilder.Entity<СurriculumTopicDepartment>()
                 .HasOne(sc => sc.CurriculumTopic)
-                .WithMany(s => s.СurriculumTopicDepartmens)
+                .WithMany(s => s.СurriculumTopicDepartments)
                 .HasForeignKey(sc => sc.CurriculumTopicId);
 
-            modelBuilder.Entity<СurriculumTopicDepartmens>()
-                .HasOne(sc => sc.Departmens)
-                .WithMany(c => c.СurriculumTopicDepartmens)
-                .HasForeignKey(sc => sc.DepartmensId);
+            modelBuilder.Entity<СurriculumTopicDepartment>()
+                .HasOne(sc => sc.Department)
+                .WithMany(c => c.СurriculumTopicDepartments)
+                .HasForeignKey(sc => sc.DepartmentId);
 
             //СurriculumTopicMainLiterature
             modelBuilder.Entity<СurriculumTopicMainLiterature>()
@@ -116,32 +116,32 @@ namespace e.moiroServer.Models
                 .HasForeignKey(sc => sc.TeacherCategoryId);
 
             //СurriculumTopicTheQuestions
-            modelBuilder.Entity<СurriculumTopicTheQuestions>()
-                .HasKey(t => new { t.CurriculumTopicId, t.TheQuestionsId });
+            modelBuilder.Entity<СurriculumTopicTheQuestion>()
+                .HasKey(t => new { t.CurriculumTopicId, t.TheQuestionId });
 
-            modelBuilder.Entity<СurriculumTopicTheQuestions>()
+            modelBuilder.Entity<СurriculumTopicTheQuestion>()
                 .HasOne(sc => sc.CurriculumTopic)
                 .WithMany(s => s.СurriculumTopicTheQuestions)
                 .HasForeignKey(sc => sc.CurriculumTopicId);
 
-            modelBuilder.Entity<СurriculumTopicTheQuestions>()
-                .HasOne(sc => sc.TheQuestions)
+            modelBuilder.Entity<СurriculumTopicTheQuestion>()
+                .HasOne(sc => sc.TheQuestion)
                 .WithMany(c => c.СurriculumTopicTheQuestions)
-                .HasForeignKey(sc => sc.TheQuestionsId);
+                .HasForeignKey(sc => sc.TheQuestionId);
 
             //СurriculumTopicTranningProgram
-            modelBuilder.Entity<СurriculumTopicTranningProgram>()
-                .HasKey(t => new { t.CurriculumTopicId, t.TranningProgramId });
+            modelBuilder.Entity<СurriculumTopicTrainingProgram>()
+                .HasKey(t => new { t.CurriculumTopicId, t.TrainingProgramId });
 
-            modelBuilder.Entity<СurriculumTopicTranningProgram>()
+            modelBuilder.Entity<СurriculumTopicTrainingProgram>()
                 .HasOne(sc => sc.CurriculumTopic)
-                .WithMany(s => s.СurriculumTopicTranningPrograms)
+                .WithMany(s => s.СurriculumTopicTrainingPrograms)
                 .HasForeignKey(sc => sc.CurriculumTopicId);
 
-            modelBuilder.Entity<СurriculumTopicTranningProgram>()
-                .HasOne(sc => sc.TranningProgram)
-                .WithMany(c => c.СurriculumTopicTranningPrograms)
-                .HasForeignKey(sc => sc.TranningProgramId);
+            modelBuilder.Entity<СurriculumTopicTrainingProgram>()
+                .HasOne(sc => sc.TrainingProgram)
+                .WithMany(c => c.СurriculumTopicTrainingPrograms)
+                .HasForeignKey(sc => sc.TrainingProgramId);
 
             base.OnModelCreating(modelBuilder);
         }

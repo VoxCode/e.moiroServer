@@ -9,7 +9,7 @@ namespace e.moiroServer.Data.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool Cathedra { get; set; }
+        public bool IsCathedral { get; set; }
         public int TeachingPositionId { get; set; }
         public TeachingPosition TeachingPosition { get; set; }
         public List<СurriculumTopicTeacher> СurriculumTopicTeachers { get; set; }

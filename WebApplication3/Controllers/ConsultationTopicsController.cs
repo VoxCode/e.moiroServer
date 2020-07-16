@@ -23,14 +23,14 @@ namespace e.moiroServer.Controllers
 
         // GET: api/ConsultationTopics
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ConsultationTopics>>> GetConsultationTopics()
+        public async Task<ActionResult<IEnumerable<ConsultationTopic>>> GetConsultationTopics()
         {
             return await _context.ConsultationTopics.ToListAsync();
         }
 
         // GET: api/ConsultationTopics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ConsultationTopics>> GetConsultationTopics(int id)
+        public async Task<ActionResult<ConsultationTopic>> GetConsultationTopics(int id)
         {
             var consultationTopics = await _context.ConsultationTopics.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace e.moiroServer.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutConsultationTopics(int id, ConsultationTopics consultationTopics)
+        public async Task<IActionResult> PutConsultationTopics(int id, ConsultationTopic consultationTopics)
         {
             if (id != consultationTopics.Id)
             {
@@ -78,7 +78,7 @@ namespace e.moiroServer.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<ConsultationTopics>> PostConsultationTopics(ConsultationTopics consultationTopics)
+        public async Task<ActionResult<ConsultationTopic>> PostConsultationTopics(ConsultationTopic consultationTopics)
         {
             _context.ConsultationTopics.Add(consultationTopics);
             await _context.SaveChangesAsync();
@@ -88,7 +88,7 @@ namespace e.moiroServer.Controllers
 
         // DELETE: api/ConsultationTopics/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ConsultationTopics>> DeleteConsultationTopics(int id)
+        public async Task<ActionResult<ConsultationTopic>> DeleteConsultationTopics(int id)
         {
             var consultationTopics = await _context.ConsultationTopics.FindAsync(id);
             if (consultationTopics == null)

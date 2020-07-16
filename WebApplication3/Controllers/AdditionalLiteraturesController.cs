@@ -19,6 +19,13 @@ namespace e.moiroServer.Controllers
         public AdditionalLiteraturesController(ApplicationContext context)
         {
             _context = context;
+            if (!context.AdditionalLiteratures.Any())
+            {
+                _context.AdditionalLiteratures.Add(new AdditionalLiterature { Content = "dfds" });
+                _context.AdditionalLiteratures.Add(new AdditionalLiterature { Content = "dfdrr" });
+                _context.AdditionalLiteratures.Add(new AdditionalLiterature { Content = "dfd" });
+                _context.SaveChanges();
+            }
         }
 
         // GET: api/AdditionalLiteratures

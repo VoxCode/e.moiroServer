@@ -12,48 +12,48 @@ namespace e.moiroServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TrainingProgramsController : ControllerBase
+    public class SectionNumbersController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
-        public TrainingProgramsController(ApplicationContext context)
+        public SectionNumbersController(ApplicationContext context)
         {
             _context = context;
         }
 
-        // GET: api/TrainingPrograms
+        // GET: api/SectionNumbers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TrainingProgram>>> GetTrainingPrograms()
+        public async Task<ActionResult<IEnumerable<SectionNumber>>> GetSectionNumbers()
         {
-            return await _context.TrainingPrograms.ToListAsync();
+            return await _context.SectionNumbers.ToListAsync();
         }
 
-        // GET: api/TrainingPrograms/5
+        // GET: api/SectionNumbers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TrainingProgram>> GetTrainingProgram(int id)
+        public async Task<ActionResult<SectionNumber>> GetSectionNumber(int id)
         {
-            var trainingProgram = await _context.TrainingPrograms.FindAsync(id);
+            var sectionNumber = await _context.SectionNumbers.FindAsync(id);
 
-            if (trainingProgram == null)
+            if (sectionNumber == null)
             {
                 return NotFound();
             }
 
-            return trainingProgram;
+            return sectionNumber;
         }
 
-        // PUT: api/TrainingPrograms/5
+        // PUT: api/SectionNumbers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrainingProgram(int id, TrainingProgram trainingProgram)
+        public async Task<IActionResult> PutSectionNumber(int id, SectionNumber sectionNumber)
         {
-            if (id != trainingProgram.Id)
+            if (id != sectionNumber.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(trainingProgram).State = EntityState.Modified;
+            _context.Entry(sectionNumber).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace e.moiroServer.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TrainingProgramExists(id))
+                if (!SectionNumberExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace e.moiroServer.Controllers
             return NoContent();
         }
 
-        // POST: api/TrainingPrograms
+        // POST: api/SectionNumbers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TrainingProgram>> PostTrainingProgram(TrainingProgram trainingProgram)
+        public async Task<ActionResult<SectionNumber>> PostSectionNumber(SectionNumber sectionNumber)
         {
-            _context.TrainingPrograms.Add(trainingProgram);
+            _context.SectionNumbers.Add(sectionNumber);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTrainingProgram", new { id = trainingProgram.Id }, trainingProgram);
+            return CreatedAtAction("GetSectionNumber", new { id = sectionNumber.Id }, sectionNumber);
         }
 
-        // DELETE: api/TrainingPrograms/5
+        // DELETE: api/SectionNumbers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TrainingProgram>> DeleteTrainingProgram(int id)
+        public async Task<ActionResult<SectionNumber>> DeleteSectionNumber(int id)
         {
-            var trainingProgram = await _context.TrainingPrograms.FindAsync(id);
-            if (trainingProgram == null)
+            var sectionNumber = await _context.SectionNumbers.FindAsync(id);
+            if (sectionNumber == null)
             {
                 return NotFound();
             }
 
-            _context.TrainingPrograms.Remove(trainingProgram);
+            _context.SectionNumbers.Remove(sectionNumber);
             await _context.SaveChangesAsync();
 
-            return trainingProgram;
+            return sectionNumber;
         }
 
-        private bool TrainingProgramExists(int id)
+        private bool SectionNumberExists(int id)
         {
-            return _context.TrainingPrograms.Any(e => e.Id == id);
+            return _context.SectionNumbers.Any(e => e.Id == id);
         }
     }
 }

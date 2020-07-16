@@ -12,48 +12,48 @@ namespace e.moiroServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CuriculumTopicsController : ControllerBase
+    public class CurriculumTopicsController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
-        public CuriculumTopicsController(ApplicationContext context)
+        public CurriculumTopicsController(ApplicationContext context)
         {
             _context = context;
         }
 
-        // GET: api/CuriculumTopics
+        // GET: api/CurriculumTopics
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CurriculumTopic>>> GetCuriculumTopics()
         {
             return await _context.CuriculumTopics.ToListAsync();
         }
 
-        // GET: api/CuriculumTopics/5
+        // GET: api/CurriculumTopics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumTopic>> GetCuriculumTopic(int id)
+        public async Task<ActionResult<CurriculumTopic>> GetCurriculumTopic(int id)
         {
-            var curiculumTopic = await _context.CuriculumTopics.FindAsync(id);
+            var curriculumTopic = await _context.CuriculumTopics.FindAsync(id);
 
-            if (curiculumTopic == null)
+            if (curriculumTopic == null)
             {
                 return NotFound();
             }
 
-            return curiculumTopic;
+            return curriculumTopic;
         }
 
-        // PUT: api/CuriculumTopics/5
+        // PUT: api/CurriculumTopics/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCuriculumTopic(int id, CurriculumTopic curiculumTopic)
+        public async Task<IActionResult> PutCurriculumTopic(int id, CurriculumTopic curriculumTopic)
         {
-            if (id != curiculumTopic.Id)
+            if (id != curriculumTopic.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(curiculumTopic).State = EntityState.Modified;
+            _context.Entry(curriculumTopic).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace e.moiroServer.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CuriculumTopicExists(id))
+                if (!CurriculumTopicExists(id))
                 {
                     return NotFound();
                 }
@@ -74,35 +74,35 @@ namespace e.moiroServer.Controllers
             return NoContent();
         }
 
-        // POST: api/CuriculumTopics
+        // POST: api/CurriculumTopics
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CurriculumTopic>> PostCuriculumTopic(CurriculumTopic curiculumTopic)
+        public async Task<ActionResult<CurriculumTopic>> PostCurriculumTopic(CurriculumTopic curriculumTopic)
         {
-            _context.CuriculumTopics.Add(curiculumTopic);
+            _context.CuriculumTopics.Add(curriculumTopic);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCuriculumTopic", new { id = curiculumTopic.Id }, curiculumTopic);
+            return CreatedAtAction("GetCurriculumTopic", new { id = curriculumTopic.Id }, curriculumTopic);
         }
 
-        // DELETE: api/CuriculumTopics/5
+        // DELETE: api/CurriculumTopics/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CurriculumTopic>> DeleteCuriculumTopic(int id)
+        public async Task<ActionResult<CurriculumTopic>> DeleteCurriculumTopic(int id)
         {
-            var curiculumTopic = await _context.CuriculumTopics.FindAsync(id);
-            if (curiculumTopic == null)
+            var curriculumTopic = await _context.CuriculumTopics.FindAsync(id);
+            if (curriculumTopic == null)
             {
                 return NotFound();
             }
 
-            _context.CuriculumTopics.Remove(curiculumTopic);
+            _context.CuriculumTopics.Remove(curriculumTopic);
             await _context.SaveChangesAsync();
 
-            return curiculumTopic;
+            return curriculumTopic;
         }
 
-        private bool CuriculumTopicExists(int id)
+        private bool CurriculumTopicExists(int id)
         {
             return _context.CuriculumTopics.Any(e => e.Id == id);
         }

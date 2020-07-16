@@ -12,7 +12,7 @@ namespace e.moiroServer.Extensions
                 .UseSwagger()
                 .UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "My Catstagram API");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "E.MOIRO API");
                     options.RoutePrefix = string.Empty;
                 });
 

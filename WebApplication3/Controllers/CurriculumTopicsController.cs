@@ -25,14 +25,14 @@ namespace e.moiroServer.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CurriculumTopic>>> GetCuriculumTopics()
         {
-            return await _context.CuriculumTopics.ToListAsync();
+            return await _context.CurriculumTopics.ToListAsync();
         }
 
         // GET: api/CurriculumTopics/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CurriculumTopic>> GetCurriculumTopic(int id)
         {
-            var curriculumTopic = await _context.CuriculumTopics.FindAsync(id);
+            var curriculumTopic = await _context.CurriculumTopics.FindAsync(id);
 
             if (curriculumTopic == null)
             {
@@ -80,7 +80,7 @@ namespace e.moiroServer.Controllers
         [HttpPost]
         public async Task<ActionResult<CurriculumTopic>> PostCurriculumTopic(CurriculumTopic curriculumTopic)
         {
-            _context.CuriculumTopics.Add(curriculumTopic);
+            _context.CurriculumTopics.Add(curriculumTopic);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCurriculumTopic", new { id = curriculumTopic.Id }, curriculumTopic);
@@ -90,13 +90,13 @@ namespace e.moiroServer.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<CurriculumTopic>> DeleteCurriculumTopic(int id)
         {
-            var curriculumTopic = await _context.CuriculumTopics.FindAsync(id);
+            var curriculumTopic = await _context.CurriculumTopics.FindAsync(id);
             if (curriculumTopic == null)
             {
                 return NotFound();
             }
 
-            _context.CuriculumTopics.Remove(curriculumTopic);
+            _context.CurriculumTopics.Remove(curriculumTopic);
             await _context.SaveChangesAsync();
 
             return curriculumTopic;
@@ -104,7 +104,7 @@ namespace e.moiroServer.Controllers
 
         private bool CurriculumTopicExists(int id)
         {
-            return _context.CuriculumTopics.Any(e => e.Id == id);
+            return _context.CurriculumTopics.Any(e => e.Id == id);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace e.moiroServer.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<AdditionalLiterature> AdditionalLiteratures { get; set; }
         public DbSet<ConsultationTopic> ConsultationTopics { get; set; }
-        public DbSet<CurriculumTopic> CuriculumTopics { get; set; }
+        public DbSet<CurriculumTopic> CurriculumTopics { get; set; }
         public DbSet<CurriculumSection> CurriculumSections { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<FormOfEducation> FormOfEducations { get; set; }

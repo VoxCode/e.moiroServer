@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/MainLiteratures
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MainLiterature>>> GetMainLiteratures()
+        public async Task<ActionResult<IEnumerable<MainLiterature>>> Get()
         {
             return await _context.MainLiteratures.ToListAsync();
         }
 
-        // GET: api/MainLiteratures/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MainLiterature>> GetMainLiterature(int id)
+        public async Task<ActionResult<MainLiterature>> Get(int id)
         {
-            var mainLiterature = await _context.MainLiteratures.FindAsync(id);
+            var value = await _context.MainLiteratures.FindAsync(id);
 
-            if (mainLiterature == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return mainLiterature;
+            return value;
         }
 
-        // PUT: api/MainLiteratures/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMainLiterature(int id, MainLiterature mainLiterature)
+        [HttpPut]
+        public async Task<IActionResult> Put(MainLiterature value)
         {
-            if (id != mainLiterature.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(mainLiterature).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MainLiteratureExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/MainLiteratures
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<MainLiterature>> PostMainLiterature(MainLiterature mainLiterature)
+        public async Task<ActionResult<MainLiterature>> Post(MainLiterature value)
         {
-            _context.MainLiteratures.Add(mainLiterature);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMainLiterature", new { id = mainLiterature.Id }, mainLiterature);
+            if (ModelState.IsValid)
+            {
+                _context.MainLiteratures.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/MainLiteratures/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MainLiterature>> DeleteMainLiterature(int id)
+        public async Task<ActionResult<MainLiterature>> Delete(int id)
         {
-            var mainLiterature = await _context.MainLiteratures.FindAsync(id);
-            if (mainLiterature == null)
+            var value = await _context.MainLiteratures.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.MainLiteratures.Remove(mainLiterature);
+            _context.MainLiteratures.Remove(value);
             await _context.SaveChangesAsync();
 
-            return mainLiterature;
-        }
-
-        private bool MainLiteratureExists(int id)
-        {
-            return _context.MainLiteratures.Any(e => e.Id == id);
+            return value;
         }
     }
 }

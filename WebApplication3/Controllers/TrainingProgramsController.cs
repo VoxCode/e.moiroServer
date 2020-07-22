@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/TrainingPrograms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TrainingProgram>>> GetTrainingPrograms()
+        public async Task<ActionResult<IEnumerable<TrainingProgram>>> Get()
         {
             return await _context.TrainingPrograms.ToListAsync();
         }
 
-        // GET: api/TrainingPrograms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TrainingProgram>> GetTrainingProgram(int id)
+        public async Task<ActionResult<TrainingProgram>> Get(int id)
         {
-            var trainingProgram = await _context.TrainingPrograms.FindAsync(id);
+            var value = await _context.TrainingPrograms.FindAsync(id);
 
-            if (trainingProgram == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return trainingProgram;
+            return value;
         }
 
-        // PUT: api/TrainingPrograms/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrainingProgram(int id, TrainingProgram trainingProgram)
+        [HttpPut]
+        public async Task<IActionResult> Put(TrainingProgram value)
         {
-            if (id != trainingProgram.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(trainingProgram).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TrainingProgramExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/TrainingPrograms
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TrainingProgram>> PostTrainingProgram(TrainingProgram trainingProgram)
+        public async Task<ActionResult<TrainingProgram>> Post(TrainingProgram value)
         {
-            _context.TrainingPrograms.Add(trainingProgram);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTrainingProgram", new { id = trainingProgram.Id }, trainingProgram);
+            if (ModelState.IsValid)
+            {
+                _context.TrainingPrograms.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/TrainingPrograms/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TrainingProgram>> DeleteTrainingProgram(int id)
+        public async Task<ActionResult<TrainingProgram>> Delete(int id)
         {
-            var trainingProgram = await _context.TrainingPrograms.FindAsync(id);
-            if (trainingProgram == null)
+            var value = await _context.TrainingPrograms.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.TrainingPrograms.Remove(trainingProgram);
+            _context.TrainingPrograms.Remove(value);
             await _context.SaveChangesAsync();
 
-            return trainingProgram;
-        }
-
-        private bool TrainingProgramExists(int id)
-        {
-            return _context.TrainingPrograms.Any(e => e.Id == id);
+            return value;
         }
     }
 }

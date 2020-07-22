@@ -21,91 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/Teachers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
+        public async Task<ActionResult<IEnumerable<Teacher>>> Get()
         {
-            var teachers = _context.Teachers.Include(c => c.TeachingPosition);
-            return await teachers.ToListAsync();
+            return await _context.Teachers.ToListAsync();
         }
 
-        // GET: api/Teachers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Teacher>> GetTeacher(int id)
+        public async Task<ActionResult<Teacher>> Get(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
+            var value = await _context.Teachers.FindAsync(id);
 
-            if (teacher == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return teacher;
+            return value;
         }
 
-        // PUT: api/Teachers/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
+        [HttpPut]
+        public async Task<IActionResult> Put(Teacher value)
         {
-            if (id != teacher.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(teacher).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TeacherExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/Teachers
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
+        public async Task<ActionResult<Teacher>> Post(Teacher value)
         {
-            _context.Teachers.Add(teacher);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
+            if (ModelState.IsValid)
+            {
+                _context.Teachers.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/Teachers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Teacher>> DeleteTeacher(int id)
+        public async Task<ActionResult<Teacher>> Delete(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher == null)
+            var value = await _context.Teachers.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.Teachers.Remove(teacher);
+            _context.Teachers.Remove(value);
             await _context.SaveChangesAsync();
 
-            return teacher;
-        }
-
-        private bool TeacherExists(int id)
-        {
-            return _context.Teachers.Any(e => e.Id == id);
+            return value;
         }
     }
 }

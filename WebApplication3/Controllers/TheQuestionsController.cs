@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/TheQuestions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TheQuestion>>> GetTheQuestions()
+        public async Task<ActionResult<IEnumerable<TheQuestion>>> Get()
         {
             return await _context.TheQuestions.ToListAsync();
         }
 
-        // GET: api/TheQuestions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TheQuestion>> GetTheQuestions(int id)
+        public async Task<ActionResult<TheQuestion>> Get(int id)
         {
-            var theQuestions = await _context.TheQuestions.FindAsync(id);
+            var value = await _context.TheQuestions.FindAsync(id);
 
-            if (theQuestions == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return theQuestions;
+            return value;
         }
 
-        // PUT: api/TheQuestions/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTheQuestions(int id, TheQuestion theQuestions)
+        [HttpPut]
+        public async Task<IActionResult> Put(TheQuestion value)
         {
-            if (id != theQuestions.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(theQuestions).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TheQuestionsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/TheQuestions
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TheQuestion>> PostTheQuestions(TheQuestion theQuestions)
+        public async Task<ActionResult<TheQuestion>> Post(TheQuestion value)
         {
-            _context.TheQuestions.Add(theQuestions);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTheQuestions", new { id = theQuestions.Id }, theQuestions);
+            if (ModelState.IsValid)
+            {
+                _context.TheQuestions.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/TheQuestions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TheQuestion>> DeleteTheQuestions(int id)
+        public async Task<ActionResult<TheQuestion>> Delete(int id)
         {
-            var theQuestions = await _context.TheQuestions.FindAsync(id);
-            if (theQuestions == null)
+            var value = await _context.TheQuestions.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.TheQuestions.Remove(theQuestions);
+            _context.TheQuestions.Remove(value);
             await _context.SaveChangesAsync();
 
-            return theQuestions;
-        }
-
-        private bool TheQuestionsExists(int id)
-        {
-            return _context.TheQuestions.Any(e => e.Id == id);
+            return value;
         }
     }
 }

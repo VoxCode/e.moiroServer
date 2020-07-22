@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/TeachingPositions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TeachingPosition>>> GetTeachingPositions()
+        public async Task<ActionResult<IEnumerable<TeachingPosition>>> Get()
         {
             return await _context.TeachingPositions.ToListAsync();
         }
 
-        // GET: api/TeachingPositions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TeachingPosition>> GetTeachingPosition(int id)
+        public async Task<ActionResult<TeachingPosition>> Get(int id)
         {
-            var teachingPosition = await _context.TeachingPositions.FindAsync(id);
+            var value = await _context.TeachingPositions.FindAsync(id);
 
-            if (teachingPosition == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return teachingPosition;
+            return value;
         }
 
-        // PUT: api/TeachingPositions/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeachingPosition(int id, TeachingPosition teachingPosition)
+        [HttpPut]
+        public async Task<IActionResult> Put(TeachingPosition value)
         {
-            if (id != teachingPosition.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(teachingPosition).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TeachingPositionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/TeachingPositions
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TeachingPosition>> PostTeachingPosition(TeachingPosition teachingPosition)
+        public async Task<ActionResult<TeachingPosition>> Post(TeachingPosition value)
         {
-            _context.TeachingPositions.Add(teachingPosition);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTeachingPosition", new { id = teachingPosition.Id }, teachingPosition);
+            if (ModelState.IsValid)
+            {
+                _context.TeachingPositions.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/TeachingPositions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TeachingPosition>> DeleteTeachingPosition(int id)
+        public async Task<ActionResult<TeachingPosition>> Delete(int id)
         {
-            var teachingPosition = await _context.TeachingPositions.FindAsync(id);
-            if (teachingPosition == null)
+            var value = await _context.TeachingPositions.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.TeachingPositions.Remove(teachingPosition);
+            _context.TeachingPositions.Remove(value);
             await _context.SaveChangesAsync();
 
-            return teachingPosition;
-        }
-
-        private bool TeachingPositionExists(int id)
-        {
-            return _context.TeachingPositions.Any(e => e.Id == id);
+            return value;
         }
     }
 }

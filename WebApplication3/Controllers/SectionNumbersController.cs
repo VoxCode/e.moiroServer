@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/SectionNumbers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SectionNumber>>> GetSectionNumbers()
+        public async Task<ActionResult<IEnumerable<SectionNumber>>> Get()
         {
             return await _context.SectionNumbers.ToListAsync();
         }
 
-        // GET: api/SectionNumbers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SectionNumber>> GetSectionNumber(int id)
+        public async Task<ActionResult<SectionNumber>> Get(int id)
         {
-            var sectionNumber = await _context.SectionNumbers.FindAsync(id);
+            var value = await _context.SectionNumbers.FindAsync(id);
 
-            if (sectionNumber == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return sectionNumber;
+            return value;
         }
 
-        // PUT: api/SectionNumbers/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSectionNumber(int id, SectionNumber sectionNumber)
+        [HttpPut]
+        public async Task<IActionResult> Put(SectionNumber value)
         {
-            if (id != sectionNumber.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(sectionNumber).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SectionNumberExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/SectionNumbers
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<SectionNumber>> PostSectionNumber(SectionNumber sectionNumber)
+        public async Task<ActionResult<SectionNumber>> Post(SectionNumber value)
         {
-            _context.SectionNumbers.Add(sectionNumber);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSectionNumber", new { id = sectionNumber.Id }, sectionNumber);
+            if (ModelState.IsValid)
+            {
+                _context.SectionNumbers.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/SectionNumbers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SectionNumber>> DeleteSectionNumber(int id)
+        public async Task<ActionResult<SectionNumber>> Delete(int id)
         {
-            var sectionNumber = await _context.SectionNumbers.FindAsync(id);
-            if (sectionNumber == null)
+            var value = await _context.SectionNumbers.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.SectionNumbers.Remove(sectionNumber);
+            _context.SectionNumbers.Remove(value);
             await _context.SaveChangesAsync();
 
-            return sectionNumber;
-        }
-
-        private bool SectionNumberExists(int id)
-        {
-            return _context.SectionNumbers.Any(e => e.Id == id);
+            return value;
         }
     }
 }

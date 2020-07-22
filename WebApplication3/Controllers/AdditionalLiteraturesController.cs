@@ -20,91 +20,63 @@ namespace e.moiroServer.Controllers
         {
             _context = context;
         }
-
-        // GET: api/AdditionalLiteratures
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AdditionalLiterature>>> GetAdditionalLiteratures()
+        public async Task<ActionResult<IEnumerable<AdditionalLiterature>>> Get()
         {
             return await _context.AdditionalLiteratures.ToListAsync();
         }
 
-        // GET: api/AdditionalLiteratures/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AdditionalLiterature>> GetAdditionalLiterature(int id)
+        public async Task<ActionResult<AdditionalLiterature>> Get(int id)
         {
-            var additionalLiterature = await _context.AdditionalLiteratures.FindAsync(id);
+            var value = await _context.AdditionalLiteratures.FindAsync(id);
 
-            if (additionalLiterature == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return additionalLiterature;
+            return value;
         }
 
-        // PUT: api/AdditionalLiteratures/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdditionalLiterature(int id, AdditionalLiterature additionalLiterature)
+        [HttpPut]
+        public async Task<IActionResult> Put(AdditionalLiterature value)
         {
-            if (id != additionalLiterature.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(additionalLiterature).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AdditionalLiteratureExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/AdditionalLiteratures
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<AdditionalLiterature>> PostAdditionalLiterature(AdditionalLiterature additionalLiterature)
+        public async Task<ActionResult<AdditionalLiterature>> Post(AdditionalLiterature value)
         {
-            _context.AdditionalLiteratures.Add(additionalLiterature);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAdditionalLiterature", new { id = additionalLiterature.Id }, additionalLiterature);
+            if (ModelState.IsValid)
+            {
+                _context.AdditionalLiteratures.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/AdditionalLiteratures/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<AdditionalLiterature>> DeleteAdditionalLiterature(int id)
+        public async Task<ActionResult<AdditionalLiterature>> Delete(int id)
         {
-            var additionalLiterature = await _context.AdditionalLiteratures.FindAsync(id);
-            if (additionalLiterature == null)
+            var value = await _context.AdditionalLiteratures.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.AdditionalLiteratures.Remove(additionalLiterature);
+            _context.AdditionalLiteratures.Remove(value);
             await _context.SaveChangesAsync();
 
-            return additionalLiterature;
-        }
-
-        private bool AdditionalLiteratureExists(int id)
-        {
-            return _context.AdditionalLiteratures.Any(e => e.Id == id);
+            return value;
         }
     }
 }

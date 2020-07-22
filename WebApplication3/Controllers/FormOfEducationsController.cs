@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/FormOfEducations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FormOfEducation>>> GetFormOfEducations()
+        public async Task<ActionResult<IEnumerable<FormOfEducation>>> Get()
         {
             return await _context.FormOfEducations.ToListAsync();
         }
 
-        // GET: api/FormOfEducations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<FormOfEducation>> GetFormOfEducation(int id)
+        public async Task<ActionResult<FormOfEducation>> Get(int id)
         {
-            var formOfEducation = await _context.FormOfEducations.FindAsync(id);
+            var value = await _context.FormOfEducations.FindAsync(id);
 
-            if (formOfEducation == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return formOfEducation;
+            return value;
         }
 
-        // PUT: api/FormOfEducations/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFormOfEducation(int id, FormOfEducation formOfEducation)
+        [HttpPut]
+        public async Task<IActionResult> Put(FormOfEducation value)
         {
-            if (id != formOfEducation.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(formOfEducation).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FormOfEducationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/FormOfEducations
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<FormOfEducation>> PostFormOfEducation(FormOfEducation formOfEducation)
+        public async Task<ActionResult<FormOfEducation>> Post(FormOfEducation value)
         {
-            _context.FormOfEducations.Add(formOfEducation);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetFormOfEducation", new { id = formOfEducation.Id }, formOfEducation);
+            if (ModelState.IsValid)
+            {
+                _context.FormOfEducations.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/FormOfEducations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<FormOfEducation>> DeleteFormOfEducation(int id)
+        public async Task<ActionResult<FormOfEducation>> Delete(int id)
         {
-            var formOfEducation = await _context.FormOfEducations.FindAsync(id);
-            if (formOfEducation == null)
+            var value = await _context.FormOfEducations.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.FormOfEducations.Remove(formOfEducation);
+            _context.FormOfEducations.Remove(value);
             await _context.SaveChangesAsync();
 
-            return formOfEducation;
-        }
-
-        private bool FormOfEducationExists(int id)
-        {
-            return _context.FormOfEducations.Any(e => e.Id == id);
+            return value;
         }
     }
 }

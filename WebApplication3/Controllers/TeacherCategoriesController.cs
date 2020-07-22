@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/TeacherCategories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TeacherCategory>>> GetTeacherCategories()
+        public async Task<ActionResult<IEnumerable<TeacherCategory>>> Get()
         {
             return await _context.TeacherCategories.ToListAsync();
         }
 
-        // GET: api/TeacherCategories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TeacherCategory>> GetTeacherCategory(int id)
+        public async Task<ActionResult<TeacherCategory>> Get(int id)
         {
-            var teacherCategory = await _context.TeacherCategories.FindAsync(id);
+            var value = await _context.TeacherCategories.FindAsync(id);
 
-            if (teacherCategory == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return teacherCategory;
+            return value;
         }
 
-        // PUT: api/TeacherCategories/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacherCategory(int id, TeacherCategory teacherCategory)
+        [HttpPut]
+        public async Task<IActionResult> Put(TeacherCategory value)
         {
-            if (id != teacherCategory.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(teacherCategory).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TeacherCategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/TeacherCategories
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TeacherCategory>> PostTeacherCategory(TeacherCategory teacherCategory)
+        public async Task<ActionResult<TeacherCategory>> Post(TeacherCategory value)
         {
-            _context.TeacherCategories.Add(teacherCategory);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTeacherCategory", new { id = teacherCategory.Id }, teacherCategory);
+            if (ModelState.IsValid)
+            {
+                _context.TeacherCategories.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/TeacherCategories/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TeacherCategory>> DeleteTeacherCategory(int id)
+        public async Task<ActionResult<TeacherCategory>> Delete(int id)
         {
-            var teacherCategory = await _context.TeacherCategories.FindAsync(id);
-            if (teacherCategory == null)
+            var value = await _context.TeacherCategories.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.TeacherCategories.Remove(teacherCategory);
+            _context.TeacherCategories.Remove(value);
             await _context.SaveChangesAsync();
 
-            return teacherCategory;
-        }
-
-        private bool TeacherCategoryExists(int id)
-        {
-            return _context.TeacherCategories.Any(e => e.Id == id);
+            return value;
         }
     }
 }

@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/Groups
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> GetGroups()
+        public async Task<ActionResult<IEnumerable<Group>>> Get()
         {
             return await _context.Groups.ToListAsync();
         }
 
-        // GET: api/Groups/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Group>> GetGroup(int id)
+        public async Task<ActionResult<Group>> Get(int id)
         {
-            var @group = await _context.Groups.FindAsync(id);
+            var value = await _context.Groups.FindAsync(id);
 
-            if (@group == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return @group;
+            return value;
         }
 
-        // PUT: api/Groups/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutGroup(int id, Group @group)
+        [HttpPut]
+        public async Task<IActionResult> Put(Group value)
         {
-            if (id != @group.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(@group).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GroupExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/Groups
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Group>> PostGroup(Group @group)
+        public async Task<ActionResult<Group>> Post(Group value)
         {
-            _context.Groups.Add(@group);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetGroup", new { id = @group.Id }, @group);
+            if (ModelState.IsValid)
+            {
+                _context.Groups.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/Groups/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Group>> DeleteGroup(int id)
+        public async Task<ActionResult<Group>> Delete(int id)
         {
-            var @group = await _context.Groups.FindAsync(id);
-            if (@group == null)
+            var value = await _context.Groups.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.Groups.Remove(@group);
+            _context.Groups.Remove(value);
             await _context.SaveChangesAsync();
 
-            return @group;
-        }
-
-        private bool GroupExists(int id)
-        {
-            return _context.Groups.Any(e => e.Id == id);
+            return value;
         }
     }
 }

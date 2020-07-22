@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/ConsultationTopics
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ConsultationTopic>>> GetConsultationTopics()
+        public async Task<ActionResult<IEnumerable<ConsultationTopic>>> Get()
         {
             return await _context.ConsultationTopics.ToListAsync();
         }
 
-        // GET: api/ConsultationTopics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ConsultationTopic>> GetConsultationTopics(int id)
+        public async Task<ActionResult<ConsultationTopic>> Get(int id)
         {
-            var consultationTopics = await _context.ConsultationTopics.FindAsync(id);
+            var value = await _context.ConsultationTopics.FindAsync(id);
 
-            if (consultationTopics == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return consultationTopics;
+            return value;
         }
 
-        // PUT: api/ConsultationTopics/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutConsultationTopics(int id, ConsultationTopic consultationTopics)
+        [HttpPut]
+        public async Task<IActionResult> Put(ConsultationTopic value)
         {
-            if (id != consultationTopics.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(consultationTopics).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ConsultationTopicsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/ConsultationTopics
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<ConsultationTopic>> PostConsultationTopics(ConsultationTopic consultationTopics)
+        public async Task<ActionResult<ConsultationTopic>> Post(ConsultationTopic value)
         {
-            _context.ConsultationTopics.Add(consultationTopics);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetConsultationTopics", new { id = consultationTopics.Id }, consultationTopics);
+            if (ModelState.IsValid)
+            {
+                _context.ConsultationTopics.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/ConsultationTopics/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ConsultationTopic>> DeleteConsultationTopics(int id)
+        public async Task<ActionResult<ConsultationTopic>> Delete(int id)
         {
-            var consultationTopics = await _context.ConsultationTopics.FindAsync(id);
-            if (consultationTopics == null)
+            var value = await _context.ConsultationTopics.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.ConsultationTopics.Remove(consultationTopics);
+            _context.ConsultationTopics.Remove(value);
             await _context.SaveChangesAsync();
 
-            return consultationTopics;
-        }
-
-        private bool ConsultationTopicsExists(int id)
-        {
-            return _context.ConsultationTopics.Any(e => e.Id == id);
+            return value;
         }
     }
 }

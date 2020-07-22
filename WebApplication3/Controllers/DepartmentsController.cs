@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/Departmens
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Department>>> GetDepartmens()
+        public async Task<ActionResult<IEnumerable<Department>>> Get()
         {
             return await _context.Departments.ToListAsync();
         }
 
-        // GET: api/Departmens/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Department>> GetDepartmens(int id)
+        public async Task<ActionResult<Department>> Get(int id)
         {
-            var departmens = await _context.Departments.FindAsync(id);
+            var value = await _context.Departments.FindAsync(id);
 
-            if (departmens == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return departmens;
+            return value;
         }
 
-        // PUT: api/Departmens/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartmens(int id, Department departmens)
+        [HttpPut]
+        public async Task<IActionResult> Put(Department value)
         {
-            if (id != departmens.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(departmens).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DepartmensExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/Departmens
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Department>> PostDepartmens(Department departmens)
+        public async Task<ActionResult<Department>> Post(Department value)
         {
-            _context.Departments.Add(departmens);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetDepartmens", new { id = departmens.Id }, departmens);
+            if (ModelState.IsValid)
+            {
+                _context.Departments.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/Departmens/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Department>> DeleteDepartmens(int id)
+        public async Task<ActionResult<Department>> Delete(int id)
         {
-            var departmens = await _context.Departments.FindAsync(id);
-            if (departmens == null)
+            var value = await _context.Departments.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.Departments.Remove(departmens);
+            _context.Departments.Remove(value);
             await _context.SaveChangesAsync();
 
-            return departmens;
-        }
-
-        private bool DepartmensExists(int id)
-        {
-            return _context.Departments.Any(e => e.Id == id);
+            return value;
         }
     }
 }

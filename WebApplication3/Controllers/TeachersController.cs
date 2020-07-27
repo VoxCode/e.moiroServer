@@ -24,8 +24,7 @@ namespace e.moiroServer.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Teacher>>> Get()
         {
-            var teachers = _context.Teachers.Include(c => c.TeachingPosition);
-            return await teachers.ToListAsync();
+            return await _context.Teachers.ToListAsync();
         }
 
         [HttpGet("{id}")]

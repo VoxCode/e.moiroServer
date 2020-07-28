@@ -22,9 +22,19 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurriculumSection>>> Get()
+        public async Task<ActionResult<IEnumerable<object>>> Get()
         {
-            return await _context.CurriculumSections.ToListAsync();
+            var tmp = from first in _context.CurriculumSections
+                      join second in _context.SectionNumbers on first.SectionNumberId equals second.Id
+                      select new
+                      {
+                          first.Id,
+                          first.Name,
+                          first.SectionNumberId,
+                          SectionNumberName = second.Name
+                      };
+
+            return await tmp.ToListAsync();
         }
 
         [HttpGet("{id}")]

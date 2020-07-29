@@ -28,6 +28,14 @@ namespace e.moiroServer.Models
         public DbSet<TeachingPosition> TeachingPositions { get; set; }
         public DbSet<TheQuestion> TheQuestions { get; set; }
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
+        public DbSet<СurriculumTopicAdditionalLiterature> СurriculumTopicAdditionalLiterature { get; set; }
+        public DbSet<СurriculumTopicConsultationTopic> СurriculumTopicConsultationTopic { get; set; }
+        public DbSet<СurriculumTopicDepartment> СurriculumTopicDepartment { get; set; }
+        public DbSet<СurriculumTopicMainLiterature> СurriculumTopicMainLiterature { get; set; }
+        public DbSet<СurriculumTopicTeacher> СurriculumTopicTeacher { get; set; }
+        public DbSet<СurriculumTopicTeacherCategory> СurriculumTopicTeacherCategory { get; set; }
+        public DbSet<СurriculumTopicTheQuestion> СurriculumTopicTheQuestion { get; set; }
+        public DbSet<СurriculumTopicTrainingProgram> СurriculumTopicTrainingProgram { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

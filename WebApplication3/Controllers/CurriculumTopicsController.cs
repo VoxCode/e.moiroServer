@@ -36,7 +36,7 @@ namespace e.moiroServer.Controllers
                           first.IsDistanceLearning,
                           first.OccupationFormId,
                           first.CurriculumSectionId,
-                          OccupationFormName = second.ShortName,
+                          OccupationFormName = second.FullName,
                           CurriculumSectionName = third.Name
                       };
 

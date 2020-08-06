@@ -7,6 +7,7 @@ namespace e.moiroServer.Data.Models
 {
     public class СurriculumTopicTheQuestion
     {
+        public int Id { get; set; }
         public int TheQuestionId { get; set; }
         public TheQuestion TheQuestion { get; set; }
         public int CurriculumTopicId { get; set; }

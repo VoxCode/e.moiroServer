@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using e.moiroServer.Models;
@@ -9,9 +10,10 @@ using e.moiroServer.Models;
 namespace e.moiroServer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20200825083245_migrat")]
+    partial class migrat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -443,64 +445,52 @@ namespace e.moiroServer.Migrations
 
             modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicAdditionalLiterature", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("AdditionalLiteratureId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CurriculumTopicId")
+                    b.Property<int>("Id")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.HasKey("CurriculumTopicId", "AdditionalLiteratureId");
 
                     b.HasIndex("AdditionalLiteratureId");
-
-                    b.HasIndex("CurriculumTopicId");
 
                     b.ToTable("СurriculumTopicAdditionalLiterature");
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicConsultationTopic", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ConsultationTopicId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CurriculumTopicId")
+                    b.Property<int>("Id")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.HasKey("CurriculumTopicId", "ConsultationTopicId");
 
                     b.HasIndex("ConsultationTopicId");
-
-                    b.HasIndex("CurriculumTopicId");
 
                     b.ToTable("СurriculumTopicConsultationTopic");
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicDepartment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
 
                     b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CurriculumTopicId");
+                    b.HasKey("CurriculumTopicId", "DepartmentId");
 
                     b.HasIndex("DepartmentId");
 
@@ -509,20 +499,16 @@ namespace e.moiroServer.Migrations
 
             modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicMainLiterature", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
 
                     b.Property<int>("MainLiteratureId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CurriculumTopicId");
+                    b.HasKey("CurriculumTopicId", "MainLiteratureId");
 
                     b.HasIndex("MainLiteratureId");
 
@@ -531,20 +517,16 @@ namespace e.moiroServer.Migrations
 
             modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTeacher", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
 
                     b.Property<int>("TeacherId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CurriculumTopicId");
+                    b.HasKey("CurriculumTopicId", "TeacherId");
 
                     b.HasIndex("TeacherId");
 
@@ -553,20 +535,16 @@ namespace e.moiroServer.Migrations
 
             modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTeacherCategory", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
 
                     b.Property<int>("TeacherCategoryId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CurriculumTopicId");
+                    b.HasKey("CurriculumTopicId", "TeacherCategoryId");
 
                     b.HasIndex("TeacherCategoryId");
 
@@ -575,20 +553,16 @@ namespace e.moiroServer.Migrations
 
             modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTheQuestion", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
 
                     b.Property<int>("TheQuestionId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CurriculumTopicId");
+                    b.HasKey("CurriculumTopicId", "TheQuestionId");
 
                     b.HasIndex("TheQuestionId");
 
@@ -597,20 +571,16 @@ namespace e.moiroServer.Migrations
 
             modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTrainingProgram", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
 
                     b.Property<int>("TrainingProgramId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CurriculumTopicId");
+                    b.HasKey("CurriculumTopicId", "TrainingProgramId");
 
                     b.HasIndex("TrainingProgramId");
 

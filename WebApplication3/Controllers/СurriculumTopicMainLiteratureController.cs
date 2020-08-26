@@ -28,19 +28,12 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<СurriculumTopicMainLiterature>> Get(int id)
+        public IEnumerable<СurriculumTopicMainLiterature> Get(int id)
         {
-            var value = await _context.СurriculumTopicMainLiterature.FindAsync(id);
-
-            if (value == null)
-            {
-                return NotFound();
-            }
-
-            return value;
+            return _context.СurriculumTopicMainLiterature.Where(a => a.CurriculumTopicId == id);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> Put(СurriculumTopicMainLiterature value)
         {
             if (ModelState.IsValid)

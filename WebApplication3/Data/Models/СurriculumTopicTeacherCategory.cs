@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace e.moiroServer.Data.Models
 {
-    public class СurriculumTopicTeacherCategory
+    public class CurriculumTopicTeacherCategory
     {
         public int Id { get; set; }
         public int TeacherCategoryId { get; set; }

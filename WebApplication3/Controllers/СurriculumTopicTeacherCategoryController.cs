@@ -22,19 +22,19 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<СurriculumTopicTeacherCategory>>> Get()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicTeacherCategory>>> Get()
         {
-            return await _context.СurriculumTopicTeacherCategory.ToListAsync();
+            return await _context.CurriculumTopicTeacherCategory.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<СurriculumTopicTeacherCategory> Get(int id)
+        public IEnumerable<CurriculumTopicTeacherCategory> Get(int id)
         {
-            return _context.СurriculumTopicTeacherCategory.Where(a => a.CurriculumTopicId == id);
+            return _context.CurriculumTopicTeacherCategory.Where(a => a.CurriculumTopicId == id);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(СurriculumTopicTeacherCategory value)
+        public async Task<IActionResult> Put(CurriculumTopicTeacherCategory value)
         {
             if (ModelState.IsValid)
             {
@@ -47,11 +47,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<СurriculumTopicTeacherCategory>> Post(СurriculumTopicTeacherCategory value)
+        public async Task<ActionResult<CurriculumTopicTeacherCategory>> Post(CurriculumTopicTeacherCategory value)
         {
             if (ModelState.IsValid)
             {
-                _context.СurriculumTopicTeacherCategory.Add(value);
+                _context.CurriculumTopicTeacherCategory.Add(value);
                 await _context.SaveChangesAsync();
                 return Ok(value);
             }
@@ -59,15 +59,15 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<СurriculumTopicTeacherCategory>> Delete(int id)
+        public async Task<ActionResult<CurriculumTopicTeacherCategory>> Delete(int id)
         {
-            var value = await _context.СurriculumTopicTeacherCategory.FindAsync(id);
+            var value = await _context.CurriculumTopicTeacherCategory.FindAsync(id);
             if (value == null)
             {
                 return NotFound();
             }
 
-            _context.СurriculumTopicTeacherCategory.Remove(value);
+            _context.CurriculumTopicTeacherCategory.Remove(value);
             await _context.SaveChangesAsync();
 
             return value;

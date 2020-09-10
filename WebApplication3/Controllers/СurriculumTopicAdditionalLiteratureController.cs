@@ -22,19 +22,19 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<СurriculumTopicAdditionalLiterature>>> Get()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicAdditionalLiterature>>> Get()
         {
-            return await _context.СurriculumTopicAdditionalLiterature.ToListAsync();
+            return await _context.CurriculumTopicAdditionalLiterature.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<СurriculumTopicAdditionalLiterature> Get(int id)
+        public IEnumerable<CurriculumTopicAdditionalLiterature> Get(int id)
         {
-            return _context.СurriculumTopicAdditionalLiterature.Where(a => a.CurriculumTopicId == id);
+            return _context.CurriculumTopicAdditionalLiterature.Where(a => a.CurriculumTopicId == id);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(СurriculumTopicAdditionalLiterature value)
+        public async Task<IActionResult> Put(CurriculumTopicAdditionalLiterature value)
         {
             if (ModelState.IsValid)
             {
@@ -47,11 +47,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<СurriculumTopicAdditionalLiterature>> Post(СurriculumTopicAdditionalLiterature value)
+        public async Task<ActionResult<CurriculumTopicAdditionalLiterature>> Post(CurriculumTopicAdditionalLiterature value)
         {
             if (ModelState.IsValid)
             {
-                _context.СurriculumTopicAdditionalLiterature.Add(value);
+                _context.CurriculumTopicAdditionalLiterature.Add(value);
                 await _context.SaveChangesAsync();
                 return Ok(value);
             }
@@ -59,15 +59,15 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<СurriculumTopicAdditionalLiterature>> Delete(int id)
+        public async Task<ActionResult<CurriculumTopicAdditionalLiterature>> Delete(int id)
         {
-            var value = await _context.СurriculumTopicAdditionalLiterature.FindAsync(id);
+            var value = await _context.CurriculumTopicAdditionalLiterature.FindAsync(id);
             if (value == null)
             {
                 return NotFound();
             }
 
-            _context.СurriculumTopicAdditionalLiterature.Remove(value);
+            _context.CurriculumTopicAdditionalLiterature.Remove(value);
             await _context.SaveChangesAsync();
 
             return value;

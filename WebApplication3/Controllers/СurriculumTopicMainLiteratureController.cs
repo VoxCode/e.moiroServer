@@ -22,19 +22,19 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<СurriculumTopicMainLiterature>>> Get()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicMainLiterature>>> Get()
         {
-            return await _context.СurriculumTopicMainLiterature.ToListAsync();
+            return await _context.CurriculumTopicMainLiterature.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<СurriculumTopicMainLiterature> Get(int id)
+        public IEnumerable<CurriculumTopicMainLiterature> Get(int id)
         {
-            return _context.СurriculumTopicMainLiterature.Where(a => a.CurriculumTopicId == id);
+            return _context.CurriculumTopicMainLiterature.Where(a => a.CurriculumTopicId == id);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(СurriculumTopicMainLiterature value)
+        public async Task<IActionResult> Put(CurriculumTopicMainLiterature value)
         {
             if (ModelState.IsValid)
             {
@@ -47,11 +47,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<СurriculumTopicMainLiterature>> Post(СurriculumTopicMainLiterature value)
+        public async Task<ActionResult<CurriculumTopicMainLiterature>> Post(CurriculumTopicMainLiterature value)
         {
             if (ModelState.IsValid)
             {
-                _context.СurriculumTopicMainLiterature.Add(value);
+                _context.CurriculumTopicMainLiterature.Add(value);
                 await _context.SaveChangesAsync();
                 return Ok(value);
             }
@@ -59,15 +59,15 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<СurriculumTopicMainLiterature>> Delete(int id)
+        public async Task<ActionResult<CurriculumTopicMainLiterature>> Delete(int id)
         {
-            var value = await _context.СurriculumTopicMainLiterature.FindAsync(id);
+            var value = await _context.CurriculumTopicMainLiterature.FindAsync(id);
             if (value == null)
             {
                 return NotFound();
             }
 
-            _context.СurriculumTopicMainLiterature.Remove(value);
+            _context.CurriculumTopicMainLiterature.Remove(value);
             await _context.SaveChangesAsync();
 
             return value;

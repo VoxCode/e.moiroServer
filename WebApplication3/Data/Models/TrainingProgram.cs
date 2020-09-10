@@ -10,10 +10,10 @@ namespace e.moiroServer.Data.Models
         public int Id { get; set; }
         public int GroupId { get; set; }
         public Group Group { get; set; }
-        public List<СurriculumTopicTrainingProgram> СurriculumTopicTrainingPrograms { get; set; }
+        public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
         public TrainingProgram()
         {
-            СurriculumTopicTrainingPrograms = new List<СurriculumTopicTrainingProgram>();
+            CurriculumTopicTrainingPrograms = new List<CurriculumTopicTrainingProgram>();
         }
     }
 }

@@ -22,19 +22,19 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<СurriculumTopicTeacher>>> Get()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicTeacher>>> Get()
         {
-            return await _context.СurriculumTopicTeacher.ToListAsync();
+            return await _context.CurriculumTopicTeacher.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<СurriculumTopicTeacher> Get(int id)
+        public IEnumerable<CurriculumTopicTeacher> Get(int id)
         {
-            return _context.СurriculumTopicTeacher.Where(a => a.CurriculumTopicId == id);
+            return _context.CurriculumTopicTeacher.Where(a => a.CurriculumTopicId == id);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(СurriculumTopicTeacher value)
+        public async Task<IActionResult> Put(CurriculumTopicTeacher value)
         {
             if (ModelState.IsValid)
             {
@@ -47,11 +47,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<СurriculumTopicTeacher>> Post(СurriculumTopicTeacher value)
+        public async Task<ActionResult<CurriculumTopicTeacher>> Post(CurriculumTopicTeacher value)
         {
             if (ModelState.IsValid)
             {
-                _context.СurriculumTopicTeacher.Add(value);
+                _context.CurriculumTopicTeacher.Add(value);
                 await _context.SaveChangesAsync();
                 return Ok(value);
             }
@@ -59,15 +59,15 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<СurriculumTopicTeacher>> Delete(int id)
+        public async Task<ActionResult<CurriculumTopicTeacher>> Delete(int id)
         {
-            var value = await _context.СurriculumTopicTeacher.FindAsync(id);
+            var value = await _context.CurriculumTopicTeacher.FindAsync(id);
             if (value == null)
             {
                 return NotFound();
             }
 
-            _context.СurriculumTopicTeacher.Remove(value);
+            _context.CurriculumTopicTeacher.Remove(value);
             await _context.SaveChangesAsync();
 
             return value;

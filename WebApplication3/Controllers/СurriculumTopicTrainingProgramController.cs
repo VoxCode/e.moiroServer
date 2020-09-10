@@ -22,19 +22,19 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<СurriculumTopicTrainingProgram>>> Get()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicTrainingProgram>>> Get()
         {
-            return await _context.СurriculumTopicTrainingProgram.ToListAsync();
+            return await _context.CurriculumTopicTrainingProgram.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<СurriculumTopicTrainingProgram> Get(int id)
+        public IEnumerable<CurriculumTopicTrainingProgram> Get(int id)
         {
-            return _context.СurriculumTopicTrainingProgram.Where(a => a.CurriculumTopicId == id);
+            return _context.CurriculumTopicTrainingProgram.Where(a => a.CurriculumTopicId == id);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(СurriculumTopicTrainingProgram value)
+        public async Task<IActionResult> Put(CurriculumTopicTrainingProgram value)
         {
             if (ModelState.IsValid)
             {
@@ -47,11 +47,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<СurriculumTopicTrainingProgram>> Post(СurriculumTopicTrainingProgram value)
+        public async Task<ActionResult<CurriculumTopicTrainingProgram>> Post(CurriculumTopicTrainingProgram value)
         {
             if (ModelState.IsValid)
             {
-                _context.СurriculumTopicTrainingProgram.Add(value);
+                _context.CurriculumTopicTrainingProgram.Add(value);
                 await _context.SaveChangesAsync();
                 return Ok(value);
             }
@@ -59,15 +59,15 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<СurriculumTopicTrainingProgram>> Delete(int id)
+        public async Task<ActionResult<CurriculumTopicTrainingProgram>> Delete(int id)
         {
-            var value = await _context.СurriculumTopicTrainingProgram.FindAsync(id);
+            var value = await _context.CurriculumTopicTrainingProgram.FindAsync(id);
             if (value == null)
             {
                 return NotFound();
             }
 
-            _context.СurriculumTopicTrainingProgram.Remove(value);
+            _context.CurriculumTopicTrainingProgram.Remove(value);
             await _context.SaveChangesAsync();
 
             return value;

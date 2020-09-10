@@ -9,10 +9,10 @@ namespace e.moiroServer.Data.Models
     {
         public int Id { get; set; }
         public string Content { get; set; }
-        public List<СurriculumTopicTheQuestion> СurriculumTopicTheQuestions { get; set; }
+        public List<CurriculumTopicTheQuestion> CurriculumTopicTheQuestions { get; set; }
         public TheQuestion()
         {
-            СurriculumTopicTheQuestions = new List<СurriculumTopicTheQuestion>();
+            CurriculumTopicTheQuestions = new List<CurriculumTopicTheQuestion>();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace e.moiroServer.Data.Models
         public int FormOfEducationId { get; set; }
         public FormOfEducation FormOfEducation { get; set; }
         public int TeacherCategoryId { get; set; }
-        public TeacherCategory TeacherCategory { get; set; }
+        public StudentCategory TeacherCategory { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
         public List<TrainingProgram> TrainingPrograms { get; set; }

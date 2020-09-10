@@ -14,22 +14,22 @@ namespace e.moiroServer.Data.Models
         public int OccupationFormId { get; set; }
         public OccupationForm OccupationForm { get; set; }
 
-        public List<CurriculumTopicAdditionalLiterature> СurriculumTopicAdditionalLiteratures { get; set; }
-        public List<CurriculumTopicDepartment> СurriculumTopicDepartments { get; set; }
-        public List<CurriculumTopicTeacher> СurriculumTopicTeachers { get; set; }
-        public List<CurriculumTopicMainLiterature> СurriculumTopicMainLiteratures { get; set; }
-        public List<CurriculumTopicTeacherCategory> СurriculumTopicTeacherCategories { get; set; }
-        public List<CurriculumTopicTheQuestion> СurriculumTopicTheQuestions { get; set; }
-        public List<CurriculumTopicTrainingProgram> СurriculumTopicTrainingPrograms { get; set; }
+        public List<CurriculumTopicAdditionalLiterature> CurriculumTopicAdditionalLiteratures { get; set; }
+        public List<CurriculumTopicDepartment> CurriculumTopicDepartments { get; set; }
+        public List<CurriculumTopicTeacher> CurriculumTopicTeachers { get; set; }
+        public List<CurriculumTopicMainLiterature> CurriculumTopicMainLiteratures { get; set; }
+        public List<CurriculumTopicTeacherCategory> CurriculumTopicTeacherCategories { get; set; }
+        public List<CurriculumTopicTheQuestion> CurriculumTopicTheQuestions { get; set; }
+        public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
         public CurriculumTopic()
         {
-            СurriculumTopicAdditionalLiteratures = new List<CurriculumTopicAdditionalLiterature>();
-            СurriculumTopicDepartments = new List<CurriculumTopicDepartment>();
-            СurriculumTopicMainLiteratures = new List<CurriculumTopicMainLiterature>();
-            СurriculumTopicTeachers = new List<CurriculumTopicTeacher>();
-            СurriculumTopicTeacherCategories = new List<CurriculumTopicTeacherCategory>();
-            СurriculumTopicTheQuestions = new List<CurriculumTopicTheQuestion>();
-            СurriculumTopicTrainingPrograms = new List<CurriculumTopicTrainingProgram>();
+            CurriculumTopicAdditionalLiteratures = new List<CurriculumTopicAdditionalLiterature>();
+            CurriculumTopicDepartments = new List<CurriculumTopicDepartment>();
+            CurriculumTopicMainLiteratures = new List<CurriculumTopicMainLiterature>();
+            CurriculumTopicTeachers = new List<CurriculumTopicTeacher>();
+            CurriculumTopicTeacherCategories = new List<CurriculumTopicTeacherCategory>();
+            CurriculumTopicTheQuestions = new List<CurriculumTopicTheQuestion>();
+            CurriculumTopicTrainingPrograms = new List<CurriculumTopicTrainingProgram>();
         }     
     }
 }

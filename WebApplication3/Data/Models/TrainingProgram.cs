@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,12 +9,14 @@ namespace e.moiroServer.Data.Models
     public class TrainingProgram
     {
         public int Id { get; set; }
-        public int GroupId { get; set; }
-        public Group Group { get; set; }
-        public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
-        public TrainingProgram()
-        {
-            CurriculumTopicTrainingPrograms = new List<CurriculumTopicTrainingProgram>();
-        }
+        public string Name { get; set; }
+        public int NumberOfHours { get; set; }
+        public bool IsDistanceLearning { get; set; }
+        public bool IsIndependentWork { get; set; }
+        public bool IsTestWork { get; set; }
+        public string IndependentWork { get; set; }
+        public string DepartmentId { get; set; }
+        public string TeacherCategoryId { get; set; }
+        public string CertificationTypeId { get; set; }
     }
 }

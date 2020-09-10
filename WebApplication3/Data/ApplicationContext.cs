@@ -12,7 +12,6 @@ namespace e.moiroServer.Models
             //Database.EnsureCreated();
         }
 
-        public DbSet<Product> Products { get; set; }
         public DbSet<AdditionalLiterature> AdditionalLiteratures { get; set; }
         public DbSet<CurriculumTopic> CurriculumTopics { get; set; }
         public DbSet<CurriculumSection> CurriculumSections { get; set; }
@@ -23,7 +22,7 @@ namespace e.moiroServer.Models
         public DbSet<OccupationForm> OccupationForms { get; set; }
         public DbSet<SectionNumber> SectionNumbers { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<TeacherCategory> TeacherCategories { get; set; }
+        public DbSet<StudentCategory> StudentCategories { get; set; }
         public DbSet<TeachingPosition> TeachingPositions { get; set; }
         public DbSet<TheQuestion> TheQuestions { get; set; }
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }

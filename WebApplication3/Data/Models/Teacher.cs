@@ -12,10 +12,5 @@ namespace e.moiroServer.Data.Models
         public bool IsCathedral { get; set; }
         public int TeachingPositionId { get; set; }
         public TeachingPosition TeachingPosition { get; set; }
-        public List<CurriculumTopicTeacher> CurriculumTopicTeachers { get; set; }
-        public Teacher()
-        {
-            CurriculumTopicTeachers = new List<CurriculumTopicTeacher>();
-        }
     }
 }

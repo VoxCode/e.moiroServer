@@ -10,10 +10,5 @@ namespace e.moiroServer.Data.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Group> Groups { get; set; }
-        public List<CurriculumTopicTeacherCategory> CurriculumTopicTeacherCategories { get; set; }
-        public StudentCategory()
-        {
-            CurriculumTopicTeacherCategories = new List<CurriculumTopicTeacherCategory>();
-        }
     }
 }

@@ -21,27 +21,27 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> Get()
-        {
-            var tmp = from first in _context.CurriculumTopics
-                      join second in _context.OccupationForms on first.OccupationFormId equals second.Id
-                      join third in _context.CurriculumSections on first.CurriculumSectionId equals third.Id
-                      select new
-                      {
-                          first.Id,
-                          first.TopicTitle,
-                          first.ClassHours,
-                          first.Annotation,
-                          first.IsDistanceLearning,
-                          first.OccupationFormId,
-                          first.CurriculumSectionId,
-                          OccupationFormName = second.FullName,
-                          CurriculumSectionName = third.Name
-                      };
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<object>>> Get()
+        //{
+        //    var tmp = from first in _context.CurriculumTopics
+        //              join second in _context.OccupationForms on first.OccupationFormId equals second.Id
+        //              join third in _context.CurriculumSections on first.CurriculumSectionId equals third.Id
+        //              select new
+        //              {
+        //                  first.Id,
+        //                  first.TopicTitle,
+        //                  first.ClassHours,
+        //                  first.Annotation,
+        //                  first.IsDistanceLearning,
+        //                  first.OccupationFormId,
+        //                  first.CurriculumSectionId,
+        //                  OccupationFormName = second.FullName,
+        //                  CurriculumSectionName = third.Name
+        //              };
 
-            return await tmp.ToListAsync();
-        }
+        //    return await tmp.ToListAsync();
+        //}
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CurriculumTopic>> Get(int id)

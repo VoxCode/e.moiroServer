@@ -29,9 +29,6 @@ namespace e.moiroServer.Models
         public DbSet<CurriculumTopicAdditionalLiterature> CurriculumTopicAdditionalLiterature { get; set; }
         public DbSet<CurriculumTopicDepartment> CurriculumTopicDepartment { get; set; }
         public DbSet<CurriculumTopicMainLiterature> CurriculumTopicMainLiterature { get; set; }
-        public DbSet<CurriculumTopicTeacher> CurriculumTopicTeacher { get; set; }
-        public DbSet<CurriculumTopicTeacherCategory> CurriculumTopicTeacherCategory { get; set; }
-        public DbSet<CurriculumTopicTheQuestion> CurriculumTopicTheQuestion { get; set; }
         public DbSet<CurriculumTopicTrainingProgram> CurriculumTopicTrainingProgram { get; set; }
      
     }

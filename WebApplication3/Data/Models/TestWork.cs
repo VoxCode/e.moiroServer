@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace e.moiroServer.Data.Models
 {
-    public class TheQuestion
+    public class TestWork
     {
         public int Id { get; set; }
         public string Content { get; set; }

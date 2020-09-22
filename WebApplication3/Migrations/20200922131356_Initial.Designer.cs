@@ -10,7 +10,7 @@ using e.moiroServer.Models;
 namespace e.moiroServer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200715071258_Initial")]
+    [Migration("20200922131356_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,55 +166,6 @@ namespace e.moiroServer.Migrations
                     b.ToTable("AdditionalLiteratures");
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.ConsultationTopics", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ConsultationTopics");
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.CuriculumTopic", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Annotation")
-                        .HasColumnType("text");
-
-                    b.Property<int>("ClassHours")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CurriculumSectionId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("DistanceLearning")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("OccupationFormId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("TopicTitle")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CurriculumSectionId");
-
-                    b.HasIndex("OccupationFormId");
-
-                    b.ToTable("CuriculumTopics");
-                });
-
             modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumSection", b =>
                 {
                     b.Property<int>("Id")
@@ -235,7 +186,216 @@ namespace e.moiroServer.Migrations
                     b.ToTable("CurriculumSections");
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.Departmens", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Annotation")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TestWork")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TopicTitle")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CurriculumTopics");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicAdditionalLiterature", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("AdditionalLiteratureId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdditionalLiteratureId");
+
+                    b.HasIndex("CurriculumTopicId");
+
+                    b.ToTable("CurriculumTopicAdditionalLiteratures");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicDepartment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurriculumTopicId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("CurriculumTopicDepartments");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicFinalExamination", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FinalExaminationId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurriculumTopicId");
+
+                    b.HasIndex("FinalExaminationId");
+
+                    b.ToTable("CurriculumTopicFinalExaminations");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicMainLiterature", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MainLiteratureId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurriculumTopicId");
+
+                    b.HasIndex("MainLiteratureId");
+
+                    b.ToTable("CurriculumTopicMainLiteratures");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicRegulation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RegulationId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurriculumTopicId");
+
+                    b.HasIndex("RegulationId");
+
+                    b.ToTable("CurriculumTopicRegulations");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicStudentCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("StudentCategoryId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurriculumTopicId");
+
+                    b.HasIndex("StudentCategoryId");
+
+                    b.ToTable("CurriculumTopicStudentCategories");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicTestWork", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TestWorkId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurriculumTopicId");
+
+                    b.HasIndex("TestWorkId");
+
+                    b.ToTable("CurriculumTopicTestWorks");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicTrainingProgram", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ClassHours")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CurriculumTopicId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsVariable")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("OccupationFormId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SerialNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TrainingProgramId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurriculumTopicId");
+
+                    b.HasIndex("OccupationFormId");
+
+                    b.ToTable("CurriculumTopicTrainingPrograms");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -247,7 +407,25 @@ namespace e.moiroServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departmens");
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.FinalExamination", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CertificationTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FinalExaminations");
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.FormOfEducation", b =>
@@ -281,31 +459,23 @@ namespace e.moiroServer.Migrations
                     b.Property<DateTime>("ClassStartDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("DepartmensId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("FormOfEducationId")
                         .HasColumnType("integer");
 
                     b.Property<int>("GroupNumber")
                         .HasColumnType("integer");
 
-                    b.Property<int>("NumberOfHours")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TeacherCategoryId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("TheTopicOfContinuingEducation")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.Property<int>("TrainingProgramId")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("DepartmensId");
+                    b.HasKey("Id");
 
                     b.HasIndex("FormOfEducationId");
 
-                    b.HasIndex("TeacherCategoryId");
+                    b.HasIndex("TrainingProgramId");
 
                     b.ToTable("Groups");
                 });
@@ -343,6 +513,21 @@ namespace e.moiroServer.Migrations
                     b.ToTable("OccupationForms");
                 });
 
+            modelBuilder.Entity("e.moiroServer.Data.Models.Regulation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Regulations");
+                });
+
             modelBuilder.Entity("e.moiroServer.Data.Models.SectionNumber", b =>
                 {
                     b.Property<int>("Id")
@@ -358,6 +543,21 @@ namespace e.moiroServer.Migrations
                     b.ToTable("SectionNumbers");
                 });
 
+            modelBuilder.Entity("e.moiroServer.Data.Models.StudentCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StudentCategories");
+                });
+
             modelBuilder.Entity("e.moiroServer.Data.Models.Teacher", b =>
                 {
                     b.Property<int>("Id")
@@ -365,7 +565,7 @@ namespace e.moiroServer.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<bool>("Cathedra")
+                    b.Property<bool>("IsCathedral")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
@@ -379,21 +579,6 @@ namespace e.moiroServer.Migrations
                     b.HasIndex("TeachingPositionId");
 
                     b.ToTable("Teachers");
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.TeacherCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TeacherCategories");
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.TeachingPosition", b =>
@@ -411,7 +596,7 @@ namespace e.moiroServer.Migrations
                     b.ToTable("TeachingPositions");
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.TheQuestions", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.TestWork", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -423,7 +608,7 @@ namespace e.moiroServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TheQuestions");
+                    b.ToTable("TestWorks");
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgram", b =>
@@ -433,17 +618,43 @@ namespace e.moiroServer.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("GroupId")
+                    b.Property<int>("CertificationTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("IndependentWork")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDistanceLearning")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsIndependentWork")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsTestWork")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("NumberOfHours")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("StudentCategoryId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("StudentCategoryId");
 
                     b.ToTable("TrainingPrograms");
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicAdditionalLiterature", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramAdditionalLiterature", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -453,158 +664,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("AdditionalLiteratureId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CuriculumTopicId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdditionalLiteratureId");
-
-                    b.HasIndex("CuriculumTopicId");
-
-                    b.ToTable("СurriculumTopicAdditionalLiteratures");
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicConsultationTopics", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("ConsultationTopicsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CuriculumTopicId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConsultationTopicsId");
-
-                    b.HasIndex("CuriculumTopicId");
-
-                    b.ToTable("СurriculumTopicConsultationTopics");
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicDepartmens", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CuriculumTopicId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("DepartmensId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CuriculumTopicId");
-
-                    b.HasIndex("DepartmensId");
-
-                    b.ToTable("СurriculumTopicDepartmens");
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicMainLiterature", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CuriculumTopicId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MainLiteratureId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CuriculumTopicId");
-
-                    b.HasIndex("MainLiteratureId");
-
-                    b.ToTable("СurriculumTopicMainLiteratures");
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTeacher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CuriculumTopicId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CuriculumTopicId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("СurriculumTopicTeachers");
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTeacherCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CuriculumTopicId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TeacherCategoryId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CuriculumTopicId");
-
-                    b.HasIndex("TeacherCategoryId");
-
-                    b.ToTable("СurriculumTopicTeacherCategories");
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTheQuestions", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CuriculumTopicId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TheQuestionsId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CuriculumTopicId");
-
-                    b.HasIndex("TheQuestionsId");
-
-                    b.ToTable("СurriculumTopicTheQuestions");
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTranningProgram", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CuriculumTopicId")
+                    b.Property<int>("SerialNumber")
                         .HasColumnType("integer");
 
                     b.Property<int>("TrainingProgramId")
@@ -612,32 +672,155 @@ namespace e.moiroServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CuriculumTopicId");
+                    b.HasIndex("AdditionalLiteratureId");
 
                     b.HasIndex("TrainingProgramId");
 
-                    b.ToTable("СurriculumTopicTranningPrograms");
+                    b.ToTable("TrainingProgramAdditionalLiteratures");
                 });
 
-            modelBuilder.Entity("e.moiroServer.Models.Product", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramCurriculumSection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Company")
-                        .HasColumnType("text");
+                    b.Property<int>("CurriculumSectionId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Price")
+                    b.Property<int>("TrainingProgramId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.HasIndex("CurriculumSectionId");
+
+                    b.HasIndex("TrainingProgramId");
+
+                    b.ToTable("TrainingProgramCurriculumSections");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramFinalExamination", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("FinalExaminationId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SerialNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TrainingProgramId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FinalExaminationId");
+
+                    b.HasIndex("TrainingProgramId");
+
+                    b.ToTable("TrainingProgramFinalExaminations");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramMainLiterature", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("MainLiteratureId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SerialNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TrainingProgramId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MainLiteratureId");
+
+                    b.HasIndex("TrainingProgramId");
+
+                    b.ToTable("TrainingProgramMainLiteratures");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramRegulation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("RegulationId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SerialNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TrainingProgramId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegulationId");
+
+                    b.HasIndex("TrainingProgramId");
+
+                    b.ToTable("TrainingProgramRegulations");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramTeacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TrainingProgramId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.HasIndex("TrainingProgramId");
+
+                    b.ToTable("TrainingProgramTeachers");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramTestWork", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("SerialNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TestWorkId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TrainingProgramId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestWorkId");
+
+                    b.HasIndex("TrainingProgramId");
+
+                    b.ToTable("TrainingProgramTestWorks");
                 });
 
             modelBuilder.Entity("e.moiroServer.Models.User", b =>
@@ -755,55 +938,154 @@ namespace e.moiroServer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.CuriculumTopic", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumSection", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.CurriculumSection", "CurriculumSection")
-                        .WithMany()
-                        .HasForeignKey("CurriculumSectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("e.moiroServer.Data.Models.OccupationForm", "OccupationForm")
-                        .WithMany()
-                        .HasForeignKey("OccupationFormId")
+                    b.HasOne("e.moiroServer.Data.Models.SectionNumber", null)
+                        .WithMany("CurriculumSections")
+                        .HasForeignKey("SectionNumberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumSection", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicAdditionalLiterature", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.SectionNumber", "SectionNumber")
-                        .WithMany()
-                        .HasForeignKey("SectionNumberId")
+                    b.HasOne("e.moiroServer.Data.Models.AdditionalLiterature", null)
+                        .WithMany("CurriculumTopicAdditionalLiteratures")
+                        .HasForeignKey("AdditionalLiteratureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", null)
+                        .WithMany("CurriculumTopicAdditionalLiteratures")
+                        .HasForeignKey("CurriculumTopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicDepartment", b =>
+                {
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", null)
+                        .WithMany("CurriculumTopicDepartments")
+                        .HasForeignKey("CurriculumTopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.Department", null)
+                        .WithMany("CurriculumTopicDepartments")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicFinalExamination", b =>
+                {
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", null)
+                        .WithMany("CurriculumTopicFinalExaminations")
+                        .HasForeignKey("CurriculumTopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.FinalExamination", null)
+                        .WithMany("CurriculumTopicFinalExaminations")
+                        .HasForeignKey("FinalExaminationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicMainLiterature", b =>
+                {
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", null)
+                        .WithMany("CurriculumTopicMainLiteratures")
+                        .HasForeignKey("CurriculumTopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.MainLiterature", null)
+                        .WithMany("CurriculumTopicMainLiteratures")
+                        .HasForeignKey("MainLiteratureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicRegulation", b =>
+                {
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", null)
+                        .WithMany("CurriculumTopicRegulations")
+                        .HasForeignKey("CurriculumTopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.Regulation", null)
+                        .WithMany("CurriculumTopicRegulations")
+                        .HasForeignKey("RegulationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicStudentCategory", b =>
+                {
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", null)
+                        .WithMany("CurriculumTopicStudentCategories")
+                        .HasForeignKey("CurriculumTopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.StudentCategory", null)
+                        .WithMany("CurriculumTopicStudentCategories")
+                        .HasForeignKey("StudentCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicTestWork", b =>
+                {
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", null)
+                        .WithMany("CurriculumTopicTestWorks")
+                        .HasForeignKey("CurriculumTopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.TestWork", null)
+                        .WithMany("CurriculumTopicTestWorks")
+                        .HasForeignKey("TestWorkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicTrainingProgram", b =>
+                {
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", null)
+                        .WithMany("CurriculumTopicTrainingPrograms")
+                        .HasForeignKey("CurriculumTopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.OccupationForm", null)
+                        .WithMany("CurriculumTopicTrainingPrograms")
+                        .HasForeignKey("OccupationFormId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.Group", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.Departmens", "Departmens")
-                        .WithMany()
-                        .HasForeignKey("DepartmensId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("e.moiroServer.Data.Models.FormOfEducation", "FormOfEducation")
-                        .WithMany()
+                    b.HasOne("e.moiroServer.Data.Models.FormOfEducation", null)
+                        .WithMany("Groups")
                         .HasForeignKey("FormOfEducationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e.moiroServer.Data.Models.TeacherCategory", "TeacherCategory")
-                        .WithMany()
-                        .HasForeignKey("TeacherCategoryId")
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", null)
+                        .WithMany("Groups")
+                        .HasForeignKey("TrainingProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.Teacher", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.TeachingPosition", "TeachingPosition")
-                        .WithMany()
+                    b.HasOne("e.moiroServer.Data.Models.TeachingPosition", null)
+                        .WithMany("Teachers")
                         .HasForeignKey("TeachingPositionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -811,128 +1093,119 @@ namespace e.moiroServer.Migrations
 
             modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgram", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
+                    b.HasOne("e.moiroServer.Data.Models.Department", null)
+                        .WithMany("TrainingPrograms")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.StudentCategory", null)
+                        .WithMany("TrainingPrograms")
+                        .HasForeignKey("StudentCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicAdditionalLiterature", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramAdditionalLiterature", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.AdditionalLiterature", "AdditionalLiterature")
-                        .WithMany()
+                    b.HasOne("e.moiroServer.Data.Models.AdditionalLiterature", null)
+                        .WithMany("TrainingProgramAdditionalLiteratures")
                         .HasForeignKey("AdditionalLiteratureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e.moiroServer.Data.Models.CuriculumTopic", "CuriculumTopic")
-                        .WithMany()
-                        .HasForeignKey("CuriculumTopicId")
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", null)
+                        .WithMany("TrainingProgramAdditionalLiteratures")
+                        .HasForeignKey("TrainingProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicConsultationTopics", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramCurriculumSection", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.ConsultationTopics", "ConsultationTopics")
-                        .WithMany()
-                        .HasForeignKey("ConsultationTopicsId")
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumSection", null)
+                        .WithMany("TrainingProgramCurriculumSections")
+                        .HasForeignKey("CurriculumSectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e.moiroServer.Data.Models.CuriculumTopic", "CuriculumTopic")
-                        .WithMany()
-                        .HasForeignKey("CuriculumTopicId")
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", null)
+                        .WithMany("TrainingProgramCurriculumSections")
+                        .HasForeignKey("TrainingProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicDepartmens", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramFinalExamination", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.CuriculumTopic", "CuriculumTopic")
-                        .WithMany()
-                        .HasForeignKey("CuriculumTopicId")
+                    b.HasOne("e.moiroServer.Data.Models.FinalExamination", null)
+                        .WithMany("TrainingProgramFinalExaminations")
+                        .HasForeignKey("FinalExaminationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e.moiroServer.Data.Models.Departmens", "Departmens")
-                        .WithMany()
-                        .HasForeignKey("DepartmensId")
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", null)
+                        .WithMany("TrainingProgramFinalExaminations")
+                        .HasForeignKey("TrainingProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicMainLiterature", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramMainLiterature", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.CuriculumTopic", "CuriculumTopic")
-                        .WithMany()
-                        .HasForeignKey("CuriculumTopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("e.moiroServer.Data.Models.MainLiterature", "MainLiterature")
-                        .WithMany()
+                    b.HasOne("e.moiroServer.Data.Models.MainLiterature", null)
+                        .WithMany("TrainingProgramMainLiteratures")
                         .HasForeignKey("MainLiteratureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", null)
+                        .WithMany("TrainingProgramMainLiteratures")
+                        .HasForeignKey("TrainingProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTeacher", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramRegulation", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.CuriculumTopic", "CuriculumTopic")
-                        .WithMany()
-                        .HasForeignKey("CuriculumTopicId")
+                    b.HasOne("e.moiroServer.Data.Models.Regulation", null)
+                        .WithMany("TrainingProgramRegulations")
+                        .HasForeignKey("RegulationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e.moiroServer.Data.Models.Teacher", "Teacher")
-                        .WithMany()
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", null)
+                        .WithMany("TrainingProgramRegulations")
+                        .HasForeignKey("TrainingProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramTeacher", b =>
+                {
+                    b.HasOne("e.moiroServer.Data.Models.Teacher", null)
+                        .WithMany("TrainingProgramTeachers")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTeacherCategory", b =>
-                {
-                    b.HasOne("e.moiroServer.Data.Models.CuriculumTopic", "CuriculumTopic")
-                        .WithMany()
-                        .HasForeignKey("CuriculumTopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("e.moiroServer.Data.Models.TeacherCategory", "TeacherCategory")
-                        .WithMany()
-                        .HasForeignKey("TeacherCategoryId")
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", null)
+                        .WithMany("TrainingProgramTeachers")
+                        .HasForeignKey("TrainingProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTheQuestions", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramTestWork", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.CuriculumTopic", "CuriculumTopic")
-                        .WithMany()
-                        .HasForeignKey("CuriculumTopicId")
+                    b.HasOne("e.moiroServer.Data.Models.TestWork", null)
+                        .WithMany("TrainingProgramTestWorks")
+                        .HasForeignKey("TestWorkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e.moiroServer.Data.Models.TheQuestions", "TheQuestions")
-                        .WithMany()
-                        .HasForeignKey("TheQuestionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("e.moiroServer.Data.Models.СurriculumTopicTranningProgram", b =>
-                {
-                    b.HasOne("e.moiroServer.Data.Models.CuriculumTopic", "CuriculumTopic")
-                        .WithMany()
-                        .HasForeignKey("CuriculumTopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", "TrainingProgram")
-                        .WithMany()
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", null)
+                        .WithMany("TrainingProgramTestWorks")
                         .HasForeignKey("TrainingProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

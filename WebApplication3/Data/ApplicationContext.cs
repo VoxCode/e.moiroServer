@@ -9,7 +9,7 @@ namespace e.moiroServer.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
     : base(options)
         {
-            Database.EnsureCreated();
+            // Database.EnsureCreated();
         }
 
         public DbSet<AdditionalLiterature> AdditionalLiteratures { get; set; }

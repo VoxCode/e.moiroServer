@@ -466,9 +466,14 @@ namespace e.moiroServer.Migrations
                     b.Property<string>("TheTopicOfContinuingEducation")
                         .HasColumnType("text");
 
+                    b.Property<int>("TrainingProgramId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FormOfEducationId");
+
+                    b.HasIndex("TrainingProgramId");
 
                     b.ToTable("Groups");
                 });
@@ -611,13 +616,10 @@ namespace e.moiroServer.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("CertificationTypeId")
-                        .HasColumnType("text");
+                    b.Property<int>("CertificationTypeId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("DepartmentId")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("DepartmentId1")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
                     b.Property<string>("IndependentWork")
@@ -638,15 +640,12 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("NumberOfHours")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("StudentCategoryId")
+                    b.Property<int>("StudentCategoryId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("TeacherCategoryId")
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId1");
+                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("StudentCategoryId");
 
@@ -1073,6 +1072,12 @@ namespace e.moiroServer.Migrations
                         .HasForeignKey("FormOfEducationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", null)
+                        .WithMany("Groups")
+                        .HasForeignKey("TrainingProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.Teacher", b =>
@@ -1088,11 +1093,15 @@ namespace e.moiroServer.Migrations
                 {
                     b.HasOne("e.moiroServer.Data.Models.Department", null)
                         .WithMany("TrainingPrograms")
-                        .HasForeignKey("DepartmentId1");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("e.moiroServer.Data.Models.StudentCategory", null)
                         .WithMany("TrainingPrograms")
-                        .HasForeignKey("StudentCategoryId");
+                        .HasForeignKey("StudentCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgramAdditionalLiterature", b =>

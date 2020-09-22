@@ -11,10 +11,11 @@ namespace e.moiroServer.Data.Models
         public bool IsIndependentWork { get; set; }
         public bool IsTestWork { get; set; }
         public string IndependentWork { get; set; }
-        public string DepartmentId { get; set; }
-        public string TeacherCategoryId { get; set; }
-        public string CertificationTypeId { get; set; }
+        public int DepartmentId { get; set; }
+        public int StudentCategoryId { get; set; }
+        public int CertificationTypeId { get; set; }
 
+        public List<Group> Groups { get; set; }
         public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
         public List<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
         public List<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }

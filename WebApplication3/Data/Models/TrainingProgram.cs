@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace e.moiroServer.Data.Models
 {
@@ -18,5 +14,13 @@ namespace e.moiroServer.Data.Models
         public string DepartmentId { get; set; }
         public string TeacherCategoryId { get; set; }
         public string CertificationTypeId { get; set; }
+        public List<Group> Groups { get; set; }
+        public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
+        public List<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
+        public List<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
+        public List<TrainingProgramFinalExamination> TrainingProgramFinalExaminations { get; set; }
+        public List<TrainingProgramMainLiterature> TrainingProgramMainLiteratures { get; set; }
+        public List<TrainingProgramAdditionalLiterature> TrainingProgramAdditionalLiteratures { get; set; }
+        public List<TrainingProgramRegulation> TrainingProgramRegulations { get; set; }
     }
 }

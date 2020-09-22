@@ -1,5 +1,4 @@
 ﻿
-
 namespace e.moiroServer.Models.Identity
 {
     public class LoginResponseModel

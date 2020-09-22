@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace e.moiroServer.Data.Models
 {
@@ -10,7 +7,6 @@ namespace e.moiroServer.Data.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int SectionNumberId { get; set; }
-        public SectionNumber SectionNumber { get; set; }
-        public List<CurriculumTopic> CurriculumTopics { get; set; }
+        public List<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
     }
 }

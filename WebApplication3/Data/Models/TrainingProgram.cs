@@ -14,7 +14,7 @@ namespace e.moiroServer.Data.Models
         public string DepartmentId { get; set; }
         public string TeacherCategoryId { get; set; }
         public string CertificationTypeId { get; set; }
-        public List<Group> Groups { get; set; }
+
         public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
         public List<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
         public List<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }

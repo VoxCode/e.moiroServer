@@ -11,6 +11,5 @@ namespace e.moiroServer.Data.Models
         public DateTime ClassStartDate { get; set; }
         public DateTime ClassEndDate { get; set; }
         public int FormOfEducationId { get; set; }
-        public int TrainingProgramId { get; set; }
     }
 }

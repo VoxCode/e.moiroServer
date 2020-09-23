@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/TestWorks
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TestWork>>> GetTestWorks()
+        public async Task<ActionResult<IEnumerable<TestWork>>> Get()
         {
             return await _context.TestWorks.ToListAsync();
         }
 
-        // GET: api/TestWorks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TestWork>> GetTestWork(int id)
+        public async Task<ActionResult<TestWork>> Get(int id)
         {
-            var testWork = await _context.TestWorks.FindAsync(id);
+            var value = await _context.TestWorks.FindAsync(id);
 
-            if (testWork == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return testWork;
+            return value;
         }
 
-        // PUT: api/TestWorks/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTestWork(int id, TestWork testWork)
+        [HttpPut]
+        public async Task<IActionResult> Put(TestWork value)
         {
-            if (id != testWork.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(testWork).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TestWorkExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/TestWorks
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TestWork>> PostTestWork(TestWork testWork)
+        public async Task<ActionResult<TestWork>> Post(TestWork value)
         {
-            _context.TestWorks.Add(testWork);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTestWork", new { id = testWork.Id }, testWork);
+            if (ModelState.IsValid)
+            {
+                _context.TestWorks.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/TestWorks/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TestWork>> DeleteTestWork(int id)
+        public async Task<ActionResult<TestWork>> Delete(int id)
         {
-            var testWork = await _context.TestWorks.FindAsync(id);
-            if (testWork == null)
+            var value = await _context.TestWorks.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.TestWorks.Remove(testWork);
+            _context.TestWorks.Remove(value);
             await _context.SaveChangesAsync();
 
-            return testWork;
-        }
-
-        private bool TestWorkExists(int id)
-        {
-            return _context.TestWorks.Any(e => e.Id == id);
+            return value;
         }
     }
 }

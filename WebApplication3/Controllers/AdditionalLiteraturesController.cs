@@ -20,6 +20,7 @@ namespace e.moiroServer.Controllers
         {
             _context = context;
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AdditionalLiterature>>> Get()
         {

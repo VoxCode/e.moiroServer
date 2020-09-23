@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/CurriculumSections
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurriculumSection>>> GetCurriculumSections()
+        public async Task<ActionResult<IEnumerable<CurriculumSection>>> Get()
         {
             return await _context.CurriculumSections.ToListAsync();
         }
 
-        // GET: api/CurriculumSections/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumSection>> GetCurriculumSection(int id)
+        public async Task<ActionResult<CurriculumSection>> Get(int id)
         {
-            var curriculumSection = await _context.CurriculumSections.FindAsync(id);
+            var value = await _context.CurriculumSections.FindAsync(id);
 
-            if (curriculumSection == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return curriculumSection;
+            return value;
         }
 
-        // PUT: api/CurriculumSections/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurriculumSection(int id, CurriculumSection curriculumSection)
+        [HttpPut]
+        public async Task<IActionResult> Put(CurriculumSection value)
         {
-            if (id != curriculumSection.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(curriculumSection).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CurriculumSectionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/CurriculumSections
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CurriculumSection>> PostCurriculumSection(CurriculumSection curriculumSection)
+        public async Task<ActionResult<CurriculumSection>> Post(CurriculumSection value)
         {
-            _context.CurriculumSections.Add(curriculumSection);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCurriculumSection", new { id = curriculumSection.Id }, curriculumSection);
+            if (ModelState.IsValid)
+            {
+                _context.CurriculumSections.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/CurriculumSections/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CurriculumSection>> DeleteCurriculumSection(int id)
+        public async Task<ActionResult<CurriculumSection>> Delete(int id)
         {
-            var curriculumSection = await _context.CurriculumSections.FindAsync(id);
-            if (curriculumSection == null)
+            var value = await _context.CurriculumSections.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.CurriculumSections.Remove(curriculumSection);
+            _context.CurriculumSections.Remove(value);
             await _context.SaveChangesAsync();
 
-            return curriculumSection;
-        }
-
-        private bool CurriculumSectionExists(int id)
-        {
-            return _context.CurriculumSections.Any(e => e.Id == id);
+            return value;
         }
     }
 }

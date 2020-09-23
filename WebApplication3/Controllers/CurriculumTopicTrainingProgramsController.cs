@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/CurriculumTopicTrainingPrograms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurriculumTopicTrainingProgram>>> GetCurriculumTopicTrainingPrograms()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicTrainingProgram>>> Get()
         {
             return await _context.CurriculumTopicTrainingPrograms.ToListAsync();
         }
 
-        // GET: api/CurriculumTopicTrainingPrograms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumTopicTrainingProgram>> GetCurriculumTopicTrainingProgram(int id)
+        public async Task<ActionResult<CurriculumTopicTrainingProgram>> Get(int id)
         {
-            var curriculumTopicTrainingProgram = await _context.CurriculumTopicTrainingPrograms.FindAsync(id);
+            var value = await _context.CurriculumTopicTrainingPrograms.FindAsync(id);
 
-            if (curriculumTopicTrainingProgram == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return curriculumTopicTrainingProgram;
+            return value;
         }
 
-        // PUT: api/CurriculumTopicTrainingPrograms/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurriculumTopicTrainingProgram(int id, CurriculumTopicTrainingProgram curriculumTopicTrainingProgram)
+        [HttpPut]
+        public async Task<IActionResult> Put(CurriculumTopicTrainingProgram value)
         {
-            if (id != curriculumTopicTrainingProgram.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(curriculumTopicTrainingProgram).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CurriculumTopicTrainingProgramExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/CurriculumTopicTrainingPrograms
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CurriculumTopicTrainingProgram>> PostCurriculumTopicTrainingProgram(CurriculumTopicTrainingProgram curriculumTopicTrainingProgram)
+        public async Task<ActionResult<CurriculumTopicTrainingProgram>> Post(CurriculumTopicTrainingProgram value)
         {
-            _context.CurriculumTopicTrainingPrograms.Add(curriculumTopicTrainingProgram);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCurriculumTopicTrainingProgram", new { id = curriculumTopicTrainingProgram.Id }, curriculumTopicTrainingProgram);
+            if (ModelState.IsValid)
+            {
+                _context.CurriculumTopicTrainingPrograms.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/CurriculumTopicTrainingPrograms/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CurriculumTopicTrainingProgram>> DeleteCurriculumTopicTrainingProgram(int id)
+        public async Task<ActionResult<CurriculumTopicTrainingProgram>> Delete(int id)
         {
-            var curriculumTopicTrainingProgram = await _context.CurriculumTopicTrainingPrograms.FindAsync(id);
-            if (curriculumTopicTrainingProgram == null)
+            var value = await _context.CurriculumTopicTrainingPrograms.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.CurriculumTopicTrainingPrograms.Remove(curriculumTopicTrainingProgram);
+            _context.CurriculumTopicTrainingPrograms.Remove(value);
             await _context.SaveChangesAsync();
 
-            return curriculumTopicTrainingProgram;
-        }
-
-        private bool CurriculumTopicTrainingProgramExists(int id)
-        {
-            return _context.CurriculumTopicTrainingPrograms.Any(e => e.Id == id);
+            return value;
         }
     }
 }

@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/TrainingProgramFinalExaminations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TrainingProgramFinalExamination>>> GetTrainingProgramFinalExaminations()
+        public async Task<ActionResult<IEnumerable<TrainingProgramFinalExamination>>> Get()
         {
             return await _context.TrainingProgramFinalExaminations.ToListAsync();
         }
 
-        // GET: api/TrainingProgramFinalExaminations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TrainingProgramFinalExamination>> GetTrainingProgramFinalExamination(int id)
+        public async Task<ActionResult<TrainingProgramFinalExamination>> Get(int id)
         {
-            var trainingProgramFinalExamination = await _context.TrainingProgramFinalExaminations.FindAsync(id);
+            var value = await _context.TrainingProgramFinalExaminations.FindAsync(id);
 
-            if (trainingProgramFinalExamination == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return trainingProgramFinalExamination;
+            return value;
         }
 
-        // PUT: api/TrainingProgramFinalExaminations/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrainingProgramFinalExamination(int id, TrainingProgramFinalExamination trainingProgramFinalExamination)
+        [HttpPut]
+        public async Task<IActionResult> Put(TrainingProgramFinalExamination value)
         {
-            if (id != trainingProgramFinalExamination.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(trainingProgramFinalExamination).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TrainingProgramFinalExaminationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/TrainingProgramFinalExaminations
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TrainingProgramFinalExamination>> PostTrainingProgramFinalExamination(TrainingProgramFinalExamination trainingProgramFinalExamination)
+        public async Task<ActionResult<TrainingProgramFinalExamination>> Post(TrainingProgramFinalExamination value)
         {
-            _context.TrainingProgramFinalExaminations.Add(trainingProgramFinalExamination);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTrainingProgramFinalExamination", new { id = trainingProgramFinalExamination.Id }, trainingProgramFinalExamination);
+            if (ModelState.IsValid)
+            {
+                _context.TrainingProgramFinalExaminations.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/TrainingProgramFinalExaminations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TrainingProgramFinalExamination>> DeleteTrainingProgramFinalExamination(int id)
+        public async Task<ActionResult<TrainingProgramFinalExamination>> Delete(int id)
         {
-            var trainingProgramFinalExamination = await _context.TrainingProgramFinalExaminations.FindAsync(id);
-            if (trainingProgramFinalExamination == null)
+            var value = await _context.TrainingProgramFinalExaminations.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.TrainingProgramFinalExaminations.Remove(trainingProgramFinalExamination);
+            _context.TrainingProgramFinalExaminations.Remove(value);
             await _context.SaveChangesAsync();
 
-            return trainingProgramFinalExamination;
-        }
-
-        private bool TrainingProgramFinalExaminationExists(int id)
-        {
-            return _context.TrainingProgramFinalExaminations.Any(e => e.Id == id);
+            return value;
         }
     }
 }

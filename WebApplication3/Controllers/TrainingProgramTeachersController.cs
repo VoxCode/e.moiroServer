@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/TrainingProgramTeachers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TrainingProgramTeacher>>> GetTrainingProgramTeachers()
+        public async Task<ActionResult<IEnumerable<TrainingProgramTeacher>>> Get()
         {
             return await _context.TrainingProgramTeachers.ToListAsync();
         }
 
-        // GET: api/TrainingProgramTeachers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TrainingProgramTeacher>> GetTrainingProgramTeacher(int id)
+        public async Task<ActionResult<TrainingProgramTeacher>> Get(int id)
         {
-            var trainingProgramTeacher = await _context.TrainingProgramTeachers.FindAsync(id);
+            var value = await _context.TrainingProgramTeachers.FindAsync(id);
 
-            if (trainingProgramTeacher == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return trainingProgramTeacher;
+            return value;
         }
 
-        // PUT: api/TrainingProgramTeachers/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrainingProgramTeacher(int id, TrainingProgramTeacher trainingProgramTeacher)
+        [HttpPut]
+        public async Task<IActionResult> Put(TrainingProgramTeacher value)
         {
-            if (id != trainingProgramTeacher.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(trainingProgramTeacher).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TrainingProgramTeacherExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/TrainingProgramTeachers
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TrainingProgramTeacher>> PostTrainingProgramTeacher(TrainingProgramTeacher trainingProgramTeacher)
+        public async Task<ActionResult<TrainingProgramTeacher>> Post(TrainingProgramTeacher value)
         {
-            _context.TrainingProgramTeachers.Add(trainingProgramTeacher);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTrainingProgramTeacher", new { id = trainingProgramTeacher.Id }, trainingProgramTeacher);
+            if (ModelState.IsValid)
+            {
+                _context.TrainingProgramTeachers.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/TrainingProgramTeachers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TrainingProgramTeacher>> DeleteTrainingProgramTeacher(int id)
+        public async Task<ActionResult<TrainingProgramTeacher>> Delete(int id)
         {
-            var trainingProgramTeacher = await _context.TrainingProgramTeachers.FindAsync(id);
-            if (trainingProgramTeacher == null)
+            var value = await _context.TrainingProgramTeachers.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.TrainingProgramTeachers.Remove(trainingProgramTeacher);
+            _context.TrainingProgramTeachers.Remove(value);
             await _context.SaveChangesAsync();
 
-            return trainingProgramTeacher;
-        }
-
-        private bool TrainingProgramTeacherExists(int id)
-        {
-            return _context.TrainingProgramTeachers.Any(e => e.Id == id);
+            return value;
         }
     }
 }

@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/CurriculumTopicDepartments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurriculumTopicDepartment>>> GetCurriculumTopicDepartments()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicDepartment>>> Get()
         {
             return await _context.CurriculumTopicDepartments.ToListAsync();
         }
 
-        // GET: api/CurriculumTopicDepartments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumTopicDepartment>> GetCurriculumTopicDepartment(int id)
+        public async Task<ActionResult<CurriculumTopicDepartment>> Get(int id)
         {
-            var curriculumTopicDepartment = await _context.CurriculumTopicDepartments.FindAsync(id);
+            var value = await _context.CurriculumTopicDepartments.FindAsync(id);
 
-            if (curriculumTopicDepartment == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return curriculumTopicDepartment;
+            return value;
         }
 
-        // PUT: api/CurriculumTopicDepartments/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurriculumTopicDepartment(int id, CurriculumTopicDepartment curriculumTopicDepartment)
+        [HttpPut]
+        public async Task<IActionResult> Put(CurriculumTopicDepartment value)
         {
-            if (id != curriculumTopicDepartment.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(curriculumTopicDepartment).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CurriculumTopicDepartmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/CurriculumTopicDepartments
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CurriculumTopicDepartment>> PostCurriculumTopicDepartment(CurriculumTopicDepartment curriculumTopicDepartment)
+        public async Task<ActionResult<CurriculumTopicDepartment>> Post(CurriculumTopicDepartment value)
         {
-            _context.CurriculumTopicDepartments.Add(curriculumTopicDepartment);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCurriculumTopicDepartment", new { id = curriculumTopicDepartment.Id }, curriculumTopicDepartment);
+            if (ModelState.IsValid)
+            {
+                _context.CurriculumTopicDepartments.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/CurriculumTopicDepartments/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CurriculumTopicDepartment>> DeleteCurriculumTopicDepartment(int id)
+        public async Task<ActionResult<CurriculumTopicDepartment>> Delete(int id)
         {
-            var curriculumTopicDepartment = await _context.CurriculumTopicDepartments.FindAsync(id);
-            if (curriculumTopicDepartment == null)
+            var value = await _context.CurriculumTopicDepartments.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.CurriculumTopicDepartments.Remove(curriculumTopicDepartment);
+            _context.CurriculumTopicDepartments.Remove(value);
             await _context.SaveChangesAsync();
 
-            return curriculumTopicDepartment;
-        }
-
-        private bool CurriculumTopicDepartmentExists(int id)
-        {
-            return _context.CurriculumTopicDepartments.Any(e => e.Id == id);
+            return value;
         }
     }
 }

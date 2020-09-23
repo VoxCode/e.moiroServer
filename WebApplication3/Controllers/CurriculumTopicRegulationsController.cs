@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/CurriculumTopicRegulations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurriculumTopicRegulation>>> GetCurriculumTopicRegulations()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicRegulation>>> Get()
         {
             return await _context.CurriculumTopicRegulations.ToListAsync();
         }
 
-        // GET: api/CurriculumTopicRegulations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumTopicRegulation>> GetCurriculumTopicRegulation(int id)
+        public async Task<ActionResult<CurriculumTopicRegulation>> Get(int id)
         {
-            var curriculumTopicRegulation = await _context.CurriculumTopicRegulations.FindAsync(id);
+            var value = await _context.CurriculumTopicRegulations.FindAsync(id);
 
-            if (curriculumTopicRegulation == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return curriculumTopicRegulation;
+            return value;
         }
 
-        // PUT: api/CurriculumTopicRegulations/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurriculumTopicRegulation(int id, CurriculumTopicRegulation curriculumTopicRegulation)
+        [HttpPut]
+        public async Task<IActionResult> Put(CurriculumTopicRegulation value)
         {
-            if (id != curriculumTopicRegulation.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(curriculumTopicRegulation).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CurriculumTopicRegulationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/CurriculumTopicRegulations
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CurriculumTopicRegulation>> PostCurriculumTopicRegulation(CurriculumTopicRegulation curriculumTopicRegulation)
+        public async Task<ActionResult<CurriculumTopicRegulation>> Post(CurriculumTopicRegulation value)
         {
-            _context.CurriculumTopicRegulations.Add(curriculumTopicRegulation);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCurriculumTopicRegulation", new { id = curriculumTopicRegulation.Id }, curriculumTopicRegulation);
+            if (ModelState.IsValid)
+            {
+                _context.CurriculumTopicRegulations.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/CurriculumTopicRegulations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CurriculumTopicRegulation>> DeleteCurriculumTopicRegulation(int id)
+        public async Task<ActionResult<CurriculumTopicRegulation>> Delete(int id)
         {
-            var curriculumTopicRegulation = await _context.CurriculumTopicRegulations.FindAsync(id);
-            if (curriculumTopicRegulation == null)
+            var value = await _context.CurriculumTopicRegulations.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.CurriculumTopicRegulations.Remove(curriculumTopicRegulation);
+            _context.CurriculumTopicRegulations.Remove(value);
             await _context.SaveChangesAsync();
 
-            return curriculumTopicRegulation;
-        }
-
-        private bool CurriculumTopicRegulationExists(int id)
-        {
-            return _context.CurriculumTopicRegulations.Any(e => e.Id == id);
+            return value;
         }
     }
 }

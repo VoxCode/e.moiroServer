@@ -13,6 +13,7 @@ namespace e.moiroServer.Models
         }
 
         public DbSet<AdditionalLiterature> AdditionalLiteratures { get; set; }
+        public DbSet<CertificationType> CertificationTypes { get; set; }
         public DbSet<CurriculumSection> CurriculumSections { get; set; }
         public DbSet<CurriculumTopic> CurriculumTopics { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -45,7 +46,5 @@ namespace e.moiroServer.Models
         public DbSet<TrainingProgramRegulation> TrainingProgramRegulations { get; set; }
         public DbSet<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
         public DbSet<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
-        public DbSet<e.moiroServer.Data.Models.CertificationType> CertificationType { get; set; }
-
     }
 }

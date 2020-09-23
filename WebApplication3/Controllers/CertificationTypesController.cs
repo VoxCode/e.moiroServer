@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/CertificationTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CertificationType>>> GetCertificationType()
+        public async Task<ActionResult<IEnumerable<CertificationType>>> Get()
         {
-            return await _context.CertificationType.ToListAsync();
+            return await _context.CertificationTypes.ToListAsync();
         }
 
-        // GET: api/CertificationTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CertificationType>> GetCertificationType(int id)
+        public async Task<ActionResult<CertificationType>> Get(int id)
         {
-            var certificationType = await _context.CertificationType.FindAsync(id);
+            var value = await _context.CertificationTypes.FindAsync(id);
 
-            if (certificationType == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return certificationType;
+            return value;
         }
 
-        // PUT: api/CertificationTypes/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCertificationType(int id, CertificationType certificationType)
+        [HttpPut]
+        public async Task<IActionResult> Put(CertificationType value)
         {
-            if (id != certificationType.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(certificationType).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CertificationTypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/CertificationTypes
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CertificationType>> PostCertificationType(CertificationType certificationType)
+        public async Task<ActionResult<CertificationType>> Post(CertificationType value)
         {
-            _context.CertificationType.Add(certificationType);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCertificationType", new { id = certificationType.Id }, certificationType);
+            if (ModelState.IsValid)
+            {
+                _context.CertificationTypes.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/CertificationTypes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CertificationType>> DeleteCertificationType(int id)
+        public async Task<ActionResult<CertificationType>> Delete(int id)
         {
-            var certificationType = await _context.CertificationType.FindAsync(id);
-            if (certificationType == null)
+            var value = await _context.CertificationTypes.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.CertificationType.Remove(certificationType);
+            _context.CertificationTypes.Remove(value);
             await _context.SaveChangesAsync();
 
-            return certificationType;
-        }
-
-        private bool CertificationTypeExists(int id)
-        {
-            return _context.CertificationType.Any(e => e.Id == id);
+            return value;
         }
     }
 }

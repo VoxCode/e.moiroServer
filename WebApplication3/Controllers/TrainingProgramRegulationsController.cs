@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/TrainingProgramRegulations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TrainingProgramRegulation>>> GetTrainingProgramRegulations()
+        public async Task<ActionResult<IEnumerable<TrainingProgramRegulation>>> Get()
         {
             return await _context.TrainingProgramRegulations.ToListAsync();
         }
 
-        // GET: api/TrainingProgramRegulations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TrainingProgramRegulation>> GetTrainingProgramRegulation(int id)
+        public async Task<ActionResult<TrainingProgramRegulation>> Get(int id)
         {
-            var trainingProgramRegulation = await _context.TrainingProgramRegulations.FindAsync(id);
+            var value = await _context.TrainingProgramRegulations.FindAsync(id);
 
-            if (trainingProgramRegulation == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return trainingProgramRegulation;
+            return value;
         }
 
-        // PUT: api/TrainingProgramRegulations/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrainingProgramRegulation(int id, TrainingProgramRegulation trainingProgramRegulation)
+        [HttpPut]
+        public async Task<IActionResult> Put(TrainingProgramRegulation value)
         {
-            if (id != trainingProgramRegulation.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(trainingProgramRegulation).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TrainingProgramRegulationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/TrainingProgramRegulations
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TrainingProgramRegulation>> PostTrainingProgramRegulation(TrainingProgramRegulation trainingProgramRegulation)
+        public async Task<ActionResult<TrainingProgramRegulation>> Post(TrainingProgramRegulation value)
         {
-            _context.TrainingProgramRegulations.Add(trainingProgramRegulation);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTrainingProgramRegulation", new { id = trainingProgramRegulation.Id }, trainingProgramRegulation);
+            if (ModelState.IsValid)
+            {
+                _context.TrainingProgramRegulations.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/TrainingProgramRegulations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TrainingProgramRegulation>> DeleteTrainingProgramRegulation(int id)
+        public async Task<ActionResult<TrainingProgramRegulation>> Delete(int id)
         {
-            var trainingProgramRegulation = await _context.TrainingProgramRegulations.FindAsync(id);
-            if (trainingProgramRegulation == null)
+            var value = await _context.TrainingProgramRegulations.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.TrainingProgramRegulations.Remove(trainingProgramRegulation);
+            _context.TrainingProgramRegulations.Remove(value);
             await _context.SaveChangesAsync();
 
-            return trainingProgramRegulation;
-        }
-
-        private bool TrainingProgramRegulationExists(int id)
-        {
-            return _context.TrainingProgramRegulations.Any(e => e.Id == id);
+            return value;
         }
     }
 }

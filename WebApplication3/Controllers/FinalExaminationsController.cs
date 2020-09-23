@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/FinalExaminations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FinalExamination>>> GetFinalExaminations()
+        public async Task<ActionResult<IEnumerable<FinalExamination>>> Get()
         {
             return await _context.FinalExaminations.ToListAsync();
         }
 
-        // GET: api/FinalExaminations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<FinalExamination>> GetFinalExamination(int id)
+        public async Task<ActionResult<FinalExamination>> Get(int id)
         {
-            var finalExamination = await _context.FinalExaminations.FindAsync(id);
+            var value = await _context.FinalExaminations.FindAsync(id);
 
-            if (finalExamination == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return finalExamination;
+            return value;
         }
 
-        // PUT: api/FinalExaminations/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFinalExamination(int id, FinalExamination finalExamination)
+        [HttpPut]
+        public async Task<IActionResult> Put(FinalExamination value)
         {
-            if (id != finalExamination.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(finalExamination).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FinalExaminationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/FinalExaminations
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<FinalExamination>> PostFinalExamination(FinalExamination finalExamination)
+        public async Task<ActionResult<FinalExamination>> Post(FinalExamination value)
         {
-            _context.FinalExaminations.Add(finalExamination);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetFinalExamination", new { id = finalExamination.Id }, finalExamination);
+            if (ModelState.IsValid)
+            {
+                _context.FinalExaminations.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/FinalExaminations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<FinalExamination>> DeleteFinalExamination(int id)
+        public async Task<ActionResult<FinalExamination>> Delete(int id)
         {
-            var finalExamination = await _context.FinalExaminations.FindAsync(id);
-            if (finalExamination == null)
+            var value = await _context.FinalExaminations.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.FinalExaminations.Remove(finalExamination);
+            _context.FinalExaminations.Remove(value);
             await _context.SaveChangesAsync();
 
-            return finalExamination;
-        }
-
-        private bool FinalExaminationExists(int id)
-        {
-            return _context.FinalExaminations.Any(e => e.Id == id);
+            return value;
         }
     }
 }

@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/TrainingProgramAdditionalLiteratures
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TrainingProgramAdditionalLiterature>>> GetTrainingProgramAdditionalLiteratures()
+        public async Task<ActionResult<IEnumerable<TrainingProgramAdditionalLiterature>>> Get()
         {
             return await _context.TrainingProgramAdditionalLiteratures.ToListAsync();
         }
 
-        // GET: api/TrainingProgramAdditionalLiteratures/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TrainingProgramAdditionalLiterature>> GetTrainingProgramAdditionalLiterature(int id)
+        public async Task<ActionResult<TrainingProgramAdditionalLiterature>> Get(int id)
         {
-            var trainingProgramAdditionalLiterature = await _context.TrainingProgramAdditionalLiteratures.FindAsync(id);
+            var value = await _context.TrainingProgramAdditionalLiteratures.FindAsync(id);
 
-            if (trainingProgramAdditionalLiterature == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return trainingProgramAdditionalLiterature;
+            return value;
         }
 
-        // PUT: api/TrainingProgramAdditionalLiteratures/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrainingProgramAdditionalLiterature(int id, TrainingProgramAdditionalLiterature trainingProgramAdditionalLiterature)
+        [HttpPut]
+        public async Task<IActionResult> Put(TrainingProgramAdditionalLiterature value)
         {
-            if (id != trainingProgramAdditionalLiterature.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(trainingProgramAdditionalLiterature).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TrainingProgramAdditionalLiteratureExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/TrainingProgramAdditionalLiteratures
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TrainingProgramAdditionalLiterature>> PostTrainingProgramAdditionalLiterature(TrainingProgramAdditionalLiterature trainingProgramAdditionalLiterature)
+        public async Task<ActionResult<TrainingProgramAdditionalLiterature>> Post(TrainingProgramAdditionalLiterature value)
         {
-            _context.TrainingProgramAdditionalLiteratures.Add(trainingProgramAdditionalLiterature);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTrainingProgramAdditionalLiterature", new { id = trainingProgramAdditionalLiterature.Id }, trainingProgramAdditionalLiterature);
+            if (ModelState.IsValid)
+            {
+                _context.TrainingProgramAdditionalLiteratures.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/TrainingProgramAdditionalLiteratures/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TrainingProgramAdditionalLiterature>> DeleteTrainingProgramAdditionalLiterature(int id)
+        public async Task<ActionResult<TrainingProgramAdditionalLiterature>> Delete(int id)
         {
-            var trainingProgramAdditionalLiterature = await _context.TrainingProgramAdditionalLiteratures.FindAsync(id);
-            if (trainingProgramAdditionalLiterature == null)
+            var value = await _context.TrainingProgramAdditionalLiteratures.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.TrainingProgramAdditionalLiteratures.Remove(trainingProgramAdditionalLiterature);
+            _context.TrainingProgramAdditionalLiteratures.Remove(value);
             await _context.SaveChangesAsync();
 
-            return trainingProgramAdditionalLiterature;
-        }
-
-        private bool TrainingProgramAdditionalLiteratureExists(int id)
-        {
-            return _context.TrainingProgramAdditionalLiteratures.Any(e => e.Id == id);
+            return value;
         }
     }
 }

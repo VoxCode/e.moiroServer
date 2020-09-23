@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/CurriculumTopicFinalExaminations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurriculumTopicFinalExamination>>> GetCurriculumTopicFinalExaminations()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicFinalExamination>>> Get()
         {
             return await _context.CurriculumTopicFinalExaminations.ToListAsync();
         }
 
-        // GET: api/CurriculumTopicFinalExaminations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumTopicFinalExamination>> GetCurriculumTopicFinalExamination(int id)
+        public async Task<ActionResult<CurriculumTopicFinalExamination>> Get(int id)
         {
-            var curriculumTopicFinalExamination = await _context.CurriculumTopicFinalExaminations.FindAsync(id);
+            var value = await _context.CurriculumTopicFinalExaminations.FindAsync(id);
 
-            if (curriculumTopicFinalExamination == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return curriculumTopicFinalExamination;
+            return value;
         }
 
-        // PUT: api/CurriculumTopicFinalExaminations/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurriculumTopicFinalExamination(int id, CurriculumTopicFinalExamination curriculumTopicFinalExamination)
+        [HttpPut]
+        public async Task<IActionResult> Put(CurriculumTopicFinalExamination value)
         {
-            if (id != curriculumTopicFinalExamination.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(curriculumTopicFinalExamination).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CurriculumTopicFinalExaminationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/CurriculumTopicFinalExaminations
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CurriculumTopicFinalExamination>> PostCurriculumTopicFinalExamination(CurriculumTopicFinalExamination curriculumTopicFinalExamination)
+        public async Task<ActionResult<CurriculumTopicFinalExamination>> Post(CurriculumTopicFinalExamination value)
         {
-            _context.CurriculumTopicFinalExaminations.Add(curriculumTopicFinalExamination);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCurriculumTopicFinalExamination", new { id = curriculumTopicFinalExamination.Id }, curriculumTopicFinalExamination);
+            if (ModelState.IsValid)
+            {
+                _context.CurriculumTopicFinalExaminations.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/CurriculumTopicFinalExaminations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CurriculumTopicFinalExamination>> DeleteCurriculumTopicFinalExamination(int id)
+        public async Task<ActionResult<CurriculumTopicFinalExamination>> Delete(int id)
         {
-            var curriculumTopicFinalExamination = await _context.CurriculumTopicFinalExaminations.FindAsync(id);
-            if (curriculumTopicFinalExamination == null)
+            var value = await _context.CurriculumTopicFinalExaminations.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.CurriculumTopicFinalExaminations.Remove(curriculumTopicFinalExamination);
+            _context.CurriculumTopicFinalExaminations.Remove(value);
             await _context.SaveChangesAsync();
 
-            return curriculumTopicFinalExamination;
-        }
-
-        private bool CurriculumTopicFinalExaminationExists(int id)
-        {
-            return _context.CurriculumTopicFinalExaminations.Any(e => e.Id == id);
+            return value;
         }
     }
 }

@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/CurriculumTopicStudentCategories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurriculumTopicStudentCategory>>> GetCurriculumTopicStudentCategories()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicStudentCategory>>> Get()
         {
             return await _context.CurriculumTopicStudentCategories.ToListAsync();
         }
 
-        // GET: api/CurriculumTopicStudentCategories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumTopicStudentCategory>> GetCurriculumTopicStudentCategory(int id)
+        public async Task<ActionResult<CurriculumTopicStudentCategory>> Get(int id)
         {
-            var curriculumTopicStudentCategory = await _context.CurriculumTopicStudentCategories.FindAsync(id);
+            var value = await _context.CurriculumTopicStudentCategories.FindAsync(id);
 
-            if (curriculumTopicStudentCategory == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return curriculumTopicStudentCategory;
+            return value;
         }
 
-        // PUT: api/CurriculumTopicStudentCategories/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurriculumTopicStudentCategory(int id, CurriculumTopicStudentCategory curriculumTopicStudentCategory)
+        [HttpPut]
+        public async Task<IActionResult> Put(CurriculumTopicStudentCategory value)
         {
-            if (id != curriculumTopicStudentCategory.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(curriculumTopicStudentCategory).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CurriculumTopicStudentCategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/CurriculumTopicStudentCategories
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CurriculumTopicStudentCategory>> PostCurriculumTopicStudentCategory(CurriculumTopicStudentCategory curriculumTopicStudentCategory)
+        public async Task<ActionResult<CurriculumTopicStudentCategory>> Post(CurriculumTopicStudentCategory value)
         {
-            _context.CurriculumTopicStudentCategories.Add(curriculumTopicStudentCategory);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCurriculumTopicStudentCategory", new { id = curriculumTopicStudentCategory.Id }, curriculumTopicStudentCategory);
+            if (ModelState.IsValid)
+            {
+                _context.CurriculumTopicStudentCategories.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/CurriculumTopicStudentCategories/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CurriculumTopicStudentCategory>> DeleteCurriculumTopicStudentCategory(int id)
+        public async Task<ActionResult<CurriculumTopicStudentCategory>> Delete(int id)
         {
-            var curriculumTopicStudentCategory = await _context.CurriculumTopicStudentCategories.FindAsync(id);
-            if (curriculumTopicStudentCategory == null)
+            var value = await _context.CurriculumTopicStudentCategories.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.CurriculumTopicStudentCategories.Remove(curriculumTopicStudentCategory);
+            _context.CurriculumTopicStudentCategories.Remove(value);
             await _context.SaveChangesAsync();
 
-            return curriculumTopicStudentCategory;
-        }
-
-        private bool CurriculumTopicStudentCategoryExists(int id)
-        {
-            return _context.CurriculumTopicStudentCategories.Any(e => e.Id == id);
+            return value;
         }
     }
 }

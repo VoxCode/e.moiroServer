@@ -21,90 +21,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        // GET: api/CurriculumTopicAdditionalLiteratures
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurriculumTopicAdditionalLiterature>>> GetCurriculumTopicAdditionalLiteratures()
+        public async Task<ActionResult<IEnumerable<CurriculumTopicAdditionalLiterature>>> Get()
         {
             return await _context.CurriculumTopicAdditionalLiteratures.ToListAsync();
         }
 
-        // GET: api/CurriculumTopicAdditionalLiteratures/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumTopicAdditionalLiterature>> GetCurriculumTopicAdditionalLiterature(int id)
+        public async Task<ActionResult<CurriculumTopicAdditionalLiterature>> Get(int id)
         {
-            var curriculumTopicAdditionalLiterature = await _context.CurriculumTopicAdditionalLiteratures.FindAsync(id);
+            var value = await _context.CurriculumTopicAdditionalLiteratures.FindAsync(id);
 
-            if (curriculumTopicAdditionalLiterature == null)
+            if (value == null)
             {
                 return NotFound();
             }
 
-            return curriculumTopicAdditionalLiterature;
+            return value;
         }
 
-        // PUT: api/CurriculumTopicAdditionalLiteratures/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurriculumTopicAdditionalLiterature(int id, CurriculumTopicAdditionalLiterature curriculumTopicAdditionalLiterature)
+        [HttpPut]
+        public async Task<IActionResult> Put(CurriculumTopicAdditionalLiterature value)
         {
-            if (id != curriculumTopicAdditionalLiterature.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(curriculumTopicAdditionalLiterature).State = EntityState.Modified;
-
-            try
-            {
+                _context.Update(value);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CurriculumTopicAdditionalLiteratureExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return Ok(value);
 
-            return NoContent();
+            }
+            return BadRequest(ModelState);
         }
 
-        // POST: api/CurriculumTopicAdditionalLiteratures
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<CurriculumTopicAdditionalLiterature>> PostCurriculumTopicAdditionalLiterature(CurriculumTopicAdditionalLiterature curriculumTopicAdditionalLiterature)
+        public async Task<ActionResult<CurriculumTopicAdditionalLiterature>> Post(CurriculumTopicAdditionalLiterature value)
         {
-            _context.CurriculumTopicAdditionalLiteratures.Add(curriculumTopicAdditionalLiterature);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCurriculumTopicAdditionalLiterature", new { id = curriculumTopicAdditionalLiterature.Id }, curriculumTopicAdditionalLiterature);
+            if (ModelState.IsValid)
+            {
+                _context.CurriculumTopicAdditionalLiteratures.Add(value);
+                await _context.SaveChangesAsync();
+                return Ok(value);
+            }
+            return BadRequest(ModelState);
         }
 
-        // DELETE: api/CurriculumTopicAdditionalLiteratures/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CurriculumTopicAdditionalLiterature>> DeleteCurriculumTopicAdditionalLiterature(int id)
+        public async Task<ActionResult<CurriculumTopicAdditionalLiterature>> Delete(int id)
         {
-            var curriculumTopicAdditionalLiterature = await _context.CurriculumTopicAdditionalLiteratures.FindAsync(id);
-            if (curriculumTopicAdditionalLiterature == null)
+            var value = await _context.CurriculumTopicAdditionalLiteratures.FindAsync(id);
+            if (value == null)
             {
                 return NotFound();
             }
 
-            _context.CurriculumTopicAdditionalLiteratures.Remove(curriculumTopicAdditionalLiterature);
+            _context.CurriculumTopicAdditionalLiteratures.Remove(value);
             await _context.SaveChangesAsync();
 
-            return curriculumTopicAdditionalLiterature;
-        }
-
-        private bool CurriculumTopicAdditionalLiteratureExists(int id)
-        {
-            return _context.CurriculumTopicAdditionalLiteratures.Any(e => e.Id == id);
+            return value;
         }
     }
 }

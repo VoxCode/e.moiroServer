@@ -22,7 +22,7 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task< ActionResult<IEnumerable<object>>> Get()
+        public async Task<ActionResult<IEnumerable<object>>> Get()
         {
             var tmp = from first in _context.Teachers
                       join second in _context.TeachingPositions on first.TeachingPositionId equals second.Id

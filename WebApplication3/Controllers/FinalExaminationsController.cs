@@ -22,22 +22,25 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FinalExamination>>> Get()
+        public async Task<ActionResult<IEnumerable<object>>> Get()
         {
-            return await _context.FinalExaminations.ToListAsync();
+            var tmp = from first in _context.FinalExaminations
+                      join second in _context.CertificationTypes on first.CertificationTypeId equals second.Id
+                      select new
+                      {
+                          first.Id,
+                          first.Content,
+                          first.CertificationTypeId,
+                          CertificationTypeName = second.Name
+                      };
+
+            return await tmp.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<FinalExamination>> Get(int id)
+        public async Task<ActionResult<IEnumerable<FinalExamination>>> Get(int id)
         {
-            var value = await _context.FinalExaminations.FindAsync(id);
-
-            if (value == null)
-            {
-                return NotFound();
-            }
-
-            return value;
+            return await _context.FinalExaminations.Where(a => a.CertificationTypeId == id).ToListAsync();
         }
 
         [HttpPut]

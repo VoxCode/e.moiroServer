@@ -8,9 +8,9 @@ namespace e.moiroServer.Data.Models
         public string Name { get; set; }
         public int NumberOfHours { get; set; }
         public bool IsDistanceLearning { get; set; }
-        public bool IsIndependentWork { get; set; }
+        public bool IsControlWork { get; set; }
         public bool IsTestWork { get; set; }
-        public string IndependentWork { get; set; }
+        public string ControlWork { get; set; }
         public int DepartmentId { get; set; }
         public int StudentCategoryId { get; set; }
         public int CertificationTypeId { get; set; }

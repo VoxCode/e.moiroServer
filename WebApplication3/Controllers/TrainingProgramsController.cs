@@ -22,9 +22,30 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TrainingProgram>>> Get()
+        public async Task<ActionResult<IEnumerable<object>>> Get()
         {
-            return await _context.TrainingPrograms.ToListAsync();
+            var tmp = from first in _context.TrainingPrograms
+                      join second in _context.Departments on first.DepartmentId equals second.Id
+                      join third in _context.StudentCategories on first.StudentCategoryId equals third.Id
+                      join fourth in _context.CertificationTypes on first.CertificationTypeId equals fourth.Id
+                      select new
+                      {
+                          first.Id,
+                          first.Name,
+                          first.NumberOfHours,
+                          first.IsDistanceLearning,
+                          first.IsControlWork,
+                          first.IsTestWork,
+                          first.ControlWork,
+                          first.DepartmentId,
+                          first.StudentCategoryId,
+                          first.CertificationTypeId,
+                          DepartmentName = second.Name,
+                          StudentCategoryName = third.Name,
+                          CertificationTypeName = fourth.Name
+                      };
+
+            return await tmp.ToListAsync();
         }
 
         [HttpGet("{id}")]

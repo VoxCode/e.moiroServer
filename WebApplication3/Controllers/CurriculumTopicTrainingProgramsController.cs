@@ -28,16 +28,9 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumTopicTrainingProgram>> Get(int id)
+        public async Task<ActionResult<IEnumerable<CurriculumTopicTrainingProgram>>> Get(int id)
         {
-            var value = await _context.CurriculumTopicTrainingPrograms.FindAsync(id);
-
-            if (value == null)
-            {
-                return NotFound();
-            }
-
-            return value;
+            return await _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgramId == id).ToListAsync();
         }
 
         [HttpPut]

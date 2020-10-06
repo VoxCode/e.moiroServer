@@ -8,5 +8,6 @@ namespace e.moiroServer.Data.Models
         public string Name { get; set; }
         public int SectionNumberId { get; set; }
         public List<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
+        public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
     }
 }

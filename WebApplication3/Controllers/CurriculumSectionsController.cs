@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using e.moiroServer.Data.Models;
@@ -22,32 +20,16 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> Get()
+        public async Task<ActionResult<IEnumerable<CurriculumSection>>> Get()
         {
-            var tmp = from first in _context.CurriculumSections
-                      join second in _context.SectionNumbers on first.SectionNumberId equals second.Id
-                      select new
-                      {
-                          first.Id,
-                          first.Name,
-                          first.SectionNumberId,
-                          SectionNumberName = second.Name
-                      };
-
-            return await tmp.ToListAsync();
+            return await _context.CurriculumSections.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurriculumSection>> Get(int id)
+        public ActionResult<IEnumerable<CurriculumSection>> Get(int id)
         {
-            var value = await _context.CurriculumSections.FindAsync(id);
-
-            if (value == null)
-            {
-                return NotFound();
-            }
-
-            return value;
+            var values = _context.CurriculumSections.Where(a => a.TrainingProgramCurriculumSections.Any(b => b.TrainingProgramId == id));
+            return values.ToList();
         }
 
         [HttpPut]

@@ -23,7 +23,6 @@ namespace e.moiroServer.Models
         public DbSet<MainLiterature> MainLiteratures { get; set; }
         public DbSet<OccupationForm> OccupationForms { get; set; }
         public DbSet<Regulation> Regulations { get; set; }
-        public DbSet<SectionNumber> SectionNumbers { get; set; }
         public DbSet<StudentCategory> StudentCategories { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<TeachingPosition> TeachingPositions { get; set; }

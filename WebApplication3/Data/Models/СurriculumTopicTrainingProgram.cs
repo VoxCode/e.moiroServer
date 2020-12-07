@@ -10,6 +10,7 @@ namespace e.moiroServer.Data.Models
         public int CurriculumTopicId { get; set; }
         public CurriculumTopic CurriculumTopic { get; set; }
         public int TrainingProgramId { get; set; }
+        public TrainingProgram TrainingProgram { get; set; }
         public int OccupationFormId { get; set; }
         public OccupationForm OccupationForm { get; set; }
         public int CurriculumSectionId { get; set; }

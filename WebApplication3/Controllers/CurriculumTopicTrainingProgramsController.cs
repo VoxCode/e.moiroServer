@@ -37,8 +37,7 @@ namespace e.moiroServer.Controllers
         public async Task<ActionResult<IEnumerable<object>>> Get(int trainingProgramId, int curriculumSectionId, int sectionNumber)
         {
             var tmp = from first in _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgramId == trainingProgramId
-                      && a.CurriculumSectionId == curriculumSectionId
-                      && a.CurriculumSection.TrainingProgramCurriculumSections.Any(b => b.SectionNumber == sectionNumber))
+                      && a.CurriculumSectionId == curriculumSectionId)
                       join second in _context.CurriculumTopics on first.CurriculumTopicId equals second.Id
                       select new
                       {

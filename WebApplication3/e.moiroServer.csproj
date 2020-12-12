@@ -19,6 +19,10 @@
     </PackageReference>   
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Дима неверующий Фома\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
   
 </Project>

@@ -20,6 +20,10 @@
     <PackageReference Include="Syncfusion.EJ2.WordEditor.AspNet.Core" Version="18.3.0.53" />   
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Дима неверующий Фома\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
   
 </Project>

@@ -39,6 +39,7 @@ namespace e.moiroServer.Controllers
             var tmp = from first in _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgramId == trainingProgramId
                       && a.CurriculumSectionId == curriculumSectionId)
                       join second in _context.CurriculumTopics on first.CurriculumTopicId equals second.Id
+                      join third in _context.OccupationForms on first.OccupationFormId equals third.Id
                       select new
                       {
                           first.Id,
@@ -51,7 +52,9 @@ namespace e.moiroServer.Controllers
                           first.TrainingProgramId,
                           second.TopicTitle,
                           second.Annotation,
-                          second.TestWork
+                          second.TestWork,
+                          third.FullName,
+                          third.ShortName
                       };
 
             return await tmp.ToListAsync();

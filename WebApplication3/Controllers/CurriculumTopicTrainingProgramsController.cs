@@ -49,7 +49,9 @@ namespace e.moiroServer.Controllers
                           first.OccupationFormId,
                           first.SerialNumber,
                           first.TrainingProgramId,
-                          TopicTitle = second.TopicTitle
+                          second.TopicTitle,
+                          second.Annotation,
+                          second.TestWork
                       };
 
             return await tmp.ToListAsync();

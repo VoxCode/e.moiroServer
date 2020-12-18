@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Дима неверующий Фома\**" />
+    <Content Remove="Дима неверующий Фома\**" />
+    <EmbeddedResource Remove="Дима неверующий Фома\**" />
+    <None Remove="Дима неверующий Фома\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
@@ -18,10 +25,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Syncfusion.EJ2.WordEditor.AspNet.Core" Version="18.3.0.53" />   
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Дима неверующий Фома\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

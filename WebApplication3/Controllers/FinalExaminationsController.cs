@@ -43,6 +43,14 @@ namespace e.moiroServer.Controllers
             return await _context.FinalExaminations.Where(a => a.CertificationTypeId == id).ToListAsync();
         }
 
+        [HttpGet("{curriculumTopicId}/{certificationTypeId}")]
+        public ActionResult<IEnumerable<FinalExamination>> Get(int curriculumTopicId, int certificationTypeId)
+        {
+            var result = _context.FinalExaminations.Where(a => a.CurriculumTopicFinalExaminations
+            .Any(r => r.CurriculumTopicId == curriculumTopicId && r.FinalExamination.CertificationTypeId == certificationTypeId));
+            return result.ToList();
+        }
+
         [HttpPut]
         public async Task<IActionResult> Put(FinalExamination value)
         {

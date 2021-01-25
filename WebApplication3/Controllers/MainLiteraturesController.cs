@@ -40,6 +40,14 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
+        [HttpGet("{curriculumTopicId}/{key}")]
+        public ActionResult<IEnumerable<MainLiterature>> GetMainLiterature(int curriculumTopicId, int key)
+        {
+            var result = _context.MainLiteratures.Where(a => a.CurriculumTopicMainLiteratures
+            .Any(r => r.CurriculumTopicId == curriculumTopicId));
+            return result.ToList();
+        }
+
         [HttpPut]
         public async Task<IActionResult> Put(MainLiterature value)
         {

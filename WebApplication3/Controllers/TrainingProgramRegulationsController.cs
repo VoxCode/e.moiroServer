@@ -28,16 +28,20 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TrainingProgramRegulation>> Get(int id)
+        public async Task<ActionResult<object>> Get(int id)
         {
-            var value = await _context.TrainingProgramRegulations.FindAsync(id);
+            var tmp = from first in _context.TrainingProgramRegulations.Where(a => a.TrainingProgramId == id)
+                      join second in _context.Regulations on first.RegulationId equals second.Id
+                      select new
+                      {
+                          first.Id,
+                          first.RegulationId,
+                          first.TrainingProgramId,
+                          first.SerialNumber,
+                          second.Content
+                      };
 
-            if (value == null)
-            {
-                return NotFound();
-            }
-
-            return value;
+            return await tmp.ToListAsync();
         }
 
         [HttpPut]

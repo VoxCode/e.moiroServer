@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using e.moiroServer.Data.Models;
 using e.moiroServer.Models;
+using System.Linq;
 
 namespace e.moiroServer.Controllers
 {
@@ -35,6 +36,14 @@ namespace e.moiroServer.Controllers
             }
 
             return value;
+        }
+
+        [HttpGet("{curriculumTopicId}/{key}")]
+        public ActionResult<IEnumerable<AdditionalLiterature>> GetAdditionalLiterature(int curriculumTopicId, int key)
+        {
+            var result = _context.AdditionalLiteratures.Where(a => a.CurriculumTopicAdditionalLiteratures
+            .Any(r => r.CurriculumTopicId == curriculumTopicId));
+            return result.ToList();
         }
 
         [HttpPut]

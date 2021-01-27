@@ -35,7 +35,8 @@ namespace e.moiroServer
                 .UseCors(options => options
                     .AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod())
+                    .AllowAnyMethod().
+                    WithExposedHeaders())
                 .UseAuthentication()
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>

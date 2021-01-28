@@ -28,19 +28,23 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{studentCategoryId}/{departmentId}")]
-        public ActionResult<IEnumerable<CurriculumTopic>> Get(int studentCategoryId, int departmentId)
+        public async Task<ActionResult<IEnumerable<CurriculumTopic>>> Get(int studentCategoryId, int departmentId)
         {
-            var result = _context.CurriculumTopics.Where(a => a.CurriculumTopicStudentCategories
-            .Any(r => r.StudentCategoryId == studentCategoryId) && a.CurriculumTopicDepartments.Any(e => e.DepartmentId == departmentId));
-            return result.ToList();
-        }
-
-        [HttpGet("{trainingProgramId}")]
-        public ActionResult<IEnumerable<CurriculumTopic>> Get(int trainingProgramId)
-        {
-            var result = _context.CurriculumTopics.Where(a => a.CurriculumTopicTrainingPrograms
-            .Any(r => r.TrainingProgramId == trainingProgramId));
-            return result.ToList();
+            List<CurriculumTopic> resultList = new List<CurriculumTopic>();
+            var tmpList = await _context.CurriculumTopicStudentCategories.Where(a => a.StudentCategoryId == studentCategoryId).ToListAsync();
+            var tmpList2 = await _context.CurriculumTopicDepartments.Where(a => a.DepartmentId == departmentId).ToListAsync();
+            foreach (var i in tmpList)
+            {
+                foreach (CurriculumTopicDepartment j in tmpList2)
+                {
+                    var tmp = _context.CurriculumTopics.FirstOrDefault(a => a.Id == i.CurriculumTopicId && a.Id == j.CurriculumTopicId);
+                    if (tmp != null)
+                    {
+                        resultList.Add(tmp);
+                    }
+                }
+            }
+            return resultList;
         }
 
         [HttpPut]

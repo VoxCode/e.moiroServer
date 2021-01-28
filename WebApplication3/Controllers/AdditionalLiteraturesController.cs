@@ -39,11 +39,18 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{curriculumTopicId}/{key}")]
-        public ActionResult<IEnumerable<AdditionalLiterature>> GetAdditionalLiterature(int curriculumTopicId, int key)
+        public async Task<ActionResult<IEnumerable<AdditionalLiterature>>> GetAdditionalLiterature(int curriculumTopicId, int key)
         {
-            var result = _context.AdditionalLiteratures.Where(a => a.CurriculumTopicAdditionalLiteratures
-            .Any(r => r.CurriculumTopicId == curriculumTopicId));
-            return result.ToList();
+            List<AdditionalLiterature> resultList = new List<AdditionalLiterature>();
+            var tmpList = await _context.CurriculumTopicAdditionalLiteratures.Where(a => a.CurriculumTopicId == curriculumTopicId).ToListAsync();
+            foreach(var i in tmpList)
+            {
+                var tmp = await _context.AdditionalLiteratures.FindAsync(i.AdditionalLiteratureId);
+
+                    resultList.Add(tmp);
+
+            }
+            return resultList;
         }
 
         [HttpPut]

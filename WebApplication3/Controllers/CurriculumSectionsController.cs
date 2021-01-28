@@ -26,10 +26,19 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<CurriculumSection>> Get(int id)
+        public async Task<ActionResult<IEnumerable<CurriculumSection>>> Get(int id)
         {
-            var values = _context.CurriculumSections.Where(a => a.TrainingProgramCurriculumSections.Any(b => b.TrainingProgramId == id));
-            return values.ToList();
+            List<CurriculumSection> resultList = new List<CurriculumSection>();
+            var tmpList = await _context.TrainingProgramCurriculumSections.Where(a => a.TrainingProgramId == id).ToListAsync();
+            foreach (var i in  tmpList)
+            {
+                var tmp = await _context.CurriculumSections.FindAsync(i.CurriculumSectionId);
+                if(tmp != null)
+                {
+                    resultList.Add(tmp);
+                }
+            }
+            return resultList;
         }
 
         [HttpPut]

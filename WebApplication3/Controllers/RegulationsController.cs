@@ -41,11 +41,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{curriculumTopicId}/{key}")]
-        public ActionResult<IEnumerable<Regulation>> Get(int curriculumTopicId, int key)
+        public async Task<ActionResult<IEnumerable<Regulation>>> Get(int curriculumTopicId, int key)
         {
-            var result = _context.Regulations.Where(a => a.CurriculumTopicRegulations
-            .Any(r => r.CurriculumTopicId == curriculumTopicId));
-            return result.ToList();
+            var result = await _context.Regulations.Where(a => a.CurriculumTopicRegulations
+            .Any(r => r.CurriculumTopicId == curriculumTopicId)).ToListAsync();
+            return result;
         }
 
         [HttpPut]

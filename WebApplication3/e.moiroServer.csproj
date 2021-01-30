@@ -3,14 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-E.MOIRO.Server</UserSecretsId>
+    <ThreadPoolMinThreads>1</ThreadPoolMinThreads>
+    <ThreadPoolMaxThreads>5</ThreadPoolMaxThreads>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Дима неверующий Фома\**" />
-    <Content Remove="Дима неверующий Фома\**" />
-    <EmbeddedResource Remove="Дима неверующий Фома\**" />
-    <None Remove="Дима неверующий Фома\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.2" />

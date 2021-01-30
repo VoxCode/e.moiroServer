@@ -87,7 +87,7 @@ namespace e.moiroServer.Extensions
                     new OpenApiInfo
                     {
                         Title = "E.moiro.api",
-                        Version = "v 0.1"
+                        Version = "v 0.9"
                     });
             });
 

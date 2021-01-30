@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using e.moiroServer.Data.Models;
 using e.moiroServer.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace e.moiroServer.Controllers
 {
@@ -40,12 +41,19 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
-        [HttpGet("{curriculumTopicId}/{key}")]
-        public async Task<ActionResult<IEnumerable<MainLiterature>>> GetMainLiterature(int curriculumTopicId, int key)
+        [HttpPost("{id}")]
+        public async Task<ActionResult<IEnumerable<MainLiterature>>> GetMainLiterature(int id, [FromBody] int[] curriculumTopicIdArray)
         {
-            var result = await _context.MainLiteratures.Where(a => a.CurriculumTopicMainLiteratures
-            .Any(r => r.CurriculumTopicId == curriculumTopicId)).ToListAsync();
-            return result;
+            IEnumerable<MainLiterature> result = new List<MainLiterature>();
+            foreach(var i in curriculumTopicIdArray)
+            {
+                var res = await _context.MainLiteratures.Where(a => a.CurriculumTopicMainLiteratures
+                .Any(r => r.CurriculumTopicId == i)).ToListAsync();
+                result = result.Union(res);
+                
+            }
+
+            return result.ToList();
         }
 
         [HttpPut]

@@ -28,8 +28,8 @@ namespace e.moiroServer
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app
+
                 .UseSwaggerUI()
                 .UseRouting()
                 .UseCors(options => options

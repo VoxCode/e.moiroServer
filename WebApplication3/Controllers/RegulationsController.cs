@@ -61,6 +61,21 @@ namespace e.moiroServer.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpPost("{id}")]
+        public async Task<ActionResult<IEnumerable<Regulation>>> GetMainLiterature(int id, [FromBody] int[] curriculumTopicIdArray)
+        {
+            IEnumerable<Regulation> result = new List<Regulation>();
+            foreach (var i in curriculumTopicIdArray)
+            {
+                var res = await _context.Regulations.Where(a => a.CurriculumTopicRegulations
+                .Any(r => r.CurriculumTopicId == i)).ToListAsync();
+                result = result.Union(res);
+
+            }
+
+            return result.ToList();
+        }
+
         [HttpPost]
         public async Task<ActionResult<Regulation>> Post(Regulation value)
         {

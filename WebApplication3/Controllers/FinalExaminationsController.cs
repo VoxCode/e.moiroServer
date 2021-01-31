@@ -43,14 +43,6 @@ namespace e.moiroServer.Controllers
             return await _context.FinalExaminations.Where(a => a.CertificationTypeId == id).ToListAsync();
         }
 
-        [HttpGet("{curriculumTopicId}/{certificationTypeId}")]
-        public async Task<ActionResult<IEnumerable<FinalExamination>>> Get(int curriculumTopicId, int certificationTypeId)
-        {
-            var result = await _context.FinalExaminations.Where(a => a.CurriculumTopicFinalExaminations
-            .Any(r => r.CurriculumTopicId == curriculumTopicId && r.FinalExamination.CertificationTypeId == certificationTypeId)).ToListAsync();
-            return result;
-        }
-
         [HttpPut]
         public async Task<IActionResult> Put(FinalExamination value)
         {
@@ -62,6 +54,21 @@ namespace e.moiroServer.Controllers
 
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpPost("{certificationTypeId}")]
+        public async Task<ActionResult<IEnumerable<FinalExamination>>> GetMainLiterature(int certificationTypeId, [FromBody] int[] curriculumTopicIdArray)
+        {
+            IEnumerable<FinalExamination> result = new List<FinalExamination>();
+            foreach (var i in curriculumTopicIdArray)
+            {
+                var res = await _context.FinalExaminations.Where(a => a.CurriculumTopicFinalExaminations
+                .Any(r => r.CurriculumTopicId == i && r.FinalExamination.CertificationTypeId == certificationTypeId)).ToListAsync();
+                result = result.Union(res);
+
+            }
+
+            return result.ToList();
         }
 
         [HttpPost]

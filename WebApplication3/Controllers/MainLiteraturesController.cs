@@ -41,21 +41,6 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
-        [HttpPost("{id}")]
-        public async Task<ActionResult<IEnumerable<MainLiterature>>> GetMainLiterature(int id, [FromBody] int[] curriculumTopicIdArray)
-        {
-            IEnumerable<MainLiterature> result = new List<MainLiterature>();
-            foreach(var i in curriculumTopicIdArray)
-            {
-                var res = await _context.MainLiteratures.Where(a => a.CurriculumTopicMainLiteratures
-                .Any(r => r.CurriculumTopicId == i)).ToListAsync();
-                result = result.Union(res);
-                
-            }
-
-            return result.ToList();
-        }
-
         [HttpPut]
         public async Task<IActionResult> Put(MainLiterature value)
         {
@@ -67,6 +52,21 @@ namespace e.moiroServer.Controllers
 
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult<IEnumerable<MainLiterature>>> GetMainLiterature(int id, [FromBody] int[] curriculumTopicIdArray)
+        {
+            IEnumerable<MainLiterature> result = new List<MainLiterature>();
+            foreach (var i in curriculumTopicIdArray)
+            {
+                var res = await _context.MainLiteratures.Where(a => a.CurriculumTopicMainLiteratures
+                .Any(r => r.CurriculumTopicId == i)).ToListAsync();
+                result = result.Union(res);
+
+            }
+
+            return result.ToList();
         }
 
         [HttpPost]

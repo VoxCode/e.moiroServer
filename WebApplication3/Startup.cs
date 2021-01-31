@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Threading;
 
 namespace e.moiroServer
 {
@@ -29,7 +30,6 @@ namespace e.moiroServer
                 app.UseDeveloperExceptionPage();
             }
             app
-
                 .UseSwaggerUI()
                 .UseRouting()
                 .UseCors(options => options

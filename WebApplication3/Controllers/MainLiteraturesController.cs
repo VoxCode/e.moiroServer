@@ -58,7 +58,7 @@ namespace e.moiroServer.Controllers
         public async Task<ActionResult<IEnumerable<MainLiterature>>> GetMainLiterature(int id, [FromBody] int[] curriculumTopicIdArray)
         {
             IEnumerable<MainLiterature> result = new List<MainLiterature>();
-            foreach (var i in curriculumTopicIdArray)
+            foreach (var i in curriculumTopicIdArray.AsParallel())
             {
                 var res = await _context.MainLiteratures.Where(a => a.CurriculumTopicMainLiteratures
                 .Any(r => r.CurriculumTopicId == i)).ToListAsync();

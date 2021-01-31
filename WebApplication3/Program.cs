@@ -20,7 +20,10 @@ namespace e.moiroServer
                 {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.ConfigureKestrel(options => {
-                        options.Limits.MaxConcurrentConnections = 12;
+                        options.Limits.MaxConcurrentConnections = 100;
+                        options.Limits.MaxConcurrentUpgradedConnections = 100;
+                        options.Limits.Http2.KeepAlivePingDelay = TimeSpan.FromSeconds(30);
+                        options.Limits.Http2.KeepAlivePingTimeout = TimeSpan.FromSeconds(60);
                         options.Limits.MaxRequestBodySize = 10 * 1024;
                         options.Limits.MinRequestBodyDataRate =
                             new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));

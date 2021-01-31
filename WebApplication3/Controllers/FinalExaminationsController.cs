@@ -60,7 +60,7 @@ namespace e.moiroServer.Controllers
         public async Task<ActionResult<IEnumerable<FinalExamination>>> GetMainLiterature(int certificationTypeId, [FromBody] int[] curriculumTopicIdArray)
         {
             IEnumerable<FinalExamination> result = new List<FinalExamination>();
-            foreach (var i in curriculumTopicIdArray)
+            foreach (var i in curriculumTopicIdArray.AsParallel())
             {
                 var res = await _context.FinalExaminations.Where(a => a.CurriculumTopicFinalExaminations
                 .Any(r => r.CurriculumTopicId == i && r.FinalExamination.CertificationTypeId == certificationTypeId)).ToListAsync();

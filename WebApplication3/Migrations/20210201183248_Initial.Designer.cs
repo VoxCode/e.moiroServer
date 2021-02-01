@@ -10,16 +10,16 @@ using e.moiroServer.Models;
 namespace e.moiroServer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200923074524_editDb")]
-    partial class editDb
+    [Migration("20210201183248_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .UseIdentityByDefaultColumns()
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -31,18 +31,18 @@ namespace e.moiroServer.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -52,7 +52,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -76,7 +76,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -156,7 +156,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
@@ -171,7 +171,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -186,17 +186,12 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("SectionNumberId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SectionNumberId");
 
                     b.ToTable("CurriculumSections");
                 });
@@ -206,12 +201,9 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Annotation")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TestWork")
                         .HasColumnType("text");
 
                     b.Property<string>("TopicTitle")
@@ -227,7 +219,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("AdditionalLiteratureId")
                         .HasColumnType("integer");
@@ -249,7 +241,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
@@ -271,7 +263,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
@@ -293,7 +285,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
@@ -315,7 +307,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
@@ -337,7 +329,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
@@ -359,7 +351,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("CurriculumTopicId")
                         .HasColumnType("integer");
@@ -381,9 +373,12 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("ClassHours")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CurriculumSectionId")
                         .HasColumnType("integer");
 
                     b.Property<int>("CurriculumTopicId")
@@ -403,9 +398,13 @@ namespace e.moiroServer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurriculumSectionId");
+
                     b.HasIndex("CurriculumTopicId");
 
                     b.HasIndex("OccupationFormId");
+
+                    b.HasIndex("TrainingProgramId");
 
                     b.ToTable("CurriculumTopicTrainingPrograms");
                 });
@@ -415,7 +414,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -430,7 +429,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("CertificationTypeId")
                         .HasColumnType("integer");
@@ -450,7 +449,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -465,7 +464,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<DateTime>("CalendarYear")
                         .HasColumnType("timestamp without time zone");
@@ -502,7 +501,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
@@ -517,7 +516,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("FullName")
                         .HasColumnType("text");
@@ -535,7 +534,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
@@ -545,27 +544,12 @@ namespace e.moiroServer.Migrations
                     b.ToTable("Regulations");
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.SectionNumber", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SectionNumbers");
-                });
-
             modelBuilder.Entity("e.moiroServer.Data.Models.StudentCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -580,7 +564,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<bool>("IsCathedral")
                         .HasColumnType("boolean");
@@ -603,7 +587,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -618,7 +602,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
@@ -633,21 +617,21 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("CertificationTypeId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ControlWork")
+                        .HasColumnType("text");
+
                     b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("IndependentWork")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDistanceLearning")
+                    b.Property<bool>("IsControlWork")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsIndependentWork")
+                    b.Property<bool>("IsDistanceLearning")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsTestWork")
@@ -678,7 +662,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("AdditionalLiteratureId")
                         .HasColumnType("integer");
@@ -703,9 +687,12 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("CurriculumSectionId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SectionNumber")
                         .HasColumnType("integer");
 
                     b.Property<int>("TrainingProgramId")
@@ -725,7 +712,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("FinalExaminationId")
                         .HasColumnType("integer");
@@ -750,7 +737,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("MainLiteratureId")
                         .HasColumnType("integer");
@@ -775,7 +762,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("RegulationId")
                         .HasColumnType("integer");
@@ -800,7 +787,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("TeacherId")
                         .HasColumnType("integer");
@@ -822,7 +809,7 @@ namespace e.moiroServer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .UseIdentityByDefaultColumn();
 
                     b.Property<int>("SerialNumber")
                         .HasColumnType("integer");
@@ -855,8 +842,8 @@ namespace e.moiroServer.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
@@ -868,12 +855,12 @@ namespace e.moiroServer.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -891,17 +878,17 @@ namespace e.moiroServer.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -957,15 +944,6 @@ namespace e.moiroServer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumSection", b =>
-                {
-                    b.HasOne("e.moiroServer.Data.Models.SectionNumber", null)
-                        .WithMany("CurriculumSections")
-                        .HasForeignKey("SectionNumberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicAdditionalLiterature", b =>
                 {
                     b.HasOne("e.moiroServer.Data.Models.AdditionalLiterature", null)
@@ -1004,11 +982,13 @@ namespace e.moiroServer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e.moiroServer.Data.Models.FinalExamination", null)
+                    b.HasOne("e.moiroServer.Data.Models.FinalExamination", "FinalExamination")
                         .WithMany("CurriculumTopicFinalExaminations")
                         .HasForeignKey("FinalExaminationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("FinalExamination");
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicMainLiterature", b =>
@@ -1073,17 +1053,37 @@ namespace e.moiroServer.Migrations
 
             modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopicTrainingProgram", b =>
                 {
-                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", null)
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumSection", "CurriculumSection")
+                        .WithMany("CurriculumTopicTrainingPrograms")
+                        .HasForeignKey("CurriculumSectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.CurriculumTopic", "CurriculumTopic")
                         .WithMany("CurriculumTopicTrainingPrograms")
                         .HasForeignKey("CurriculumTopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e.moiroServer.Data.Models.OccupationForm", null)
+                    b.HasOne("e.moiroServer.Data.Models.OccupationForm", "OccupationForm")
                         .WithMany("CurriculumTopicTrainingPrograms")
                         .HasForeignKey("OccupationFormId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("e.moiroServer.Data.Models.TrainingProgram", "TrainingProgram")
+                        .WithMany("CurriculumTopicTrainingPrograms")
+                        .HasForeignKey("TrainingProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CurriculumSection");
+
+                    b.Navigation("CurriculumTopic");
+
+                    b.Navigation("OccupationForm");
+
+                    b.Navigation("TrainingProgram");
                 });
 
             modelBuilder.Entity("e.moiroServer.Data.Models.FinalExamination", b =>
@@ -1243,6 +1243,129 @@ namespace e.moiroServer.Migrations
                         .HasForeignKey("TrainingProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.AdditionalLiterature", b =>
+                {
+                    b.Navigation("CurriculumTopicAdditionalLiteratures");
+
+                    b.Navigation("TrainingProgramAdditionalLiteratures");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CertificationType", b =>
+                {
+                    b.Navigation("FinalExaminations");
+
+                    b.Navigation("TrainingPrograms");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumSection", b =>
+                {
+                    b.Navigation("CurriculumTopicTrainingPrograms");
+
+                    b.Navigation("TrainingProgramCurriculumSections");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.CurriculumTopic", b =>
+                {
+                    b.Navigation("CurriculumTopicAdditionalLiteratures");
+
+                    b.Navigation("CurriculumTopicDepartments");
+
+                    b.Navigation("CurriculumTopicFinalExaminations");
+
+                    b.Navigation("CurriculumTopicMainLiteratures");
+
+                    b.Navigation("CurriculumTopicRegulations");
+
+                    b.Navigation("CurriculumTopicStudentCategories");
+
+                    b.Navigation("CurriculumTopicTestWorks");
+
+                    b.Navigation("CurriculumTopicTrainingPrograms");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.Department", b =>
+                {
+                    b.Navigation("CurriculumTopicDepartments");
+
+                    b.Navigation("TrainingPrograms");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.FinalExamination", b =>
+                {
+                    b.Navigation("CurriculumTopicFinalExaminations");
+
+                    b.Navigation("TrainingProgramFinalExaminations");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.FormOfEducation", b =>
+                {
+                    b.Navigation("Groups");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.MainLiterature", b =>
+                {
+                    b.Navigation("CurriculumTopicMainLiteratures");
+
+                    b.Navigation("TrainingProgramMainLiteratures");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.OccupationForm", b =>
+                {
+                    b.Navigation("CurriculumTopicTrainingPrograms");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.Regulation", b =>
+                {
+                    b.Navigation("CurriculumTopicRegulations");
+
+                    b.Navigation("TrainingProgramRegulations");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.StudentCategory", b =>
+                {
+                    b.Navigation("CurriculumTopicStudentCategories");
+
+                    b.Navigation("TrainingPrograms");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.Teacher", b =>
+                {
+                    b.Navigation("TrainingProgramTeachers");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.TeachingPosition", b =>
+                {
+                    b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.TestWork", b =>
+                {
+                    b.Navigation("CurriculumTopicTestWorks");
+
+                    b.Navigation("TrainingProgramTestWorks");
+                });
+
+            modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgram", b =>
+                {
+                    b.Navigation("CurriculumTopicTrainingPrograms");
+
+                    b.Navigation("Groups");
+
+                    b.Navigation("TrainingProgramAdditionalLiteratures");
+
+                    b.Navigation("TrainingProgramCurriculumSections");
+
+                    b.Navigation("TrainingProgramFinalExaminations");
+
+                    b.Navigation("TrainingProgramMainLiteratures");
+
+                    b.Navigation("TrainingProgramRegulations");
+
+                    b.Navigation("TrainingProgramTeachers");
+
+                    b.Navigation("TrainingProgramTestWorks");
                 });
 #pragma warning restore 612, 618
         }

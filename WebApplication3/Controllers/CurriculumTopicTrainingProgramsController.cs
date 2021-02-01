@@ -67,7 +67,6 @@ namespace e.moiroServer.Controllers
                           first.TrainingProgramId,
                           second.TopicTitle,
                           second.Annotation,
-                          second.TestWork,
                           third.FullName,
                           third.ShortName
                       };

@@ -9,6 +9,7 @@ namespace e.moiroServer.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
     : base(options)
         {
+            // Database.EnsureDeleted(); //Удалит всю базу, не использовать без понимания!!!!
             // Database.EnsureCreated();
         }
 

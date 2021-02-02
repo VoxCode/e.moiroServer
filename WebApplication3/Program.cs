@@ -18,6 +18,16 @@ namespace e.moiroServer
                 .CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseKestrel(options =>
+                    {
+                        options.Limits.MaxConcurrentConnections = 1000;
+                        options.Limits.MaxRequestBodySize = 100 * 1024;
+                        options.Limits.MinRequestBodyDataRate =
+                            new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
+                        options.Limits.MinResponseDataRate =
+                            new MinDataRate(bytesPerSecond: 100, gracePeriod: TimeSpan.FromSeconds(10));
+                        options.Listen(IPAddress.Loopback, 5000);
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }

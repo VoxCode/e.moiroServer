@@ -47,31 +47,9 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<object>> Get(int id)
+        public async Task<ActionResult<TrainingProgram>> Get(int id)
         {
-            var tmp = from first in _context.TrainingPrograms.Where(a => a.Id == id)
-                      join second in _context.Departments on first.DepartmentId equals second.Id
-                      join third in _context.StudentCategories on first.StudentCategoryId equals third.Id
-                      join fourth in _context.CertificationTypes on first.CertificationTypeId equals fourth.Id
-                      select new
-                      {
-                          first.Id,
-                          first.Name,
-                          first.NumberOfHours,
-                          first.IsDistanceLearning,
-                          first.IsControlWork,
-                          first.IsTestWork,
-                          first.ControlWork,
-                          first.DepartmentId,
-                          first.StudentCategoryId,
-                          first.CertificationTypeId,
-                          DepartmentName = second.Name,
-                          StudentCategoryName = third.Name,
-                          CertificationTypeName = fourth.Name
-                      };
-
-            var value = await tmp.FirstOrDefaultAsync(a => a.Id == id);
-            var tmp2 = tmp.ToListAsync();
+            var value = await _context.TrainingPrograms.FindAsync(id);
 
             if (value == null)
             {

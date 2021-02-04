@@ -43,7 +43,7 @@ namespace e.moiroServer.Controllers
                           CertificationTypeName = fourth.Name
                       };
 
-            return await tmp.ToListAsync();
+            return await tmp.ToListAsync().ConfigureAwait(false);
         }
 
         [HttpGet("{id}")]

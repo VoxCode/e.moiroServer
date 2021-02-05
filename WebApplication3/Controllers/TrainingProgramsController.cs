@@ -38,6 +38,7 @@ namespace e.moiroServer.Controllers
                           first.DepartmentId,
                           first.StudentCategoryId,
                           first.CertificationTypeId,
+                          first.FormOfEducationId,
                           DepartmentName = second.Name,
                           StudentCategoryName = third.Name,
                           CertificationTypeName = fourth.Name

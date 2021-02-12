@@ -46,6 +46,25 @@ namespace e.moiroServer.Controllers
             return  await tmp.ToListAsync();
         }
 
+        [HttpGet("{departmentId}/{key}")]
+        public async Task<ActionResult<IEnumerable<object>>> Get(int departmentId, int key)
+        {
+            var tmp = from first in _context.TrainingProgramCurriculumSections.Where(a => a.TrainingProgram.DepartmentId == departmentId)
+                      join second in _context.CurriculumSections on first.CurriculumSectionId equals second.Id
+                      select new
+                      {
+                          first.Id,
+                          first.SectionNumber,
+                          first.CurriculumSectionId,
+                          first.TrainingProgramId,
+                          second.Name
+                      };
+
+
+
+            return await tmp.ToListAsync();
+        }
+
         [HttpPut]
         public async Task<IActionResult> Put(TrainingProgramCurriculumSection value)
         {

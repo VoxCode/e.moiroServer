@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace e.moiroServer.Data.Models
 {
     public class TrainingProgramCurriculumSection
@@ -8,5 +10,6 @@ namespace e.moiroServer.Data.Models
         public TrainingProgram TrainingProgram { get; set; }
         public int CurriculumSectionId { get; set; }
         public int SectionNumber { get; set; }
+        public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
     }
 }

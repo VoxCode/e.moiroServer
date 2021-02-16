@@ -46,11 +46,11 @@ namespace e.moiroServer.Controllers
             return await tmp.ToListAsync();
         }
 
-        [HttpGet("{trainingProgramId}/{curriculumSectionId}/{sectionNumber}")]
-        public async Task<ActionResult<IEnumerable<object>>> Get(int trainingProgramId, int curriculumSectionId, int sectionNumber)
+        [HttpGet("{trainingProgramId}/{trainingProgramCurriculumSectionId}")]
+        public async Task<ActionResult<IEnumerable<object>>> Get(int trainingProgramId, int trainingProgramCurriculumSectionId)
         {
             var tmp = from first in _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgramId == trainingProgramId
-                      && a.CurriculumSectionId == curriculumSectionId)
+                      && a.TrainingProgram.TrainingProgramCurriculumSections.Any(b => b.Id == trainingProgramCurriculumSectionId))
                       join second in _context.CurriculumTopics on first.CurriculumTopicId equals second.Id
                       join third in _context.OccupationForms on first.OccupationFormId equals third.Id
                       select new

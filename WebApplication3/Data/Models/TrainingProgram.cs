@@ -12,9 +12,9 @@ namespace e.moiroServer.Data.Models
         public bool IsTestWork { get; set; }
         public string ControlWork { get; set; }
         public int DepartmentId { get; set; }
-        public int StudentCategoryId { get; set; }
-        public int CertificationTypeId { get; set; }
-        public int FormOfEducationId { get; set; }
+        public int? StudentCategoryId { get; set; }
+        public int? CertificationTypeId { get; set; }
+        public int? FormOfEducationId { get; set; }
 
         public List<Group> Groups { get; set; }
         public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }

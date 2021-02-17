@@ -26,6 +26,7 @@ namespace e.moiroServer.Controllers
                       join second in _context.Departments on first.DepartmentId equals second.Id
                       join third in _context.StudentCategories on first.StudentCategoryId equals third.Id
                       join fourth in _context.CertificationTypes on first.CertificationTypeId equals fourth.Id
+                      join fifth in _context.FormOfEducations on first.FormOfEducationId equals fifth.Id
                       select new
                       {
                           first.Id,
@@ -41,7 +42,8 @@ namespace e.moiroServer.Controllers
                           first.FormOfEducationId,
                           DepartmentName = second.Name,
                           StudentCategoryName = third.Name,
-                          CertificationTypeName = fourth.Name
+                          CertificationTypeName = fourth.Name,
+                          FormOfEducationName = fifth.Name
                       };
 
             return await tmp.ToListAsync().ConfigureAwait(false);

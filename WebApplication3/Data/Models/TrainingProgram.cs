@@ -18,12 +18,12 @@ namespace e.moiroServer.Data.Models
 
         public List<Group> Groups { get; set; }
         public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
-        public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
         public List<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
         public List<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
         public List<TrainingProgramFinalExamination> TrainingProgramFinalExaminations { get; set; }
         public List<TrainingProgramMainLiterature> TrainingProgramMainLiteratures { get; set; }
         public List<TrainingProgramAdditionalLiterature> TrainingProgramAdditionalLiteratures { get; set; }
         public List<TrainingProgramRegulation> TrainingProgramRegulations { get; set; }
+        public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
     }
 }

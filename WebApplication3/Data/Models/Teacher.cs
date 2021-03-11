@@ -6,8 +6,9 @@ namespace e.moiroServer.Data.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Position { get; set; }
+        public string AcademicRank { get; set; }
         public bool IsCathedral { get; set; }
-        public int TeachingPositionId { get; set; }
-        public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
+        List<ScheduleBlockTeachers> ScheduleBlockTeachers { get; set; }
     }
 }

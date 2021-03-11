@@ -2,10 +2,10 @@
 
 namespace e.moiroServer.Data.Models
 {
-    public class TeachingPosition
+    public class Expert
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Teacher> Teachers { get; set; }
+        public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
     }
 }

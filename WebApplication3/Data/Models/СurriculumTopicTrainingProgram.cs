@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 
 namespace e.moiroServer.Data.Models
 {
@@ -17,6 +16,7 @@ namespace e.moiroServer.Data.Models
         public TrainingProgram TrainingProgram { get; set; }
         public OccupationForm OccupationForm { get; set; }
         public TrainingProgramCurriculumSection TrainingProgramCurriculumSection { get; set; }
+        public List<ScheduleBlockCurriculumTopicTrainingProgram> ScheduleBlockCurriculumTopicTrainingPrograms { get; set; }
     }
 }
 

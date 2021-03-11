@@ -26,7 +26,6 @@ namespace e.moiroServer.Models
         public DbSet<Regulation> Regulations { get; set; }
         public DbSet<StudentCategory> StudentCategories { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<TeachingPosition> TeachingPositions { get; set; }
         public DbSet<TestWork> TestWorks { get; set; }
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
 

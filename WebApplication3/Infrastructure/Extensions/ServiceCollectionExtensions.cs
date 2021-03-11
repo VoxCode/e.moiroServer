@@ -77,7 +77,6 @@ namespace e.moiroServer.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services
                 .AddTransient<IIdentityService, IdentityService>();
-                //.AddTransient<ICatService, CatService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
             => services.AddSwaggerGen(c =>

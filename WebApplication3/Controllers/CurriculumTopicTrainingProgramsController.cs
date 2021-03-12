@@ -65,7 +65,7 @@ namespace e.moiroServer.Controllers
                           second.TopicTitle,
                           second.Annotation,
                           third.FullName,
-                          third.ShortName
+                          third.PluralName
                       };
 
             return await tmp.ToListAsync().ConfigureAwait(false);

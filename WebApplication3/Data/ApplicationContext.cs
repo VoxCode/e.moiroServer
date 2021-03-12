@@ -1,4 +1,5 @@
-﻿using e.moiroServer.Data.Models;
+﻿using e.moiroServer.Configurations;
+using e.moiroServer.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,5 +46,15 @@ namespace e.moiroServer.Models
         public DbSet<TrainingProgramRegulation> TrainingProgramRegulations { get; set; }
         public DbSet<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
         public DbSet<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new OccupationFormConfiguration());
+            modelBuilder.ApplyConfiguration(new CertificationTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new FormOfEducationConfigurations());
+            modelBuilder.ApplyConfiguration(new DepartmentConfigurations());
+        }
     }
 }

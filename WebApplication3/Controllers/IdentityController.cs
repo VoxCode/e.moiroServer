@@ -29,16 +29,20 @@ namespace e.moiroServer.Controllers
         [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterRequestModel model)
         {
+            string role = "Viewer";
+
             var user = new User
             {
                 Email = model.Email,
-                UserName = model.UserName
+                UserName = model.UserName,
+                
             };
 
-            var result = await this.userManager.CreateAsync(user, model.Password);
+            var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
+                await userManager.AddToRoleAsync(user, role);
                 return Ok();
             }
 
@@ -50,22 +54,22 @@ namespace e.moiroServer.Controllers
         [Route(nameof(Login))]
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
-            var user = await this.userManager.FindByNameAsync(model.UserName);
+            var user = await userManager.FindByNameAsync(model.UserName);
             if (user == null)
             {
                 return Unauthorized();
             }
 
-            var passwordValid = await this.userManager.CheckPasswordAsync(user, model.Password);
+            var passwordValid = await userManager.CheckPasswordAsync(user, model.Password);
             if (!passwordValid)
             {
                 return Unauthorized();
             }
 
-            var token = this.identityService.GenerateJwtToken(
+            var token = identityService.GenerateJwtToken(
                 user.Id,
                 user.UserName,
-                this.appSettings.Secret);
+                appSettings.Secret);
 
             return new LoginResponseModel
             {

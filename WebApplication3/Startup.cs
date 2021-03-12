@@ -10,15 +10,15 @@ namespace e.moiroServer
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration) => this.Configuration = configuration;
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
             => services
-                .AddDatabase(this.Configuration)
+                .AddDatabase(Configuration)
                 .AddIdentity()
-                .AddJwtAuthentication(services.GetApplicationSettings(this.Configuration))
+                .AddJwtAuthentication(services.GetApplicationSettings(Configuration))
                 .AddApplicationServices()
                 .AddSwagger()
                 .AddApiControllers();

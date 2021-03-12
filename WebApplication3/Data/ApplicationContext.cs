@@ -55,6 +55,7 @@ namespace e.moiroServer.Models
             modelBuilder.ApplyConfiguration(new CertificationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FormOfEducationConfigurations());
             modelBuilder.ApplyConfiguration(new DepartmentConfigurations());
+
         }
     }
 }

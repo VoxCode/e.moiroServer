@@ -11,22 +11,27 @@ namespace e.moiroServer.Configurations
             builder.HasData(
                 new CertificationType
                 {
+                    Id = 1,
                     Name = "Выпускная работа"
                 },
                 new CertificationType
                 {
+                    Id = 2,
                     Name = "Зачет"
                 },
                 new CertificationType
                 {
+                    Id = 3,
                     Name = "Экзамен"
                 },
                 new CertificationType
                 {
+                    Id = 4,
                     Name = "Собеседование в форме зачета"
                 },
                 new CertificationType
                 {
+                    Id = 5,
                     Name = "Собеседование в форме деловой игры"
                 }
             );

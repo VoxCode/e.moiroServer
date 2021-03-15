@@ -11,13 +11,28 @@ namespace e.moiroServer.Configurations
             builder.HasData(
                 new IdentityRole
                 {
+                    Name = "Administrator",
+                    NormalizedName = "ADMINISTRATOR"
+                },
+                new IdentityRole
+                {
                     Name = "Viewer",
                     NormalizedName = "VIEWER"
                 },
                 new IdentityRole
                 {
-                    Name = "Administrator",
-                    NormalizedName = "ADMINISTRATOR"
+                    Name = "Dean",
+                    NormalizedName = "DEAN"
+                },
+                new IdentityRole
+                {
+                    Name = "Creator",
+                    NormalizedName = "CREATOR"
+                },
+                new IdentityRole
+                {
+                    Name = "Editor",
+                    NormalizedName = "EDITOR"
                 }
             );
         }

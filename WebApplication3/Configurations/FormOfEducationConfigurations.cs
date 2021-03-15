@@ -11,10 +11,12 @@ namespace e.moiroServer.Configurations
             builder.HasData(
                 new FormOfEducation
                 {
+                    Id = 1,
                     Name = "Очная"
                 },
                 new FormOfEducation
                 {
+                    Id = 2,
                     Name = "Заочная"
                 }
             );

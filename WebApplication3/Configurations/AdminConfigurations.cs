@@ -5,24 +5,23 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace e.moiroServer.Configurations
 {
-    public class AdminConfigurations : IEntityTypeConfiguration<UserManager<User>>
+    public class AdminConfigurations : IEntityTypeConfiguration<User>
     {
-        private readonly UserManager<User> userManager;
-        public void Configure(EntityTypeBuilder<UserManager<User>> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
-            string role = "Viewer";
             string password = "235Cryptocertus";
 
-            var user = new User
-            {
-                UserName = "root",
-                Email = "admin@bk.ru",
-            };
+            var hasher = new PasswordHasher<User>();
 
-            userManager.CreateAsync(user, password);
-            userManager.AddToRoleAsync(user, role);
+            builder.HasData(
+                new User
+                {
+                    UserName = "root",
+                    Email = "admin@bk.ru",
+                    PasswordHash = hasher.HashPassword(null, password),
+                }
+            );
 
-            builder.HasData(userManager);
         }
     }
 }

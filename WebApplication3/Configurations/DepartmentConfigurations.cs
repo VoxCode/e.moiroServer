@@ -1,10 +1,6 @@
 ﻿using e.moiroServer.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace e.moiroServer.Configurations
 {
@@ -15,14 +11,17 @@ namespace e.moiroServer.Configurations
             builder.HasData(
                 new Department
                 {
+                    Id = 1,
                     Name = "Кафедра дошкольного и начального образования"
                 },
                 new Department
                 {
+                    Id = 2,
                     Name = "Кафедра психологии и управления"
                 },
                 new Department
                 {
+                    Id = 3,
                     Name = "Кафедра частных методик общего среднего образования"
                 }
             );

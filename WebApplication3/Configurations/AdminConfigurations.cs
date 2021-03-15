@@ -21,7 +21,6 @@ namespace e.moiroServer.Configurations
                     PasswordHash = hasher.HashPassword(null, password),
                 }
             );
-
         }
     }
 }

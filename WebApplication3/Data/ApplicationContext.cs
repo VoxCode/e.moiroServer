@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace e.moiroServer.Models
 {
-    public class ApplicationContext : IdentityDbContext<User>
+    public class ApplicationContext : IdentityDbContext
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
     : base(options)

@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace e.moiroServer.Models
 {
-    public class ApplicationContext : IdentityDbContext
+    public class ApplicationContext : IdentityDbContext<User>
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
     : base(options)
         {
-            Database.EnsureDeleted(); //Удалит всю базу, не использовать без понимания!!!!
-            Database.EnsureCreated();
+            //Database.EnsureDeleted(); //Удалит всю базу, не использовать без понимания!!!!
+            //Database.EnsureCreated();
         }
 
         public DbSet<AdditionalLiterature> AdditionalLiteratures { get; set; }
@@ -55,8 +55,8 @@ namespace e.moiroServer.Models
             modelBuilder.ApplyConfiguration(new CertificationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FormOfEducationConfigurations());
             modelBuilder.ApplyConfiguration(new DepartmentConfigurations());
-            modelBuilder.ApplyConfiguration(new AdminConfigurations());
-            modelBuilder.ApplyConfiguration(new AdminRoleConfigurations());
+            // modelBuilder.ApplyConfiguration(new AdminConfigurations());
+            //modelBuilder.ApplyConfiguration(new AdminRoleConfigurations());
         }
     }
 }

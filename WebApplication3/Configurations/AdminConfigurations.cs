@@ -5,16 +5,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace e.moiroServer.Configurations
 {
-    public class AdminConfigurations : IEntityTypeConfiguration<User>
+    public class AdminConfigurations : IEntityTypeConfiguration<IdentityUser>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<IdentityUser> builder)
         {
             string password = "235Cryptocertus";
+            string role ="Administrator";
 
-            var hasher = new PasswordHasher<User>();
+            var hasher = new PasswordHasher<IdentityUser>();
 
             builder.HasData(
-                new User
+                new IdentityUser
                 {
                     UserName = "root",
                     Email = "admin@bk.ru",

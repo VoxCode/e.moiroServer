@@ -35,7 +35,6 @@ namespace e.moiroServer.Controllers
             {
                 Email = model.Email,
                 UserName = model.UserName,
-                
             };
 
             var result = await userManager.CreateAsync(user, model.Password);

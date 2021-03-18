@@ -64,11 +64,12 @@ namespace e.moiroServer.Controllers
             {
                 return Unauthorized();
             }
-
+            var roles = await userManager.GetRolesAsync(user);
             var token = identityService.GenerateJwtToken(
                 user.Id,
                 user.UserName,
-                appSettings.Secret);
+                appSettings.Secret,
+                roles);
 
             return new LoginResponseModel
             {

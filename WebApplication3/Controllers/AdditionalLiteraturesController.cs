@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using e.moiroServer.Data.Models;
 using e.moiroServer.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace e.moiroServer.Controllers
 {
@@ -20,6 +21,7 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<IEnumerable<AdditionalLiterature>>> Get()
         {
             return await _context.AdditionalLiteratures.ToListAsync();

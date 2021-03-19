@@ -8,9 +8,9 @@ namespace e.moiroServer.Controllers
     [ApiController]
     public class PrivacyController : ControllerBase
     {
-        [HttpGet("Privacy")]
+        [HttpGet]
         [Authorize]
-        public IActionResult Privacy()
+        public IActionResult Get()
         {
             var claims = User.Claims
                 .Select(c => new { c.Type, c.Value })

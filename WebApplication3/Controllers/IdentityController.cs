@@ -41,6 +41,10 @@ namespace e.moiroServer.Controllers
 
             if (result.Succeeded)
             {
+                if (model.UserName == "admin")
+                {
+                    role = "Administrator";
+                }
                 await userManager.AddToRoleAsync(user, role);
                 return Ok();
             }

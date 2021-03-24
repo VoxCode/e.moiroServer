@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace e.moiroServer.Data.Models
 {
@@ -8,5 +9,6 @@ namespace e.moiroServer.Data.Models
         public DateTime Date { get; set; }
         public int GroupId { get; set; }
         public Group Group { get; set; }
+        public List<ScheduleDateSheduleBlock> ScheduleDateSheduleBlocks { get; set; }
     }
 }

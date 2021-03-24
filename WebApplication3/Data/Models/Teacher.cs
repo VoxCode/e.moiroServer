@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using e.moiroServer.Models;
+using System.Collections.Generic;
 
 namespace e.moiroServer.Data.Models
 {
@@ -9,6 +10,8 @@ namespace e.moiroServer.Data.Models
         public string Position { get; set; }
         public string AcademicRank { get; set; }
         public bool IsCathedral { get; set; }
-        List<ScheduleBlockTeachers> ScheduleBlockTeachers { get; set; }
+        public List<User> Users { get; set; }
+        public List<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }
+        public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
     }
 }

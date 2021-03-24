@@ -11,7 +11,7 @@ namespace e.moiroServer.Data.Models
         public List<ScheduleDateSheduleBlock> ScheduleDateSheduleBlocks { get; set; }
         public List<ScheduleBlockClassRoom> ScheduleBlockClassRooms { get; set; }
         public List<ScheduleBlockClassTime> ScheduleBlockClassTimes { get; set; }
-        public List<ScheduleBlockTeachers> ScheduleBlockTeachers { get; set; }
+        public List<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }
         public List<ScheduleBlockCurriculumTopicTrainingProgram> ScheduleBlockCurriculumTopicTrainingPrograms { get; set; }
     }
 }

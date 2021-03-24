@@ -1,45 +1,33 @@
 ﻿using e.moiroServer.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class RolesController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
-        public UsersController(ApplicationContext context)
+        public RolesController(ApplicationContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> Get()
+        public async Task<ActionResult<IEnumerable<IdentityRole>>> Get()
         {
-            var tmp = from first in _context.Roles
-                      join second in _context.UserRoles on first.Id equals second.RoleId
-                      join third in _context.Users on second.UserId equals third.Id
-                      select new
-                      {
-                          third.Id,
-                          third.UserName,
-                          third.Email,
-                          Role = first.Name
-
-                      };
-
-            return await tmp.ToListAsync().ConfigureAwait(false);
+            return await _context.Roles.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(int id)
+        public async Task<ActionResult<IdentityRole>> Get(int id)
         {
-            var value = await _context.Users.FindAsync(id);
+            var value = await _context.Roles.FindAsync(id);
 
             if (value == null)
             {
@@ -50,7 +38,7 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(User value)
+        public async Task<IActionResult> Put(IdentityRole value)
         {
             if (ModelState.IsValid)
             {
@@ -63,11 +51,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Post(User value)
+        public async Task<ActionResult<IdentityRole>> Post(IdentityRole value)
         {
             if (ModelState.IsValid)
             {
-                _context.Users.Add(value);
+                _context.Roles.Add(value);
                 await _context.SaveChangesAsync();
                 return Ok(value);
             }
@@ -75,15 +63,15 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> Delete(int id)
+        public async Task<ActionResult<IdentityRole>> Delete(int id)
         {
-            var value = await _context.Users.FindAsync(id);
+            var value = await _context.Roles.FindAsync(id);
             if (value == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(value);
+            _context.Roles.Remove(value);
             await _context.SaveChangesAsync();
 
             return value;

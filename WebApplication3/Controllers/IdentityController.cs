@@ -1,4 +1,5 @@
-﻿using e.moiroServer.Models;
+﻿using e.moiroServer.Data.Models.Identity;
+using e.moiroServer.Models;
 using e.moiroServer.Models.Identity;
 using e.moiroServer.Services;
 using Microsoft.AspNetCore.Identity;
@@ -79,6 +80,23 @@ namespace e.moiroServer.Controllers
             {
                 Token = token
             };
+        }
+
+        [HttpPost]
+        [Route(nameof(ChangeRole))]
+        public async Task<ActionResult> ChangeRole(RoleChangeModel roleChangemodel)
+        {
+            var delResult = await userManager.RemoveFromRoleAsync(roleChangemodel.User, roleChangemodel.OldRole);
+
+            if (delResult.Succeeded)
+            {
+                var addResult = await userManager.AddToRoleAsync(roleChangemodel.User, roleChangemodel.NewRole);
+                if (addResult.Succeeded)
+                {
+                    return Ok();
+                }
+            }
+            return BadRequest(delResult.Errors);
         }
     }
 }

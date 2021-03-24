@@ -86,11 +86,13 @@ namespace e.moiroServer.Controllers
         [Route(nameof(ChangeRole))]
         public async Task<ActionResult> ChangeRole(RoleChangeModel roleChangemodel)
         {
-            var delResult = await userManager.RemoveFromRoleAsync(roleChangemodel.User, roleChangemodel.OldRole);
+            var user = await userManager.FindByNameAsync(roleChangemodel.UserName);
+
+            var delResult = await userManager.RemoveFromRoleAsync(user, roleChangemodel.OldRole);
 
             if (delResult.Succeeded)
             {
-                var addResult = await userManager.AddToRoleAsync(roleChangemodel.User, roleChangemodel.NewRole);
+                var addResult = await userManager.AddToRoleAsync(user, roleChangemodel.NewRole);
                 if (addResult.Succeeded)
                 {
                     return Ok();

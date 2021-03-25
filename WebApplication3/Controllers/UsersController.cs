@@ -75,7 +75,7 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> Delete(int id)
+        public async Task<ActionResult<User>> Delete(string id)
         {
             var value = await _context.Users.FindAsync(id);
             if (value == null)

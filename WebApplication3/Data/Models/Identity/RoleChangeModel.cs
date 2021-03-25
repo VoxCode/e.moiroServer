@@ -1,9 +1,8 @@
-﻿using e.moiroServer.Models;
-
-namespace e.moiroServer.Data.Models.Identity
+﻿namespace e.moiroServer.Data.Models.Identity
 {
-    public class RoleChangeModel: User
+    public class RoleChangeModel
     {
+        public string UserName { get; set; }
         public string OldRole { get; set; }
         public string NewRole { get; set; }
     }

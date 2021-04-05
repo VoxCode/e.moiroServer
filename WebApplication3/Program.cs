@@ -16,7 +16,7 @@ namespace e.moiroServer
                 .CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseKestrel(options =>
+                    webBuilder.ConfigureKestrel(options =>
                     {
                         options.Limits.MaxConcurrentConnections = 20;
                         options.Listen(IPAddress.Loopback, 5009);

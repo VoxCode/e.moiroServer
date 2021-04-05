@@ -7,6 +7,7 @@ namespace e.moiroServer.Data.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int NumberOfHours { get; set; }
+        public string Introduction { get; set; }
         public bool IsDistanceLearning { get; set; }
         public bool IsControlWork { get; set; }
         public bool IsTestWork { get; set; }

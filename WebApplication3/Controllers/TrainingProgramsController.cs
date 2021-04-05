@@ -36,6 +36,7 @@ namespace e.moiroServer.Controllers
                           first.IsControlWork,
                           first.IsTestWork,
                           first.ControlWork,
+                          first.Introduction,
                           first.DepartmentId,
                           first.StudentCategoryId,
                           first.CertificationTypeId,

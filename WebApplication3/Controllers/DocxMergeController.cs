@@ -12,8 +12,8 @@ namespace e.moiroServer.Controllers
         [AcceptVerbs("Post")]
         public string Import(IFormCollection data)
         {
-            WordDocument firstDocx = (WordDocument)data.Files[0];
-            WordDocument secondDocx = (WordDocument)data.Files[1];
+            IFormFile firstDocx = data.Files[0];
+            IFormFile secondDocx = data.Files[1];
             DocxMergeService docxMergeService = new DocxMergeService(firstDocx, secondDocx);
             string sfdt = docxMergeService.Sfdt;
             return sfdt;

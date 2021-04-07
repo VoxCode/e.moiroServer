@@ -33,25 +33,15 @@ namespace e.moiroServer.Controllers
         {
             if (string.IsNullOrEmpty(format))
                 throw new NotSupportedException("EJ2 DocumentEditor does not support this file format.");
-            switch (format.ToLower())
+            return format.ToLower() switch
             {
-                case ".dotx":
-                case ".docx":
-                case ".docm":
-                case ".dotm":
-                    return FormatType.Docx;
-                case ".dot":
-                case ".doc":
-                    return FormatType.Doc;
-                case ".rtf":
-                    return FormatType.Rtf;
-                case ".txt":
-                    return FormatType.Txt;
-                case ".xml":
-                    return FormatType.WordML;
-                default:
-                    throw new NotSupportedException("EJ2 DocumentEditor does not support this file format.");
-            }
+                ".dotx" or ".docx" or ".docm" or ".dotm" => FormatType.Docx,
+                ".dot" or ".doc" => FormatType.Doc,
+                ".rtf" => FormatType.Rtf,
+                ".txt" => FormatType.Txt,
+                ".xml" => FormatType.WordML,
+                _ => throw new NotSupportedException("EJ2 DocumentEditor does not support this file format."),
+            };
         }
     }
 }

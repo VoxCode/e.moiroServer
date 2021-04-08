@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Syncfusion.DocIO;
 using Syncfusion.DocIO.DLS;
-using System;
 using System.IO;
 
 namespace e.moiroServer.Services
 {
-	public class DocxMergeService
+    public class DocxMergeService
 	{
 		public DocxMergeService(IFormFile firstDocx, IFormFile secondDocx)
 		{
@@ -17,8 +16,7 @@ namespace e.moiroServer.Services
 			secondDocx.CopyTo(secondStream);
 			secondStream.Position = 0;
 
-
-			WordDocument document = new WordDocument(firstStream, FormatType.Automatic);
+			using WordDocument document = new WordDocument(firstStream, FormatType.Automatic);
 			WordDocument destinationDocument = new WordDocument(secondStream, FormatType.Docx);
 			destinationDocument.ImportContent(document, ImportOptions.UseDestinationStyles);
 			MemoryStream stream = new MemoryStream();
@@ -31,7 +29,6 @@ namespace e.moiroServer.Services
 			string sfdt = Newtonsoft.Json.JsonConvert.SerializeObject(documentResult);
 			Sfdt = sfdt;
 			documentResult.Dispose();
-
 		}
 		public string Sfdt { get; set; }
 	}

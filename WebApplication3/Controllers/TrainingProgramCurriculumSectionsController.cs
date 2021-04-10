@@ -38,10 +38,9 @@ namespace e.moiroServer.Controllers
                           first.SectionNumber,
                           first.CurriculumSectionId,
                           first.TrainingProgramId,
+                          first.MaxVaiableTopicHours,
                           second.Name
                       };
-
-
 
             return  await tmp.ToListAsync();
         }

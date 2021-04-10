@@ -21,7 +21,6 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<IEnumerable<AdditionalLiterature>>> Get()
         {
             return await _context.AdditionalLiteratures.ToListAsync();

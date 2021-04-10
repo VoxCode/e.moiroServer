@@ -54,7 +54,11 @@ namespace e.moiroServer.Controllers
         public async Task<ActionResult<TrainingProgram>> Get(int id)
         {
             var value = await _context.TrainingPrograms.FindAsync(id);
-            value.Introduction = Encoding.UTF8.GetString(value.IntroductionData);
+            if (value.Introduction != null)
+            {
+                value.Introduction = Encoding.UTF8.GetString(value.IntroductionData);
+            }
+
             if (value == null)
             {
                 return NotFound();
@@ -66,8 +70,12 @@ namespace e.moiroServer.Controllers
         [HttpPut]
         public async Task<IActionResult> Put(TrainingProgram value)
         {
-            value.IntroductionData = Encoding.UTF8.GetBytes(value.Introduction);
-            value.Introduction = "";
+            if (value.Introduction != null)
+            {
+                value.IntroductionData = Encoding.UTF8.GetBytes(value.Introduction);
+                value.Introduction = "";
+            }
+
             if (ModelState.IsValid)
             {
                 TrainingProgram trainingProgram = new TrainingProgram();

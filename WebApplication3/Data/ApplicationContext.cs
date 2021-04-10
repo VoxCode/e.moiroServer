@@ -50,11 +50,11 @@ namespace e.moiroServer.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            modelBuilder.ApplyConfiguration(new OccupationFormConfiguration());
-            modelBuilder.ApplyConfiguration(new CertificationTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new FormOfEducationConfigurations());
-            modelBuilder.ApplyConfiguration(new DepartmentConfigurations());
+            //modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            //modelBuilder.ApplyConfiguration(new OccupationFormConfiguration());
+            //modelBuilder.ApplyConfiguration(new CertificationTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new FormOfEducationConfigurations());
+            //modelBuilder.ApplyConfiguration(new DepartmentConfigurations());
         }
     }
 }

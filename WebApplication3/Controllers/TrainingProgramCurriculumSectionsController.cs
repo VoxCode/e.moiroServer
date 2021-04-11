@@ -38,7 +38,7 @@ namespace e.moiroServer.Controllers
                           first.SectionNumber,
                           first.CurriculumSectionId,
                           first.TrainingProgramId,
-                          first.MaxVaiableTopicHours,
+                          first.MaxVariableTopicHours,
                           second.Name
                       };
 

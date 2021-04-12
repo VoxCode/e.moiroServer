@@ -24,12 +24,9 @@ namespace e.moiroServer.Services
 			destinationDocument.Close();
 			document.Close();
 			stream.Position = 0;
-			Syncfusion.EJ2.DocumentEditor.WordDocument documentResult = Syncfusion.EJ2.DocumentEditor.WordDocument
-.Load(stream, Syncfusion.EJ2.DocumentEditor.FormatType.Docx);
-			string sfdt = Newtonsoft.Json.JsonConvert.SerializeObject(documentResult);
-			Sfdt = sfdt;
-			documentResult.Dispose();
+			ResultDocx = stream.ToArray();
+
 		}
-		public string Sfdt { get; set; }
+		public byte[] ResultDocx { get; set; }
 	}
 }

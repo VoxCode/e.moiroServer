@@ -7,10 +7,10 @@ namespace e.moiroServer.Data.Models
     {
         public int Id { get; set; }
         public int TrainingProgramId { get; set; }
-        public int MaxVariableTopicHours { get; set; }
         public int? CurriculumSectionId { get; set; }
         public int SectionNumber { get; set; }
         public TrainingProgram TrainingProgram { get; set; }
         public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
+        public List<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
     }
 }

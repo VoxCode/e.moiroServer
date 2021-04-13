@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using e.moiroServer.Models;
@@ -9,9 +10,10 @@ using e.moiroServer.Models;
 namespace e.moiroServer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210413065520_AddNewEntityMaxVariableTopicHours")]
+    partial class AddNewEntityMaxVariableTopicHours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -540,7 +542,7 @@ namespace e.moiroServer.Migrations
                     b.ToTable("OccupationForms");
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.OccupationFormMaxVariableTopicHour", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.OccupationFormMaxVariableTopicHours", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1281,7 +1283,7 @@ namespace e.moiroServer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.OccupationFormMaxVariableTopicHour", b =>
+            modelBuilder.Entity("e.moiroServer.Data.Models.OccupationFormMaxVariableTopicHours", b =>
                 {
                     b.HasOne("e.moiroServer.Data.Models.TrainingProgramCurriculumSection", "TrainingProgramCurriculumSection")
                         .WithMany("OccupationFormMaxVariableTopicHours")

@@ -46,6 +46,7 @@ namespace e.moiroServer.Models
         public DbSet<TrainingProgramRegulation> TrainingProgramRegulations { get; set; }
         public DbSet<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
         public DbSet<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
+        public DbSet<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

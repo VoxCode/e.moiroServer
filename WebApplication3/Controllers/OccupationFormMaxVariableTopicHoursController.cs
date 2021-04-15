@@ -1,9 +1,10 @@
-﻿using e.moiroServer.Data.Models;
-using e.moiroServer.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using e.moiroServer.Data.Models;
+using e.moiroServer.Models;
 
 namespace e.moiroServer.Controllers
 {
@@ -25,16 +26,21 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OccupationFormMaxVariableTopicHour>> Get(int id)
+        public async Task<ActionResult<IEnumerable<object>>> Get(int trainingProgramId)
         {
-            var value = await _context.OccupationFormMaxVariableTopicHours.FindAsync(id);
+            var tmp = from first in _context.OccupationFormMaxVariableTopicHours
+                      .Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramId)
+                      join second in _context.OccupationForms on first.OccupationFormId equals second.Id
+                      select new
+                      {
+                          first.Id,
+                          first.MaxVariableTopicHours,
+                          first.OccupationFormId,
+                          first.TrainingProgramCurriculumSectionId,
+                          second.FullName
+                      };
 
-            if (value == null)
-            {
-                return NotFound();
-            }
-
-            return value;
+            return await tmp.ToListAsync();
         }
 
         [HttpPut]

@@ -7,5 +7,6 @@
         public int OccupationFormId { get; set; }
         public int TrainingProgramCurriculumSectionId { get; set; }
         public TrainingProgramCurriculumSection TrainingProgramCurriculumSection { get; set; }
+        public OccupationForm OccupationForm { get; set; }
     }
 }

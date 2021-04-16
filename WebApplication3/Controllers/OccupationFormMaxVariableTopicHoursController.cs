@@ -26,10 +26,10 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<object>>> Get(int trainingProgramId)
+        public async Task<ActionResult<IEnumerable<object>>> Get(int trainingProgramId, int trainingProgramCurriculumSectionId)
         {
             var tmp = from first in _context.OccupationFormMaxVariableTopicHours
-                      .Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramId)
+                      .Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramId && a.TrainingProgramCurriculumSectionId == trainingProgramCurriculumSectionId)
                       join second in _context.OccupationForms on first.OccupationFormId equals second.Id
                       select new
                       {
@@ -39,7 +39,6 @@ namespace e.moiroServer.Controllers
                           first.TrainingProgramCurriculumSectionId,
                           second.FullName
                       };
-
             return await tmp.ToListAsync();
         }
 

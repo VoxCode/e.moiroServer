@@ -3,42 +3,37 @@ using e.moiroServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentsController : ControllerBase
+    public class TeacherDepartmentsController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
-        public DepartmentsController(ApplicationContext context)
+        public TeacherDepartmentsController(ApplicationContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Department>>> Get()
+        public async Task<ActionResult<IEnumerable<TeacherDepartment>>> Get()
         {
-            return await _context.Departments.ToListAsync();
+            return await _context.TeacherDepartments.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Department>> Get(int id)
+        public async Task<ActionResult<IEnumerable<TeacherDepartment>>> Get(int teacherId)
         {
-            var value = await _context.Departments.FindAsync(id);
-
-            if (value == null)
-            {
-                return NotFound();
-            }
-
-            return value;
+            var tmp = await _context.TeacherDepartments.Where(a => a.TeacherId == teacherId).ToListAsync();
+            return tmp;
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Department value)
+        public async Task<IActionResult> Put(TeacherDepartment value)
         {
             if (ModelState.IsValid)
             {
@@ -51,11 +46,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Department>> Post(Department value)
+        public async Task<ActionResult<TeacherDepartment>> Post(TeacherDepartment value)
         {
             if (ModelState.IsValid)
             {
-                _context.Departments.Add(value);
+                _context.TeacherDepartments.Add(value);
                 await _context.SaveChangesAsync();
                 return Ok(value);
             }
@@ -63,15 +58,15 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Department>> Delete(int id)
+        public async Task<ActionResult<TeacherDepartment>> Delete(int id)
         {
-            var value = await _context.Departments.FindAsync(id);
+            var value = await _context.TeacherDepartments.FindAsync(id);
             if (value == null)
             {
                 return NotFound();
             }
 
-            _context.Departments.Remove(value);
+            _context.TeacherDepartments.Remove(value);
             await _context.SaveChangesAsync();
 
             return value;

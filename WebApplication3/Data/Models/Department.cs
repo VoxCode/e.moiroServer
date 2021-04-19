@@ -8,6 +8,7 @@ namespace e.moiroServer.Data.Models
         public string Name { get; set; }
         public string DepartmentHeadName { get; set; }
         public List<CurriculumTopicDepartment> CurriculumTopicDepartments { get; set; }
-        public List<TrainingProgram> TrainingPrograms { get; set; }
+        public List<TrainingProgram> TeacherDepartments { get; set; }
+        public List<TeacherDepartment> TrainingPrograms { get; set; }
     }
 }

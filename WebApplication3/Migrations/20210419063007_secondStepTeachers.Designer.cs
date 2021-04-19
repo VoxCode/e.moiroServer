@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using e.moiroServer.Models;
@@ -9,9 +10,10 @@ using e.moiroServer.Models;
 namespace e.moiroServer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210419063007_secondStepTeachers")]
+    partial class secondStepTeachers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -765,28 +767,6 @@ namespace e.moiroServer.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.TeacherDepartment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("TeacherDepartments");
-                });
-
             modelBuilder.Entity("e.moiroServer.Data.Models.TestWork", b =>
                 {
                     b.Property<int>("Id")
@@ -1389,21 +1369,6 @@ namespace e.moiroServer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.TeacherDepartment", b =>
-                {
-                    b.HasOne("e.moiroServer.Data.Models.Department", null)
-                        .WithMany("TrainingPrograms")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("e.moiroServer.Data.Models.Teacher", null)
-                        .WithMany("TeacherDepartments")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("e.moiroServer.Data.Models.TrainingProgram", b =>
                 {
                     b.HasOne("e.moiroServer.Data.Models.CertificationType", null)
@@ -1413,7 +1378,7 @@ namespace e.moiroServer.Migrations
                         .IsRequired();
 
                     b.HasOne("e.moiroServer.Data.Models.Department", null)
-                        .WithMany("TeacherDepartments")
+                        .WithMany("TrainingPrograms")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1600,8 +1565,6 @@ namespace e.moiroServer.Migrations
                 {
                     b.Navigation("CurriculumTopicDepartments");
 
-                    b.Navigation("TeacherDepartments");
-
                     b.Navigation("TrainingPrograms");
                 });
 
@@ -1666,8 +1629,6 @@ namespace e.moiroServer.Migrations
             modelBuilder.Entity("e.moiroServer.Data.Models.Teacher", b =>
                 {
                     b.Navigation("ScheduleBlockTeachers");
-
-                    b.Navigation("TeacherDepartments");
 
                     b.Navigation("TrainingProgramTeachers");
 

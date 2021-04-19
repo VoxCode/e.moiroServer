@@ -26,9 +26,9 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<TeacherDepartment>>> Get(int teacherId)
+        public async Task<ActionResult<IEnumerable<TeacherDepartment>>> Get(int id)
         {
-            var tmp = await _context.TeacherDepartments.Where(a => a.TeacherId == teacherId).ToListAsync();
+            var tmp = await _context.TeacherDepartments.Where(a => a.TeacherId == id).ToListAsync();
             return tmp;
         }
 

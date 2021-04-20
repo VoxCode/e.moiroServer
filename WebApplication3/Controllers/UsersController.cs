@@ -29,6 +29,7 @@ namespace e.moiroServer.Controllers
                           third.Id,
                           third.UserName,
                           third.Email,
+                          third.TeacherId,
                           Role = first.Name
 
                       };
@@ -49,14 +50,16 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(User value)
+        [HttpGet("{userId}/{teacherId}")]
+        public async Task<IActionResult> Get(string userId, int teacherId)
         {
+            var user = await _context.Users.FindAsync(userId);
+            user.TeacherId = teacherId;
             if (ModelState.IsValid)
             {
-                _context.Update(value);
+                _context.Update(user);
                 await _context.SaveChangesAsync();
-                return Ok(value);
+                return Ok(user);
 
             }
             return BadRequest(ModelState);

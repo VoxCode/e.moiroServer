@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 
-
 namespace e.moiroServer.Extensions
 {
     public static class IdentityExtensions

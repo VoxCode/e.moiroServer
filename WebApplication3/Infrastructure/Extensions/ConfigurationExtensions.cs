@@ -1,6 +1,4 @@
-﻿    
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace e.moiroServer.Extensions
 {

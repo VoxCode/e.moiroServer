@@ -1,7 +1,7 @@
 ﻿
 namespace e.moiroServer.Data.Models
 {
-    public class ScheduleDateSheduleBlock
+    public class ScheduleDateScheduleBlock
     {
         public int Id { get; set; }
         public int ScheduleDateId { get; set; }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace e.moiroServer.Configurations
 {
-    public class FormOfEducationConfigurations : IEntityTypeConfiguration<FormOfEducation>
+    public class FormOfEducationConfiguration : IEntityTypeConfiguration<FormOfEducation>
     {
         public void Configure(EntityTypeBuilder<FormOfEducation> builder)
         {

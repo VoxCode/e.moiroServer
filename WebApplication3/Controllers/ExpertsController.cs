@@ -3,38 +3,42 @@ using e.moiroServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CurriculumTopicsController : ControllerBase
+    public class ExpertsController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
-        public CurriculumTopicsController(ApplicationContext context)
+        public ExpertsController(ApplicationContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CurriculumTopic>>> Get()
+        public async Task<ActionResult<IEnumerable<Expert>>> Get()
         {
-            return await _context.CurriculumTopics.ToListAsync();
+            return await _context.Experts.ToListAsync();
         }
 
-        [HttpGet("{studentCategoryId}/{departmentId}")]
-        public async Task<ActionResult<IEnumerable<CurriculumTopic>>> Get(int studentCategoryId, int departmentId)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Expert>> Get(int id)
         {
-            var result = await _context.CurriculumTopics.Where(a => a.CurriculumTopicStudentCategories
-            .Any(r => r.StudentCategoryId == studentCategoryId) && a.CurriculumTopicDepartments.Any(e => e.DepartmentId == departmentId)).ToListAsync();
-            return result;
+            var value = await _context.Experts.FindAsync(id);
+
+            if (value == null)
+            {
+                return NotFound();
+            }
+
+            return value;
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(CurriculumTopic value)
+        public async Task<IActionResult> Put(Expert value)
         {
             if (ModelState.IsValid)
             {
@@ -47,11 +51,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CurriculumTopic>> Post(CurriculumTopic value)
+        public async Task<ActionResult<Expert>> Post(Expert value)
         {
             if (ModelState.IsValid)
             {
-                _context.CurriculumTopics.Add(value);
+                _context.Experts.Add(value);
                 await _context.SaveChangesAsync();
                 return Ok(value);
             }
@@ -59,18 +63,19 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CurriculumTopic>> Delete(int id)
+        public async Task<ActionResult<Expert>> Delete(int id)
         {
-            var value = await _context.CurriculumTopics.FindAsync(id);
+            var value = await _context.Experts.FindAsync(id);
             if (value == null)
             {
                 return NotFound();
             }
 
-            _context.CurriculumTopics.Remove(value);
+            _context.Experts.Remove(value);
             await _context.SaveChangesAsync();
 
             return value;
         }
+
     }
 }

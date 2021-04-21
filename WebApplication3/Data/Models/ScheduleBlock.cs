@@ -8,7 +8,7 @@ namespace e.moiroServer.Data.Models
         public int SubgroupNumber { get; set; }
         public int SerialNumber { get; set; }
 
-        public List<ScheduleDateSheduleBlock> ScheduleDateSheduleBlocks { get; set; }
+        public List<ScheduleDateScheduleBlock> ScheduleDateSheduleBlocks { get; set; }
         public List<ScheduleBlockClassRoom> ScheduleBlockClassRooms { get; set; }
         public List<ScheduleBlockClassTime> ScheduleBlockClassTimes { get; set; }
         public List<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }

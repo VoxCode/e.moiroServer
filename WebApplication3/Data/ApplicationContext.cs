@@ -29,6 +29,12 @@ namespace e.moiroServer.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<TestWork> TestWorks { get; set; }
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
+        public DbSet<Expert> Experts { get; set; }
+        public DbSet<ScheduleBlock> ScheduleBlocks { get; set; }
+        public DbSet<ScheduleDate> ScheduleDates { get; set; }
+        public DbSet<ClassRoom> ClassRooms { get; set; }
+        public DbSet<ClassTime> ClassTimes { get; set; }
+        public DbSet<InstituteStructure> InstituteStructures { get; set; }
 
         public DbSet<CurriculumTopicAdditionalLiterature> CurriculumTopicAdditionalLiteratures { get; set; }
         public DbSet<CurriculumTopicDepartment> CurriculumTopicDepartments { get; set; }
@@ -46,17 +52,26 @@ namespace e.moiroServer.Models
         public DbSet<TrainingProgramRegulation> TrainingProgramRegulations { get; set; }
         public DbSet<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
         public DbSet<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
+
         public DbSet<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
+
         public DbSet<TeacherDepartment> TeacherDepartments { get; set; }
+
+        public DbSet<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }
+        public DbSet<ScheduleBlockClassRoom> ScheduleBlockClassRooms { get; set; }
+        public DbSet<ScheduleBlockClassTime> ScheduleBlockClassTimes { get; set; }
+        public DbSet<ScheduleBlockCurriculumTopicTrainingProgram> ScheduleBlockCurriculumTopicTrainingPrograms { get; set; }
+        public DbSet<ScheduleDateScheduleBlock> ScheduleDateScheduleBlocks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            //modelBuilder.ApplyConfiguration(new OccupationFormConfiguration());
-            //modelBuilder.ApplyConfiguration(new CertificationTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new FormOfEducationConfigurations());
-            //modelBuilder.ApplyConfiguration(new DepartmentConfigurations());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new OccupationFormConfiguration());
+            modelBuilder.ApplyConfiguration(new CertificationTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new FormOfEducationConfiguration());
+            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            modelBuilder.ApplyConfiguration(new ExpertConfiguration());
         }
     }
 }

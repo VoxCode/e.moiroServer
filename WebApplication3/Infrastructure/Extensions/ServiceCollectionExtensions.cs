@@ -1,5 +1,4 @@
-﻿using System.Text;
-using e.moiroServer.Filters;
+﻿using e.moiroServer.Filters;
 using e.moiroServer.Models;
 using e.moiroServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace e.moiroServer.Extensions
 {

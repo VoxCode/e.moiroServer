@@ -34,7 +34,7 @@ namespace e.moiroServer.Controllers
                       {
                           first.Id,
                           first.ClassHours,
-                          first.TrainingProgrmaCurriculumSectionId,
+                          first.TrainingProgramCurriculumSectionId,
                           first.CurriculumTopicId,
                           first.IsVariable,
                           first.OccupationFormId,
@@ -49,14 +49,14 @@ namespace e.moiroServer.Controllers
         [HttpGet("{trainingProgramCurriculumSectionId}/{key}")]
         public async Task<ActionResult<IEnumerable<object>>> Get(int trainingProgramCurriculumSectionId, int key)
         {
-            var tmp = from first in _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgrmaCurriculumSectionId == trainingProgramCurriculumSectionId)
+            var tmp = from first in _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramCurriculumSectionId)
                       join second in _context.CurriculumTopics on first.CurriculumTopicId equals second.Id
                       join third in _context.OccupationForms on first.OccupationFormId equals third.Id
                       select new
                       {
                           first.Id,
                           first.ClassHours,
-                          first.TrainingProgrmaCurriculumSectionId,
+                          first.TrainingProgramCurriculumSectionId,
                           first.CurriculumTopicId,
                           first.IsVariable,
                           first.OccupationFormId,

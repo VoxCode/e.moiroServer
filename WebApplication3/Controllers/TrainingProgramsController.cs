@@ -57,6 +57,7 @@ namespace e.moiroServer.Controllers
             if (value.Introduction != null)
             {
                 value.Introduction = Encoding.UTF8.GetString(value.IntroductionData);
+                value.IntroductionData = null;
             }
 
             if (value == null)

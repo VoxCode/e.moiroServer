@@ -29,7 +29,8 @@ namespace e.moiroServer.Controllers
         public async Task<ActionResult<IEnumerable<CurriculumTopic>>> Get(int studentCategoryId, int departmentId)
         {
             var result = await _context.CurriculumTopics.Where(a => a.CurriculumTopicStudentCategories
-            .Any(r => r.StudentCategoryId == studentCategoryId) && a.CurriculumTopicDepartments.Any(e => e.DepartmentId == departmentId)).ToListAsync();
+            .Any(r => r.StudentCategoryId == studentCategoryId) && a.CurriculumTopicDepartments
+            .Any(e => e.DepartmentId == departmentId)).ToListAsync();
             return result;
         }
 

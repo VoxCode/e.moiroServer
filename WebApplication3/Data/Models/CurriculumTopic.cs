@@ -7,6 +7,7 @@ namespace e.moiroServer.Data.Models
         public int Id { get; set; }
         public string TopicTitle { get; set; }
         public string Annotation { get; set; }
+        public string AuthorIndex { get; set; }
 
         public List<CurriculumTopicAdditionalLiterature> CurriculumTopicAdditionalLiteratures { get; set; }
         public List<CurriculumTopicRegulation> CurriculumTopicRegulations { get; set; }

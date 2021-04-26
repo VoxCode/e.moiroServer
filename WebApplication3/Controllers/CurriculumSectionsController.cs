@@ -28,14 +28,16 @@ namespace e.moiroServer.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<CurriculumSection>>> Get(int id)
         {
-            var values = await _context.CurriculumSections.Where(a => a.TrainingProgramCurriculumSections.Any(b => b.TrainingProgramId == id)).ToListAsync();
+            var values = await _context.CurriculumSections.Where(a => a.TrainingProgramCurriculumSections
+            .Any(b => b.TrainingProgramId == id)).ToListAsync();
             return values;
         }
 
         [HttpGet("{departmentId}/{key}")]
         public async Task<ActionResult<IEnumerable<CurriculumSection>>> Get(int departmentId, int key)
         {
-            var values = await _context.CurriculumSections.Where(a => a.TrainingProgramCurriculumSections.Any(b => b.TrainingProgram.DepartmentId == departmentId)).ToListAsync();
+            var values = await _context.CurriculumSections.Where(a => a.TrainingProgramCurriculumSections
+            .Any(b => b.TrainingProgram.DepartmentId == departmentId)).ToListAsync();
             return values;
         }
 

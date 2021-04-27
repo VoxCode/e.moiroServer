@@ -30,6 +30,7 @@ namespace e.moiroServer.Controllers
         {
             var tmp = from first in _context.TrainingProgramCurriculumSections.Where(a => a.TrainingProgramId == id)
                       join second in _context.CurriculumSections on first.CurriculumSectionId equals second.Id
+                      into temp from second in temp.DefaultIfEmpty()
                       select new
                       {
                           first.Id,

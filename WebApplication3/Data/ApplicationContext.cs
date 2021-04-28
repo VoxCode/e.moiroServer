@@ -44,6 +44,7 @@ namespace e.moiroServer.Models
         public DbSet<CurriculumTopicRegulation> CurriculumTopicRegulations { get; set; }
         public DbSet<CurriculumTopicStudentCategory> CurriculumTopicStudentCategories { get; set; }
         public DbSet<CurriculumTopicTestWork> CurriculumTopicTestWorks { get; set; }
+        public DbSet<CurriculumTopicTrainingProgramOccupationForm> CurriculumTopicTrainingProgramOccupationForms { get; set; }
 
         public DbSet<TrainingProgramAdditionalLiterature> TrainingProgramAdditionalLiteratures { get; set; }
         public DbSet<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }

@@ -8,6 +8,5 @@ namespace e.moiroServer.Data.Models
         public string Content { get; set; }
         public string AuthorIndex { get; set; }
         public List<CurriculumTopicMainLiterature> CurriculumTopicMainLiteratures { get; set; }
-        public List<TrainingProgramMainLiterature> TrainingProgramMainLiteratures { get; set; }
     }
 }

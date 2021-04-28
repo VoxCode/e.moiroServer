@@ -10,13 +10,11 @@ namespace e.moiroServer.Data.Models
         public int SerialNumber { get; set; }
         public int CurriculumTopicId { get; set; }
         public int TrainingProgramId { get; set; }
-        public int? OccupationFormId { get; set; }
         public int TrainingProgramCurriculumSectionId { get; set; }
         public CurriculumTopic CurriculumTopic { get; set; }
         public TrainingProgram TrainingProgram { get; set; }
-        public OccupationForm OccupationForm { get; set; }
         public TrainingProgramCurriculumSection TrainingProgramCurriculumSection { get; set; }
         public List<ScheduleBlockCurriculumTopicTrainingProgram> ScheduleBlockCurriculumTopicTrainingPrograms { get; set; }
+        public List<CurriculumTopicTrainingProgramOccupationForm> CurriculumTopicTrainingProgramOccupationForms { get; set; }
     }
 }
-

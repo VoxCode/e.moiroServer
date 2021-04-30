@@ -3,6 +3,7 @@ using e.moiroServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
@@ -75,6 +76,34 @@ namespace e.moiroServer.Controllers
             await _context.SaveChangesAsync();
 
             return value;
+        }
+
+        [HttpPost("{teacherId}")]
+        public async Task<ActionResult<Teacher>> DeleteTeacherDepartment(int teacherId, [FromBody] ICollection<Department> departments)
+        {
+            var teahcer = await _context.Teachers.Include(a => a.Departments).FirstOrDefaultAsync(b => b.Id == teacherId);
+            if (teahcer == null) return NotFound();
+            if (departments.Count > teahcer.Departments.Count)
+            {
+                var departmentsExcept = departments.Except(teahcer.Departments);
+                foreach(var departmentExcept in departmentsExcept)
+                {
+                    departmentsExcept
+                }
+            }
+
+            foreach (var department in departments)
+            {
+                teahcer.Departments.Add(department);
+            }
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpGet("GetTeacherDepartment/{teacherId}")]
+        public async Task<ActionResult<IEnumerable<Department>>> GetTeacherDepartment(int teacherId)
+        {
+            return await _context.Departments.Where(a => a.Teachers.Any(b => b.Id == teacherId)).ToListAsync();
         }
     }
 }

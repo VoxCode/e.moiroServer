@@ -8,14 +8,14 @@ namespace e.moiroServer.Data.Models
         public string TopicTitle { get; set; }
         public string Annotation { get; set; }
         public string AuthorIndex { get; set; }
+        public ICollection<FinalExamination> FinalExaminations { get; set; }
+        public ICollection<AdditionalLiterature> AdditionalLiteratures { get; set; }
+        public ICollection<Regulation> Regulations { get; set; }
+        public ICollection<MainLiterature> MainLiteratures { get; set; }
+        public ICollection<TestWork> TestWorks { get; set; }
+        public ICollection<StudentCategory> StudentCategories { get; set; }
+        public ICollection<Department> Departments { get; set; }
+        public ICollection<TrainingProgram> TrainingPrograms { get; set; }
 
-        public List<CurriculumTopicAdditionalLiterature> CurriculumTopicAdditionalLiteratures { get; set; }
-        public List<CurriculumTopicRegulation> CurriculumTopicRegulations { get; set; }
-        public List<CurriculumTopicMainLiterature> CurriculumTopicMainLiteratures { get; set; }
-        public List<CurriculumTopicDepartment> CurriculumTopicDepartments { get; set; }
-        public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
-        public List<CurriculumTopicTestWork> CurriculumTopicTestWorks { get; set; }
-        public List<CurriculumTopicStudentCategory> CurriculumTopicStudentCategories { get; set; }
-        public List<CurriculumTopicFinalExamination> CurriculumTopicFinalExaminations { get; set; }
     }
 }

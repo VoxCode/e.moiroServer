@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace e.moiroServer.Data.Models
 {
@@ -9,8 +8,7 @@ namespace e.moiroServer.Data.Models
         public int TrainingProgramId { get; set; }
         public int? CurriculumSectionId { get; set; }
         public int SectionNumber { get; set; }
-        public TrainingProgram TrainingProgram { get; set; }
-        public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
-        public List<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
+        public ICollection<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
+        public ICollection<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
     }
 }

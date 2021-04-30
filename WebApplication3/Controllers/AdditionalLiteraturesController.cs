@@ -51,19 +51,19 @@ namespace e.moiroServer.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPost("{id}")]
-        public async Task<ActionResult<IEnumerable<AdditionalLiterature>>> GetMainLiterature(int id, [FromBody] int[] curriculumTopicIdArray)
+        [HttpPost("GetMainLiterature")]
+        public async Task<ActionResult<IEnumerable<AdditionalLiterature>>> GetMainLiterature([FromBody] int[] curriculumTopicIdArray)
         {
             IEnumerable<AdditionalLiterature> result = new List<AdditionalLiterature>();
-            foreach (var i in curriculumTopicIdArray.AsParallel())
+            foreach (var curriculumTopicId in curriculumTopicIdArray.AsParallel())
             {
-                var res = await _context.AdditionalLiteratures.Where(a => a.CurriculumTopicAdditionalLiteratures
-                .Any(r => r.CurriculumTopicId == i)).ToListAsync();
+                var res = await _context.AdditionalLiteratures.Where(a => a.CurriculumTopics
+                .Any(r => r.Id == curriculumTopicId)).ToListAsync();
                 result = result.Union(res);
 
             }
 
-            return result.ToList(); 
+            return result.ToList();
         }
 
         [HttpPost]

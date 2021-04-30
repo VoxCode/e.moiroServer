@@ -10,7 +10,7 @@ namespace e.moiroServer.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
     : base(options)
         {
-            //Database.EnsureDeleted(); //Удалит всю базу, не использовать без понимания!!!!
+            //Database.EnsureDeleted();
             //Database.EnsureCreated();
         }
 
@@ -36,16 +36,6 @@ namespace e.moiroServer.Models
         public DbSet<ClassTime> ClassTimes { get; set; }
         public DbSet<InstituteStructure> InstituteStructures { get; set; }
 
-        public DbSet<CurriculumTopicAdditionalLiterature> CurriculumTopicAdditionalLiteratures { get; set; }
-        public DbSet<CurriculumTopicDepartment> CurriculumTopicDepartments { get; set; }
-        public DbSet<CurriculumTopicMainLiterature> CurriculumTopicMainLiteratures { get; set; }
-        public DbSet<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
-        public DbSet<CurriculumTopicFinalExamination> CurriculumTopicFinalExaminations { get; set; }
-        public DbSet<CurriculumTopicRegulation> CurriculumTopicRegulations { get; set; }
-        public DbSet<CurriculumTopicStudentCategory> CurriculumTopicStudentCategories { get; set; }
-        public DbSet<CurriculumTopicTestWork> CurriculumTopicTestWorks { get; set; }
-        public DbSet<CurriculumTopicTrainingProgramOccupationForm> CurriculumTopicTrainingProgramOccupationForms { get; set; }
-
         public DbSet<TrainingProgramAdditionalLiterature> TrainingProgramAdditionalLiteratures { get; set; }
         public DbSet<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
         public DbSet<TrainingProgramFinalExamination> TrainingProgramFinalExaminations { get; set; }
@@ -53,10 +43,10 @@ namespace e.moiroServer.Models
         public DbSet<TrainingProgramRegulation> TrainingProgramRegulations { get; set; }
         public DbSet<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
         public DbSet<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
+        public DbSet<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
 
         public DbSet<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
 
-        public DbSet<TeacherDepartment> TeacherDepartments { get; set; }
 
         public DbSet<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }
         public DbSet<ScheduleBlockClassRoom> ScheduleBlockClassRooms { get; set; }

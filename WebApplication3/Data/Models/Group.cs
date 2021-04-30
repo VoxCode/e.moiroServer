@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace e.moiroServer.Data.Models
 {
@@ -10,5 +11,6 @@ namespace e.moiroServer.Data.Models
         public DateTime ClassStartDate { get; set; }
         public DateTime ClassEndDate { get; set; }
         public int TrainingProgramId { get; set; }
+        public ICollection<ScheduleDate> ScheduleDates { get; set; }
     }
 }

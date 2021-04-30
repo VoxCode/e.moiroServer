@@ -25,51 +25,51 @@ namespace e.moiroServer.Controllers
             return await _context.CurriculumTopicTrainingPrograms.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<object>>> Get(int id)
-        {
-            var tmp = from first in _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgramId == id)
-                      join second in _context.CurriculumTopics on first.CurriculumTopicId equals second.Id
-                      select new
-                      {
-                          first.Id,
-                          first.ClassHours,
-                          first.TrainingProgramCurriculumSectionId,
-                          first.CurriculumTopicId,
-                          first.IsVariable,
-                          first.OccupationFormId,
-                          first.SerialNumber,
-                          first.TrainingProgramId,
-                          second.TopicTitle
-                      };
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<IEnumerable<object>>> Get(int id)
+        //{
+        //    var tmp = from first in _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgramId == id)
+        //              join second in _context.CurriculumTopics on first.CurriculumTopicId equals second.Id
+        //              select new
+        //              {
+        //                  first.Id,
+        //                  first.ClassHours,
+        //                  first.TrainingProgramCurriculumSectionId,
+        //                  first.CurriculumTopicId,
+        //                  first.IsVariable,
+        //                  first.OccupationFormId,
+        //                  first.SerialNumber,
+        //                  first.TrainingProgramId,
+        //                  second.TopicTitle
+        //              };
 
-            return await tmp.ToListAsync();
-        }
+        //    return await tmp.ToListAsync();
+        //}
 
-        [HttpGet("{trainingProgramCurriculumSectionId}/{key}")]
-        public async Task<ActionResult<IEnumerable<object>>> Get(int trainingProgramCurriculumSectionId, int key)
-        {
-            var tmp = from first in _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramCurriculumSectionId)
-                      join second in _context.CurriculumTopics on first.CurriculumTopicId equals second.Id
-                      join third in _context.OccupationForms on first.OccupationFormId equals third.Id
-                      select new
-                      {
-                          first.Id,
-                          first.ClassHours,
-                          first.TrainingProgramCurriculumSectionId,
-                          first.CurriculumTopicId,
-                          first.IsVariable,
-                          first.OccupationFormId,
-                          first.SerialNumber,
-                          first.TrainingProgramId,
-                          second.TopicTitle,
-                          second.Annotation,
-                          third.FullName,
-                          third.PluralName
-                      };
+        //[HttpGet("{trainingProgramCurriculumSectionId}/{key}")]
+        //public async Task<ActionResult<IEnumerable<object>>> Get(int trainingProgramCurriculumSectionId, int key)
+        //{
+        //    var tmp = from first in _context.CurriculumTopicTrainingPrograms.Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramCurriculumSectionId)
+        //              join second in _context.CurriculumTopics on first.CurriculumTopicId equals second.Id
+        //              join third in _context.OccupationForms on first.OccupationFormId equals third.Id
+        //              select new
+        //              {
+        //                  first.Id,
+        //                  first.ClassHours,
+        //                  first.TrainingProgramCurriculumSectionId,
+        //                  first.CurriculumTopicId,
+        //                  first.IsVariable,
+        //                  first.OccupationFormId,
+        //                  first.SerialNumber,
+        //                  first.TrainingProgramId,
+        //                  second.TopicTitle,
+        //                  second.Annotation,
+        //                  third.FullName,
+        //                  third.PluralName
+        //              };
 
-            return await tmp.ToListAsync().ConfigureAwait(false);
-        }
+        //    return await tmp.ToListAsync().ConfigureAwait(false);
+        //}
 
         [HttpPut]
         public async Task<IActionResult> Put(CurriculumTopicTrainingProgram value)

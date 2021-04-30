@@ -25,22 +25,22 @@ namespace e.moiroServer.Controllers
             return await _context.TrainingProgramRegulations.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<object>> Get(int id)
-        {
-            var tmp = from first in _context.TrainingProgramRegulations.Where(a => a.TrainingProgramId == id)
-                      join second in _context.Regulations on first.RegulationId equals second.Id
-                      select new
-                      {
-                          first.Id,
-                          first.RegulationId,
-                          first.TrainingProgramId,
-                          first.SerialNumber,
-                          second.Content
-                      };
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<object>> Get(int id)
+        //{
+        //    var tmp = from first in _context.TrainingProgramRegulations.Where(a => a.TrainingProgramId == id)
+        //              join second in _context.Regulations on first.RegulationId equals second.Id
+        //              select new
+        //              {
+        //                  first.Id,
+        //                  first.RegulationId,
+        //                  first.TrainingProgramId,
+        //                  first.SerialNumber,
+        //                  second.Content
+        //              };
 
-            return await tmp.ToListAsync();
-        }
+        //    return await tmp.ToListAsync();
+        //}
 
         [HttpPut]
         public async Task<IActionResult> Put(TrainingProgramRegulation value)

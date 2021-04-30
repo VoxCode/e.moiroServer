@@ -7,8 +7,7 @@ namespace e.moiroServer.Data.Models
         public int Id { get; set; }
         public string FullName { get; set; }
         public string PluralName { get; set; }
-        public List<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
-        public List<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
-        public List<CurriculumTopicTrainingProgramOccupationForm> CurriculumTopicTrainingProgramOccupationForms { get; set; }
+        public ICollection<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
+        public ICollection<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
     }
 }

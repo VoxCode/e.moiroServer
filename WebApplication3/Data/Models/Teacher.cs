@@ -12,9 +12,9 @@ namespace e.moiroServer.Data.Models
         public string Position { get; set; }
         public string AcademicRank { get; set; }
         public bool IsCathedral { get; set; }
-        public List<User> Users { get; set; }
-        public List<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }
-        public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
-        public List<TeacherDepartment> TeacherDepartments { get; set; }
+        public ICollection<User> Users { get; set; }
+        public ICollection<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }
+        public ICollection<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
+        public ICollection<Department> Departments { get; set; }
     }
 }

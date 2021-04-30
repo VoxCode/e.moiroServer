@@ -6,6 +6,6 @@ namespace e.moiroServer.Data.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
+        public ICollection<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
     }
 }

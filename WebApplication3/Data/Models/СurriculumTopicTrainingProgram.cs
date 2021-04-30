@@ -8,13 +8,11 @@ namespace e.moiroServer.Data.Models
         public bool IsVariable { get; set; }
         public int ClassHours { get; set; }
         public int SerialNumber { get; set; }
-        public int CurriculumTopicId { get; set; }
-        public int TrainingProgramId { get; set; }
+        public string TopicTitle { get; set; }
+        public string Annotation { get; set; }
         public int TrainingProgramCurriculumSectionId { get; set; }
-        public CurriculumTopic CurriculumTopic { get; set; }
-        public TrainingProgram TrainingProgram { get; set; }
         public TrainingProgramCurriculumSection TrainingProgramCurriculumSection { get; set; }
-        public List<ScheduleBlockCurriculumTopicTrainingProgram> ScheduleBlockCurriculumTopicTrainingPrograms { get; set; }
-        public List<CurriculumTopicTrainingProgramOccupationForm> CurriculumTopicTrainingProgramOccupationForms { get; set; }
+        public ICollection<ScheduleBlockCurriculumTopicTrainingProgram> ScheduleBlockCurriculumTopicTrainingPrograms { get; set; }
+        public ICollection<OccupationForm> OccupationForms { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace e.moiroServer.Data.Models
         public string DepartmentHeadName { get; set; }
         public ICollection<CurriculumTopic> CurriculumTopics { get; set; }
         public ICollection<TrainingProgram> TrainingPrograms { get; set; }
-        public ICollection<Teacher> Teachers { get; set; }
+        public List<Teacher> Teachers { get; set; }
     }
 }

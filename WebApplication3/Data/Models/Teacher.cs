@@ -15,6 +15,6 @@ namespace e.moiroServer.Data.Models
         public ICollection<User> Users { get; set; }
         public ICollection<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }
         public ICollection<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
-        public ICollection<Department> Departments { get; set; }
+        public List<Department> Departments { get; set; }
     }
 }

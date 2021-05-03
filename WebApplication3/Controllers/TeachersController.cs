@@ -93,7 +93,7 @@ namespace e.moiroServer.Controllers
             else
             {
                 departmnetsOld.RemoveAll(x => result.Any(r => x == r.two));
-                foreach (var department in departmnetsOld)
+                foreach (var department in departmnetsOld.AsParallel())
                 {
                     teahcer.Departments.Remove(department);
                 }

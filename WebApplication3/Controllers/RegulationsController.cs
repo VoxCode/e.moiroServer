@@ -38,6 +38,19 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
+        [HttpPost("CurriculumTopics")]
+        public async Task<ActionResult<IEnumerable<Regulation>>> GetByCurriculumTopics([FromBody] int[] curriculumTopicIdArray)
+        {
+            IEnumerable<Regulation> regulationsResult = new List<Regulation>();
+            foreach (int curriculumTopicId in curriculumTopicIdArray.AsParallel())
+            {
+                var res = await _context.Regulations.Where(a => a.CurriculumTopics.Any(b => b.Id == curriculumTopicId)).ToListAsync();
+                regulationsResult = regulationsResult.Union(res);
+
+            }
+            return regulationsResult.ToList();
+        }
+
         //[HttpGet("{curriculumTopicId}/{key}")]
         //public async Task<ActionResult<IEnumerable<Regulation>>> Get(int curriculumTopicId, int key)
         //{
@@ -58,21 +71,6 @@ namespace e.moiroServer.Controllers
             }
             return BadRequest(ModelState);
         }
-
-        //[HttpPost("{id}")]
-        //public async Task<ActionResult<IEnumerable<Regulation>>> GetMainLiterature(int id, [FromBody] int[] curriculumTopicIdArray)
-        //{
-        //    IEnumerable<Regulation> result = new List<Regulation>();
-        //    foreach (var i in curriculumTopicIdArray.AsParallel())
-        //    {
-        //        var res = await _context.Regulations.Where(a => a.CurriculumTopicRegulations
-        //        .Any(r => r.CurriculumTopicId == i)).ToListAsync();
-        //        result = result.Union(res);
-
-        //    }
-
-        //    return result.ToList();
-        //}
 
         [HttpPost]
         public async Task<ActionResult<Regulation>> Post(Regulation value)

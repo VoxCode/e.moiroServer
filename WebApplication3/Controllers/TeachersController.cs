@@ -85,9 +85,7 @@ namespace e.moiroServer.Controllers
             if (teahcer == null) return NotFound();
             var departmnetsOld = new List<Department>();
             departmnetsOld.AddRange(teahcer.Departments);
-
             var result = departments.Join(teahcer.Departments, ok => ok.Id, ik => ik.Id, (one, two) => new { one, two }).ToList();
-
             if (departments.Count == 0)
             {
                 teahcer.Departments = new List<Department>();

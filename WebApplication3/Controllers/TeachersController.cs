@@ -79,26 +79,26 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost("{teacherId}")]
-        public async Task<ActionResult<Teacher>> DeleteTeacherDepartment(int teacherId, [FromBody] List<Department> departments)
+        public async Task<ActionResult<Teacher>> GetDepartment(int teacherId, [FromBody] List<Department> departments)
         {
-            var teahcer = await _context.Teachers.Include(a => a.Departments).FirstOrDefaultAsync(b => b.Id == teacherId);
-            if (teahcer == null) return NotFound();
+            var teacher = await _context.Teachers.Include(a => a.Departments).FirstOrDefaultAsync(b => b.Id == teacherId);
+            if (teacher == null) return NotFound();
             var departmnetsOld = new List<Department>();
-            departmnetsOld.AddRange(teahcer.Departments);
-            var result = departments.Join(teahcer.Departments, ok => ok.Id, ik => ik.Id, (one, two) => new { one, two }).ToList();
+            departmnetsOld.AddRange(teacher.Departments);
+            var result = departments.Join(teacher.Departments, ok => ok.Id, ik => ik.Id, (one, two) => new { one, two }).ToList();
             if (departments.Count == 0)
             {
-                teahcer.Departments = new List<Department>();
+                teacher.Departments = new List<Department>();
             }
             else
             {
                 departmnetsOld.RemoveAll(x => result.Any(r => x == r.two));
                 foreach (var department in departmnetsOld.AsParallel())
                 {
-                    teahcer.Departments.Remove(department);
+                    teacher.Departments.Remove(department);
                 }
                 departments.RemoveAll(x => result.Any(r => x == r.one));
-                teahcer.Departments.AddRange(departments);
+                teacher.Departments.AddRange(departments);
             }
             await _context.SaveChangesAsync();
             return Ok();

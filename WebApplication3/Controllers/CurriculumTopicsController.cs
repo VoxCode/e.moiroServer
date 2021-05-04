@@ -44,14 +44,13 @@ namespace e.moiroServer.Controllers
             return await _context.CurriculumTopics.Where(a => a.TrainingPrograms.Any(b => b.Id == trainingProgramId)).ToListAsync();
         }
 
-        //[HttpGet("{studentCategoryId}/{departmentId}")]
-        //public async Task<ActionResult<IEnumerable<CurriculumTopic>>> Get(int studentCategoryId, int departmentId)
-        //{
-        //    var result = await _context.CurriculumTopics.Where(a => a.CurriculumTopicStudentCategories
-        //    .Any(r => r.StudentCategoryId == studentCategoryId) && a.CurriculumTopicDepartments
-        //    .Any(e => e.DepartmentId == departmentId)).ToListAsync();
-        //    return result;
-        //}
+        [HttpGet("{studentCategoryId}/{departmentId}")]
+        public async Task<ActionResult<IEnumerable<CurriculumTopic>>> Get(int studentCategoryId, int departmentId)
+        {
+            var result = await _context.CurriculumTopics.Where(a => a.TrainingPrograms
+            .Any(r => r.StudentCategoryId == studentCategoryId && r.DepartmentId == departmentId)).ToListAsync();
+            return result;
+        }
 
         [HttpPut]
         public async Task<IActionResult> Put(CurriculumTopic value)

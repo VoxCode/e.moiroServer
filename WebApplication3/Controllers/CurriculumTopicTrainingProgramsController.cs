@@ -38,8 +38,8 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
-        [HttpGet("TrainingProgram/{trainingProgramCurriculumSectionId}")]
-        public async Task<ActionResult<IEnumerable<CurriculumTopicTrainingProgram>>> GetFromTrainingProgram(int trainingProgramCurriculumSectionId)
+        [HttpGet("TrainingProgramCurriculumSection/{trainingProgramCurriculumSectionId}")]
+        public async Task<ActionResult<IEnumerable<CurriculumTopicTrainingProgram>>> GetFromTrainingProgramCurriculumSection(int trainingProgramCurriculumSectionId)
         {
             return await _context.CurriculumTopicTrainingPrograms
                 .Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramCurriculumSectionId).ToListAsync();

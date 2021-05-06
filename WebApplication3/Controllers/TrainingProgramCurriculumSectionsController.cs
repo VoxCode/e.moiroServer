@@ -26,21 +26,22 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<object>>> Get(int id)
+        public async Task<ActionResult<TrainingProgramCurriculumSection>> Get(int id)
         {
-            var tmp = from first in _context.TrainingProgramCurriculumSections.Where(a => a.TrainingProgramId == id)
-                      join second in _context.CurriculumSections on first.CurriculumSectionId equals second.Id
-                      into temp from second in temp.DefaultIfEmpty()
-                      select new
-                      {
-                          first.Id,
-                          first.SectionNumber,
-                          first.CurriculumSectionId,
-                          first.TrainingProgramId,
-                          second.Name
-                      };
+            var value = await _context.TrainingProgramCurriculumSections.FindAsync(id);
 
-            return  await tmp.ToListAsync();
+            if (value == null)
+            {
+                return NotFound();
+            }
+
+            return value;
+        }
+
+        [HttpGet("FromTrainingProgram/{trainingProgramId}")]
+        public async Task<ActionResult<IEnumerable<TrainingProgramCurriculumSection>>> GetFromTrainingProgram(int trainingProgramId)
+        {
+            return await _context.TrainingProgramCurriculumSections.Where(a => a.TrainingProgramId == trainingProgramId).ToListAsync();
         }
 
         [HttpPut]

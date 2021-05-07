@@ -2,6 +2,8 @@
 using e.moiroServer.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System;
 
 namespace e.moiroServer.Models
 {
@@ -44,9 +46,6 @@ namespace e.moiroServer.Models
         public DbSet<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
         public DbSet<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
 
-        public DbSet<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
-
-
         public DbSet<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }
         public DbSet<ScheduleBlockClassRoom> ScheduleBlockClassRooms { get; set; }
         public DbSet<ScheduleBlockClassTime> ScheduleBlockClassTimes { get; set; }
@@ -55,6 +54,13 @@ namespace e.moiroServer.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder
+                .Entity<TrainingProgramCurriculumSection>()
+                .HasMany(a => a.OccupationForms)
+                .WithMany(b => b.TrainingProgramCurriculumSections);
+
+
+
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new OccupationFormConfiguration());

@@ -1,12 +1,11 @@
 ﻿namespace e.moiroServer.Data.Models
 {
-    public class OccupationFormMaxVariableTopicHour
+    public class MaxVariableTopicTime
     {
-        public int Id { get; set; }
-        public int MaxVariableTopicHours { get; set; }
-        public int OccupationFormId { get; set; }
         public int TrainingProgramCurriculumSectionId { get; set; }
         public TrainingProgramCurriculumSection TrainingProgramCurriculumSection { get; set; }
+        public int OccupationFormId { get; set; }
         public OccupationForm OccupationForm { get; set; }
+        public int MaxVariableTopicHours { get; set; }
     }
 }

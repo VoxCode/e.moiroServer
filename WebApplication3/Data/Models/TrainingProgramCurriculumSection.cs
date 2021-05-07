@@ -9,6 +9,7 @@ namespace e.moiroServer.Data.Models
         public string Name { get; set; }
         public int SectionNumber { get; set; }
         public ICollection<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
-        public ICollection<OccupationFormMaxVariableTopicHour> OccupationFormMaxVariableTopicHours { get; set; }
+        public ICollection<OccupationForm> OccupationForms { get; set; }
+        public ICollection<MaxVariableTopicTime> MaxVariableTopicTimes { get; set; }
     }
 }

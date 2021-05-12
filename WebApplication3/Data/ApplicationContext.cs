@@ -57,7 +57,41 @@ namespace e.moiroServer.Models
             modelBuilder
                 .Entity<TrainingProgramCurriculumSection>()
                 .HasMany(a => a.OccupationForms)
-                .WithMany(b => b.TrainingProgramCurriculumSections);
+                .WithMany(b => b.TrainingProgramCurriculumSections)
+                .UsingEntity<MaxVariableTopicTime>(
+                a => a
+                    .HasOne(b => b.OccupationForm)
+                    .WithMany(c => c.MaxVariableTopicTimes).HasForeignKey(a => a.OccupationFormId),
+                a => a
+                    .HasOne(b => b.TrainingProgramCurriculumSection)
+                    .WithMany(d => d.MaxVariableTopicTimes)
+                    .HasForeignKey(b => b.TrainingProgramCurriculumSectionId),
+                a =>
+                {
+                    a.Property(b => b.MaxVariableTopicHours).HasDefaultValue(0);
+                    a.HasKey(c => new { c.TrainingProgramCurriculumSectionId, c.OccupationFormId });
+                    a.ToTable("MaxVariableTopicTimes");
+                });
+
+            modelBuilder
+                .Entity<CurriculumTopicTrainingProgram>()
+                .HasMany(a => a.OccupationForms)
+                .WithMany(b => b.CurriculumTopicTrainingPrograms)
+                .UsingEntity<OccupationFormClassHour>(
+                a => a
+                    .HasOne(b => b.OccupationForm)
+                    .WithMany(c => c.OccupationFormClassHours).HasForeignKey(a => a.OccupationFormId),
+                a => a
+                    .HasOne(b => b.CurriculumTopicTrainingProgram)
+                    .WithMany(d => d.OccupationFormClassHours)
+                    .HasForeignKey(b => b.CurriculumTopicTrainingProgramId),
+                a =>
+                {
+                    a.Property(b => b.SerialNumber).HasDefaultValue(0);
+                    a.Property(b => b.ClassHours).HasDefaultValue(0);
+                    a.HasKey(c => new { c.CurriculumTopicTrainingProgramId, c.OccupationFormId });
+                    a.ToTable("OccupationFormClassHours");
+                });
 
 
 

@@ -14,5 +14,6 @@ namespace e.moiroServer.Data.Models
         public TrainingProgramCurriculumSection TrainingProgramCurriculumSection { get; set; }
         public ICollection<ScheduleBlockCurriculumTopicTrainingProgram> ScheduleBlockCurriculumTopicTrainingPrograms { get; set; }
         public ICollection<OccupationForm> OccupationForms { get; set; }
+        public ICollection<OccupationFormClassHour> OccupationFormClassHours { get; set; }
     }
 }

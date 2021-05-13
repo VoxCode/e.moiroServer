@@ -2,8 +2,6 @@
 using e.moiroServer.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System;
 
 namespace e.moiroServer.Models
 {
@@ -51,6 +49,7 @@ namespace e.moiroServer.Models
         public DbSet<ScheduleBlockClassTime> ScheduleBlockClassTimes { get; set; }
         public DbSet<ScheduleBlockCurriculumTopicTrainingProgram> ScheduleBlockCurriculumTopicTrainingPrograms { get; set; }
         public DbSet<ScheduleDateScheduleBlock> ScheduleDateScheduleBlocks { get; set; }
+        public DbSet<OccupationFormClassHour> OccupationFormClassHours { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

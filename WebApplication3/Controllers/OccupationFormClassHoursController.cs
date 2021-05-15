@@ -23,11 +23,12 @@ namespace e.moiroServer.Controllers
         public async Task<ActionResult<IEnumerable<OccupationFormClassHour>>> Get(int curriculumTopicTrainingProgramId)
         {
 
-            return await _context.OccupationFormClassHours.Where(a => a.CurriculumTopicTrainingProgramId == curriculumTopicTrainingProgramId).ToListAsync();
+            return await _context.OccupationFormClassHours
+                .Where(a => a.CurriculumTopicTrainingProgramId == curriculumTopicTrainingProgramId).ToListAsync();
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Regulation value)
+        public async Task<IActionResult> Put(OccupationFormClassHour value)
         {
             if (ModelState.IsValid)
             {
@@ -39,8 +40,8 @@ namespace e.moiroServer.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPost("{curriculumTopicTrainingProgramId}")]
-        public async Task<ActionResult<OccupationFormClassHour>> Post(int curriculumTopicTrainingProgramId, OccupationFormClassHour value)
+        [HttpPost]
+        public async Task<ActionResult<OccupationFormClassHour>> Post(OccupationFormClassHour value)
         {
             if (ModelState.IsValid)
             {
@@ -51,19 +52,12 @@ namespace e.moiroServer.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Regulation>> Delete(int id)
+        [HttpPost("Delete")]
+        public async Task<ActionResult<OccupationFormClassHour>> Delete(OccupationFormClassHour occupationFormClassHour)
         {
-            var value = await _context.Regulations.FindAsync(id);
-            if (value == null)
-            {
-                return NotFound();
-            }
-
-            _context.Regulations.Remove(value);
+            _context.Remove(occupationFormClassHour);
             await _context.SaveChangesAsync();
-
-            return value;
+            return Ok();
         }
     }
 }

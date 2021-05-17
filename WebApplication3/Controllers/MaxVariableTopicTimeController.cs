@@ -10,25 +10,25 @@ namespace e.moiroServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OccupationFormClassHoursController : ControllerBase
+    public class MaxVariableTopicTimeController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
-        public OccupationFormClassHoursController(ApplicationContext context)
+        public MaxVariableTopicTimeController(ApplicationContext context)
         {
             _context = context;
         }
 
-        [HttpGet("{curriculumTopicTrainingProgramId}")]
-        public async Task<ActionResult<IEnumerable<OccupationFormClassHour>>> Get(int curriculumTopicTrainingProgramId)
+        [HttpGet("{trainingProgramCurriculumSectionId}")]
+        public async Task<ActionResult<IEnumerable<MaxVariableTopicTime>>> Get(int trainingProgramCurriculumSectionId)
         {
 
-            return await _context.OccupationFormClassHours
-                .Where(a => a.CurriculumTopicTrainingProgramId == curriculumTopicTrainingProgramId).ToListAsync();
+            return await _context.MaxVariableTopicTimes
+                .Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramCurriculumSectionId).ToListAsync();
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(OccupationFormClassHour value)
+        public async Task<IActionResult> Put(MaxVariableTopicTime value)
         {
             if (ModelState.IsValid)
             {
@@ -41,11 +41,11 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OccupationFormClassHour>> Post(OccupationFormClassHour value)
+        public async Task<ActionResult<MaxVariableTopicTime>> Post(MaxVariableTopicTime value)
         {
             if (ModelState.IsValid)
             {
-                _context.OccupationFormClassHours.Add(value);
+                _context.MaxVariableTopicTimes.Add(value);
                 await _context.SaveChangesAsync();
                 return Ok();
             }
@@ -53,7 +53,7 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpPost("Delete")]
-        public async Task<ActionResult<OccupationFormClassHour>> Delete(OccupationFormClassHour value)
+        public async Task<ActionResult<MaxVariableTopicTime>> Delete(MaxVariableTopicTime value)
         {
             _context.Remove(value);
             await _context.SaveChangesAsync();

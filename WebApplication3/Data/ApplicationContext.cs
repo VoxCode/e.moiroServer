@@ -42,6 +42,8 @@ namespace e.moiroServer.Models
         public DbSet<TrainingProgramRegulation> TrainingProgramRegulations { get; set; }
         public DbSet<TrainingProgramTeacher> TrainingProgramTeachers { get; set; }
         public DbSet<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
+        public DbSet<TrainingProgramIntroduction> TrainingProgramIntroductions { get; set; }
+        public DbSet<TrainingProgramIndependentWorkQuestion> TrainingProgramIndependentWorkQuestions { get; set; }
         public DbSet<CurriculumTopicTrainingProgram> CurriculumTopicTrainingPrograms { get; set; }
 
         public DbSet<ScheduleBlockTeacher> ScheduleBlockTeachers { get; set; }

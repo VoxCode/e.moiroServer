@@ -7,8 +7,6 @@ namespace e.moiroServer.Data.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int NumberOfHours { get; set; }
-        public string Introduction { get; set; }
-        public byte[] IntroductionData { get; set; }
         public bool IsDistanceLearning { get; set; }
         public bool IsControlWork { get; set; }
         public bool IsTestWork { get; set; }
@@ -19,6 +17,8 @@ namespace e.moiroServer.Data.Models
         public ICollection<Group> Groups { get; set; }
         public ICollection<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
         public ICollection<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }
+        public ICollection<TrainingProgramIndependentWorkQuestion> TrainingProgramIndependentWorkQuestions { get; set; }
+        public ICollection<TrainingProgramIntroduction> TrainingProgramIntroductions { get; set; }
         public ICollection<TrainingProgramFinalExamination> TrainingProgramFinalExaminations { get; set; }
         public ICollection<TrainingProgramMainLiterature> TrainingProgramMainLiteratures { get; set; }
         public ICollection<TrainingProgramAdditionalLiterature> TrainingProgramAdditionalLiteratures { get; set; }

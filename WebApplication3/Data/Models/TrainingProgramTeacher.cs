@@ -1,5 +1,4 @@
-﻿
-namespace e.moiroServer.Data.Models
+﻿namespace e.moiroServer.Data.Models
 {
     public class TrainingProgramTeacher
     {

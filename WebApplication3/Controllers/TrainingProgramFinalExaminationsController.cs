@@ -25,22 +25,24 @@ namespace e.moiroServer.Controllers
             return await _context.TrainingProgramFinalExaminations.ToListAsync();
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<IEnumerable<object>>> Get(int id)
-        //{
-        //    var tmp = from first in _context.TrainingProgramFinalExaminations.Where(a => a.TrainingProgramId == id)
-        //              join second in _context.FinalExaminations on first.FinalExaminationId equals second.Id
-        //              select new
-        //              {
-        //                  first.Id,
-        //                  first.FinalExaminationId,
-        //                  first.TrainingProgramId,
-        //                  first.SerialNumber,
-        //                  second.Content
-        //              };
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TrainingProgramFinalExamination>> Get(int id)
+        {
+            var value = await _context.TrainingProgramFinalExaminations.FindAsync(id);
 
-        //    return await tmp.ToListAsync();
-        //}
+            if (value == null)
+            {
+                return NotFound();
+            }
+
+            return value;
+        }
+
+        [HttpGet("FromTrainingProgram/{trainingProgramId}")]
+        public async Task<ActionResult<IEnumerable<TrainingProgramFinalExamination>>> GetFromTrainingProgram(int trainingProgramId)
+        {
+            return await _context.TrainingProgramFinalExaminations.Where(a => a.TrainingProgramId == trainingProgramId).ToListAsync();
+        }
 
         [HttpPut]
         public async Task<IActionResult> Put(TrainingProgramFinalExamination value)

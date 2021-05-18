@@ -3,6 +3,7 @@ using e.moiroServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
@@ -35,6 +36,12 @@ namespace e.moiroServer.Controllers
             }
 
             return value;
+        }
+
+        [HttpGet("FromTrainingProgram/{trainingProgramId}")]
+        public async Task<ActionResult<IEnumerable<TrainingProgramTestWork>>> GetFromTrainingProgram(int trainingProgramId)
+        {
+            return await _context.TrainingProgramTestWorks.Where(a => a.TrainingProgramId == trainingProgramId).ToListAsync();
         }
 
         [HttpPut]

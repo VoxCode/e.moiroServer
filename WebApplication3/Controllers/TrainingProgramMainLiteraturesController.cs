@@ -25,22 +25,24 @@ namespace e.moiroServer.Controllers
             return await _context.TrainingProgramMainLiteratures.ToListAsync();
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<object>> Get(int id)
-        //{
-        //    var tmp = from first in _context.TrainingProgramMainLiteratures.Where(a => a.TrainingProgramId == id)
-        //              join second in _context.MainLiteratures on first.MainLiteratureId equals second.Id
-        //              select new
-        //              {
-        //                  first.Id,
-        //                  first.MainLiteratureId,
-        //                  first.TrainingProgramId,
-        //                  first.SerialNumber,
-        //                  second.Content
-        //              };
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TrainingProgramMainLiterature>> Get(int id)
+        {
+            var value = await _context.TrainingProgramMainLiteratures.FindAsync(id);
 
-        //    return await tmp.ToListAsync();
-        //}
+            if (value == null)
+            {
+                return NotFound();
+            }
+
+            return value;
+        }
+
+        [HttpGet("FromTrainingProgram/{trainingProgramId}")]
+        public async Task<ActionResult<IEnumerable<TrainingProgramMainLiterature>>> GetFromTrainingProgram(int trainingProgramId)
+        {
+            return await _context.TrainingProgramMainLiteratures.Where(a => a.TrainingProgramId == trainingProgramId).ToListAsync();
+        }
 
         [HttpPut]
         public async Task<IActionResult> Put(TrainingProgramMainLiterature value)

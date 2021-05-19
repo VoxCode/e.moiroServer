@@ -26,9 +26,22 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<object>>> Get(int id)
+        public async Task<ActionResult<TrainingProgramTeacher>> Get(int id)
         {
-            var tmp = from first in _context.TrainingProgramTeachers.Where(a => a.TrainingProgramId == id)
+            var value = await _context.TrainingProgramTeachers.FindAsync(id);
+
+            if (value == null)
+            {
+                return NotFound();
+            }
+
+            return value;
+        }
+
+        [HttpGet("FromTrainingProgram/{trainingProgramId}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetFromTrainingProgram(int trainingProgramId)
+        {
+            var tmp = from first in _context.TrainingProgramTeachers.Where(a => a.TrainingProgramId == trainingProgramId)
                       join second in _context.Teachers on first.TeacherId equals second.Id
                       select new
                       {

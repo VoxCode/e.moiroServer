@@ -1,9 +1,9 @@
 ﻿using e.moiroServer.Data.Models;
+using e.moiroServer.Data.Models.ResponseModels;
 using e.moiroServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
@@ -20,42 +20,60 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("FromTrainingProgram/{trainingProgramId}")]
-        public async Task<ActionResult<TrainingProgramIntroduction>> GetFromTrainingProgram(int trainingProgramId)
+        public async Task<ActionResult<TrainingProgramIntroductionResponse>> GetFromTrainingProgram(int trainingProgramId)
         {
-            //if (value.Introduction != null)
-            //{
-            //    value.Introduction = Encoding.UTF8.GetString(value.IntroductionData);
-            //    //value.IntroductionData = null;
-            //}
-            return await _context.TrainingProgramIntroductions.FirstOrDefaultAsync(a => a.TrainingProgramId == trainingProgramId);
+            var model = await _context.TrainingProgramIntroductions.FirstOrDefaultAsync(a => a.TrainingProgramId == trainingProgramId);
+            if (model == null)
+            {
+                return Ok();
+            }
+
+            var responseModel = new TrainingProgramIntroductionResponse()
+            {
+                Id = model.Id,
+                TrainingProgramId = model.TrainingProgramId,
+                Introduction = Encoding.UTF8.GetString(model.IntroductionDocx)
+            };
+            return responseModel;
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(TrainingProgramIntroduction value)
+        public async Task<IActionResult> Put(TrainingProgramIntroductionResponse responseModel)
         {
-            //if (value.Introduction != null)
-            //{
-            //    value.IntroductionData = Encoding.UTF8.GetBytes(value.Introduction);
-            //    value.Introduction = "";
-            //}
+            var model = new TrainingProgramIntroduction()
+            {
+                Id = responseModel.Id,
+                TrainingProgramId = responseModel.TrainingProgramId,
+                IntroductionDocx = Encoding.UTF8.GetBytes(responseModel.Introduction)
+            };
+
             if (ModelState.IsValid)
             {
-                _context.Update(value);
+                _context.Update(model);
                 await _context.SaveChangesAsync();
-                return Ok(value);
-
+                responseModel.Introduction = Encoding.UTF8.GetString(model.IntroductionDocx);
+                return Ok(responseModel);
             }
             return BadRequest(ModelState);
         }
 
         [HttpPost]
-        public async Task<ActionResult<TrainingProgramIntroduction>> Post(TrainingProgramIntroduction value)
+        public async Task<ActionResult<TrainingProgramIntroductionResponse>> Post(TrainingProgramIntroductionResponse responseModel)
         {
+            var model = new TrainingProgramIntroduction()
+            {
+                Id = responseModel.Id,
+                TrainingProgramId = responseModel.TrainingProgramId,
+                IntroductionDocx = Encoding.UTF8.GetBytes(responseModel.Introduction)
+            };
+
             if (ModelState.IsValid)
             {
-                _context.TrainingProgramIntroductions.Add(value);
+                _context.TrainingProgramIntroductions.Add(model);
                 await _context.SaveChangesAsync();
-                return Ok(value);
+                responseModel.Id = model.Id;
+                responseModel.Introduction = Encoding.UTF8.GetString(model.IntroductionDocx);
+                return Ok(responseModel);
             }
             return BadRequest(ModelState);
         }

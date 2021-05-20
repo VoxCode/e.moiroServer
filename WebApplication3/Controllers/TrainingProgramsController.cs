@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
@@ -59,6 +60,28 @@ namespace e.moiroServer.Controllers
             }
 
             return value;
+        }
+
+        [HttpGet("ForDocxGenerator/{id}")]
+        public async Task<ActionResult<object>> GetForDocxGenerator(int id)
+        {
+            var value = await _context.TrainingPrograms
+                .Include(a => a.TrainingProgramTestWorks)
+                .Include(a => a.TrainingProgramMainLiteratures)
+                .Include(a => a.TrainingProgramRegulations)
+                .Include(a => a.TrainingProgramAdditionalLiteratures)
+                .Include(a => a.TrainingProgramFinalExaminations)
+                .Include(a => a.TrainingProgramCurriculumSections)
+                .Include(a => a.TrainingProgramIntroductions)
+                .Include(a => a.TrainingProgramIndependentWorkQuestions)
+                .Include(a => a.TrainingProgramTeachers)
+                .FirstOrDefaultAsync(a => a.Id == id).ConfigureAwait(false);
+            if (value == null)
+            {
+                return NotFound();
+            }
+            string jsonString = JsonSerializer.Serialize(value);
+            return jsonString;
         }
 
         [HttpPut]

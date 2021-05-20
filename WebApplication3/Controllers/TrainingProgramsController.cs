@@ -65,23 +65,34 @@ namespace e.moiroServer.Controllers
         [HttpGet("ForDocxGenerator/{id}")]
         public async Task<ActionResult<object>> GetForDocxGenerator(int id)
         {
-            var value = await _context.TrainingPrograms
-                .Include(a => a.TrainingProgramTestWorks)
-                .Include(a => a.TrainingProgramMainLiteratures)
-                .Include(a => a.TrainingProgramRegulations)
-                .Include(a => a.TrainingProgramAdditionalLiteratures)
-                .Include(a => a.TrainingProgramFinalExaminations)
-                .Include(a => a.TrainingProgramCurriculumSections)
-                .Include(a => a.TrainingProgramIntroductions)
-                .Include(a => a.TrainingProgramIndependentWorkQuestions)
-                .Include(a => a.TrainingProgramTeachers)
-                .FirstOrDefaultAsync(a => a.Id == id).ConfigureAwait(false);
-            if (value == null)
+            var values = from first in _context.TrainingPrograms.Where(a => a.Id == id)
+                      join second in _context.Departments on first.DepartmentId equals second.Id
+                      join third in _context.StudentCategories on first.StudentCategoryId equals third.Id
+                      join fourth in _context.CertificationTypes on first.CertificationTypeId equals fourth.Id
+                      join fifth in _context.FormOfEducations on first.FormOfEducationId equals fifth.Id
+                      select new
+                      {
+                          first.Id,
+                          first.Name,
+                          first.NumberOfHours,
+                          first.IsDistanceLearning,
+                          first.IsControlWork,
+                          first.IsTestWork,
+                          first.DepartmentId,
+                          first.StudentCategoryId,
+                          first.CertificationTypeId,
+                          first.FormOfEducationId,
+                          DepartmentName = second.Name,
+                          StudentCategoryName = third.Name,
+                          CertificationTypeName = fourth.Name,
+                          FormOfEducationName = fifth.Name
+                      };
+            var list = await values.ToListAsync().ConfigureAwait(false);
+            if (list[0] == null)
             {
                 return NotFound();
             }
-            string jsonString = JsonSerializer.Serialize(value);
-            return jsonString;
+            return list[0];
         }
 
         [HttpPut]

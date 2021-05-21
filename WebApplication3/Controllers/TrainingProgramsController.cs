@@ -65,31 +65,34 @@ namespace e.moiroServer.Controllers
         [HttpGet("ForDocxGenerator/{id}")]
         public async Task<ActionResult<object>> GetForDocxGenerator(int id)
         {
-            var trainingProgram = await _context.TrainingPrograms
-                .SingleAsync(a => a.Id == id);
-            if (trainingProgram == null)
+            var values = from first in _context.TrainingPrograms.Where(a => a.Id == id)
+                         join second in _context.Departments on first.DepartmentId equals second.Id
+                         join third in _context.StudentCategories on first.StudentCategoryId equals third.Id
+                         join fourth in _context.CertificationTypes on first.CertificationTypeId equals fourth.Id
+                         join fifth in _context.FormOfEducations on first.FormOfEducationId equals fifth.Id
+                         select new
+                         {
+                             first.Id,
+                             first.Name,
+                             first.NumberOfHours,
+                             first.IsDistanceLearning,
+                             first.IsControlWork,
+                             first.IsTestWork,
+                             first.DepartmentId,
+                             first.StudentCategoryId,
+                             first.CertificationTypeId,
+                             first.FormOfEducationId,
+                             DepartmentName = second.Name,
+                             StudentCategoryName = third.Name,
+                             CertificationTypeName = fourth.Name,
+                             FormOfEducationName = fifth.Name
+                         };
+            var list = await values.ToListAsync().ConfigureAwait(false);
+            if (list[0] == null)
             {
                 return NotFound();
             }
-
-            trainingProgram.TrainingProgramCurriculumSections = await _context
-                .Entry(trainingProgram).Collection(a => a.TrainingProgramCurriculumSections).Query().ToListAsync();
-
-
-            foreach(var model in trainingProgram.TrainingProgramCurriculumSections)
-            {
-                trainingProgram.TrainingProgramCurriculumSections = await _context
-                    .Entry(trainingProgram).Collection(a => a.TrainingProgramCurriculumSections).Query().ToListAsync();
-            }
-
-
-
-
-
-
-
-            string jsonString = JsonSerializer.Serialize(trainingProgram);
-            return jsonString;
+            return list[0];
         }
 
         [HttpPut]

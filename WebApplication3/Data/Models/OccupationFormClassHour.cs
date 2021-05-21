@@ -2,7 +2,6 @@
 {
     public class OccupationFormClassHour
     {
-        public int Id { get; set; }
         public int OccupationFormId { get; set; }
         public OccupationForm OccupationForm { get; set; }
         public int CurriculumTopicTrainingProgramId { get; set; }

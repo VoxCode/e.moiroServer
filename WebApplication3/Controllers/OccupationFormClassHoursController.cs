@@ -26,6 +26,24 @@ namespace e.moiroServer.Controllers
                 .Where(a => a.CurriculumTopicTrainingProgramId == curriculumTopicTrainingProgramId).ToListAsync();
         }
 
+        [HttpGet("FromTrainingProgramCurriculumSection/{trainingProgramCurriculumSectionId}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetFromTrainingProgramCurriculumSection(int trainingProgramCurriculumSectionId)
+        {
+            var models = from first in _context.OccupationFormClassHours
+                         .Where(a => a.CurriculumTopicTrainingProgram.TrainingProgramCurriculumSection.Id == trainingProgramCurriculumSectionId)
+                         join second in _context.OccupationForms on first.OccupationFormId equals second.Id
+                      select new
+                      {
+                          first.OccupationFormId,
+                          first.CurriculumTopicTrainingProgramId,
+                          first.SerialNumber,
+                          first.ClassHours,
+                          second.FullName,
+                          second.PluralName
+                      };
+            return await models.ToListAsync().ConfigureAwait(false);
+        }
+
         [HttpPut]
         public async Task<IActionResult> Put(OccupationFormClassHour value)
         {

@@ -22,7 +22,6 @@ namespace e.moiroServer.Controllers
         [HttpGet("{curriculumTopicTrainingProgramId}")]
         public async Task<ActionResult<IEnumerable<OccupationFormClassHour>>> Get(int curriculumTopicTrainingProgramId)
         {
-
             return await _context.OccupationFormClassHours
                 .Where(a => a.CurriculumTopicTrainingProgramId == curriculumTopicTrainingProgramId).ToListAsync();
         }

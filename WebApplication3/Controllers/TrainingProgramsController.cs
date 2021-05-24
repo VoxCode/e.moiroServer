@@ -85,7 +85,8 @@ namespace e.moiroServer.Controllers
                              DepartmentName = second.Name,
                              StudentCategoryName = third.Name,
                              CertificationTypeName = fourth.Name,
-                             FormOfEducationName = fifth.Name
+                             FormOfEducationName = fifth.Name,
+                             second.DepartmentHeadName
                          };
             var list = await values.ToListAsync().ConfigureAwait(false);
             if (list[0] == null)

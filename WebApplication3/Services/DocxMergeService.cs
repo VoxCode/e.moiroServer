@@ -18,7 +18,15 @@ namespace e.moiroServer.Services
 
 			using WordDocument document = new WordDocument(firstStream, FormatType.Automatic);
 			WordDocument destinationDocument = new WordDocument(secondStream, FormatType.Docx);
-			destinationDocument.ImportContent(document, ImportOptions.UseDestinationStyles);
+			destinationDocument.Settings.MaintainImportedListCache = true;
+			foreach (WSection section in document.Sections)
+			{
+				foreach (TextBodyItem bodyItem in section.Body.ChildEntities)
+				{
+					destinationDocument.LastSection.Body.ChildEntities.Add(bodyItem.Clone());
+				}
+			}
+			destinationDocument.Settings.MaintainImportedListCache = false;
 			MemoryStream stream = new MemoryStream();
 			destinationDocument.Save(stream, FormatType.Docx);
 			destinationDocument.Close();

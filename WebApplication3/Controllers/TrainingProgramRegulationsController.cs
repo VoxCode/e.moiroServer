@@ -57,6 +57,21 @@ namespace e.moiroServer.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpPut("SerialNumbers")]
+        public async Task<ActionResult<TrainingProgramRegulation>> PutSerialNumbers([FromBody] List<TrainingProgramRegulation> values)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var value in values)
+                {
+                    _context.Update(value);
+                }
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
+
         [HttpPost]
         public async Task<ActionResult<TrainingProgramRegulation>> Post(TrainingProgramRegulation value)
         {

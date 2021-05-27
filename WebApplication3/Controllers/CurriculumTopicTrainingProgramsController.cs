@@ -58,6 +58,21 @@ namespace e.moiroServer.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpPut("SerialNumbers")]
+        public async Task<ActionResult<CurriculumTopicTrainingProgram>> PutSerialNumbers([FromBody] List<CurriculumTopicTrainingProgram> values)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var value in values)
+                {
+                    _context.Update(value);
+                }
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
+
         [HttpPost]
         public async Task<ActionResult<CurriculumTopicTrainingProgram>> Post(CurriculumTopicTrainingProgram value)
         {

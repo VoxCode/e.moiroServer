@@ -51,14 +51,6 @@ namespace e.moiroServer.Controllers
             return regulationsResult.ToList();
         }
 
-        //[HttpGet("{curriculumTopicId}/{key}")]
-        //public async Task<ActionResult<IEnumerable<Regulation>>> Get(int curriculumTopicId, int key)
-        //{
-        //    var result = await _context.Regulations.Where(a => a.CurriculumTopicRegulations
-        //    .Any(r => r.CurriculumTopicId == curriculumTopicId)).ToListAsync();
-        //    return result;
-        //}
-
         [HttpPut]
         public async Task<IActionResult> Put(Regulation value)
         {

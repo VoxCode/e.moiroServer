@@ -96,6 +96,42 @@ namespace e.moiroServer.Controllers
             return list[0];
         }
 
+        [HttpGet("ForTeacher/{userName}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetForTeacher(string userName)
+        {
+            var departments = await _context.Departments
+                .Where(a => a.Teachers.Any(b => b.Users.Any(c => c.UserName == userName))).ToListAsync();
+
+            List<object> response = new List<object>();
+            foreach(var obj in departments)
+            {
+                var tmp = from first in _context.TrainingPrograms.Where(a => a.DepartmentId == obj.Id)
+                          join second in _context.Departments on first.DepartmentId equals second.Id
+                          join third in _context.StudentCategories on first.StudentCategoryId equals third.Id
+                          join fourth in _context.CertificationTypes on first.CertificationTypeId equals fourth.Id
+                          join fifth in _context.FormOfEducations on first.FormOfEducationId equals fifth.Id
+                          select new
+                          {
+                              first.Id,
+                              first.Name,
+                              first.NumberOfHours,
+                              first.IsDistanceLearning,
+                              first.IsControlWork,
+                              first.IsTestWork,
+                              first.DepartmentId,
+                              first.StudentCategoryId,
+                              first.CertificationTypeId,
+                              first.FormOfEducationId,
+                              DepartmentName = second.Name,
+                              StudentCategoryName = third.Name,
+                              CertificationTypeName = fourth.Name,
+                              FormOfEducationName = fifth.Name
+                          };
+                response.AddRange(await tmp.ToListAsync());
+            }
+            return response;
+        }
+
         [HttpPut]
         public async Task<IActionResult> Put(TrainingProgram value)
         {

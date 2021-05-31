@@ -38,23 +38,6 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
-        //[HttpGet("{userName}/{key}")]
-        //public async Task<ActionResult<IEnumerable<TeacherDepartment>>> Get(string userName, int key)
-        //{
-        //    if (userName == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var user = await _context.Users.FirstOrDefaultAsync(a => a.UserName == userName);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var techer = await _context.Teachers.FirstOrDefaultAsync(a => a.Id == user.TeacherId);
-        //    var result = await _context.TeacherDepartments.Where(a => a.TeacherId == techer.Id).ToListAsync();
-        //    return result;
-        //}
-
         [HttpPut]
         public async Task<IActionResult> Put(Department value)
         {

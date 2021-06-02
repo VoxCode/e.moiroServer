@@ -98,12 +98,12 @@ namespace e.moiroServer.Models
 
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            modelBuilder.ApplyConfiguration(new OccupationFormConfiguration());
-            modelBuilder.ApplyConfiguration(new CertificationTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new FormOfEducationConfiguration());
-            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
-            modelBuilder.ApplyConfiguration(new ExpertConfiguration());
+            //modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            //modelBuilder.ApplyConfiguration(new OccupationFormConfiguration());
+            //modelBuilder.ApplyConfiguration(new CertificationTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new FormOfEducationConfiguration());
+            //modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            //modelBuilder.ApplyConfiguration(new ExpertConfiguration());
         }
     }
 }

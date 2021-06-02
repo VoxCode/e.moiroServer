@@ -14,6 +14,7 @@ namespace e.moiroServer.Data.Models
         public int StudentCategoryId { get; set; }
         public int CertificationTypeId { get; set; }
         public int FormOfEducationId { get; set; }
+        public int NumberOfWeeks { get; set; }
         public ICollection<Group> Groups { get; set; }
         public ICollection<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
         public ICollection<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }

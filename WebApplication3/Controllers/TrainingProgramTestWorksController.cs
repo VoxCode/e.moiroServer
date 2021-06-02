@@ -1,9 +1,9 @@
 ﻿using e.moiroServer.Data.Models;
+using e.moiroServer.Data.Models.ResponseModels;
 using e.moiroServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
@@ -19,69 +19,63 @@ namespace e.moiroServer.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TrainingProgramTestWork>>> Get()
+        [HttpGet("FromTrainingProgram/{trainingProgramId}")]
+        public async Task<ActionResult<TrainingProgramTestWorkResponse>> GetFromTrainingProgram(int trainingProgramId)
         {
-            return await _context.TrainingProgramTestWorks.ToListAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TrainingProgramTestWork>> Get(int id)
-        {
-            var value = await _context.TrainingProgramTestWorks.FindAsync(id);
-
-            if (value == null)
+            var model = await _context.TrainingProgramTestWorks.FirstOrDefaultAsync(a => a.TrainingProgramId == trainingProgramId);
+            if (model == null)
             {
-                return NotFound();
+                return Ok();
             }
 
-            return value;
-        }
-
-        [HttpGet("FromTrainingProgram/{trainingProgramId}")]
-        public async Task<ActionResult<IEnumerable<TrainingProgramTestWork>>> GetFromTrainingProgram(int trainingProgramId)
-        {
-            return await _context.TrainingProgramTestWorks.Where(a => a.TrainingProgramId == trainingProgramId).ToListAsync();
+            var responseModel = new TrainingProgramTestWorkResponse()
+            {
+                Id = model.Id,
+                TrainingProgramId = model.TrainingProgramId,
+                Content = Encoding.UTF8.GetString(model.ContentDocx)
+            };
+            return responseModel;
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(TrainingProgramTestWork value)
+        public async Task<IActionResult> Put(TrainingProgramTestWorkResponse responseModel)
         {
+            var model = new TrainingProgramTestWork()
+            {
+                Id = responseModel.Id,
+                TrainingProgramId = responseModel.TrainingProgramId,
+                ContentDocx = Encoding.UTF8.GetBytes(responseModel.Content)
+            };
+
             if (ModelState.IsValid)
             {
-                _context.Update(value);
+                _context.Update(model);
                 await _context.SaveChangesAsync();
-                return Ok(value);
-
+                responseModel.Content = Encoding.UTF8.GetString(model.ContentDocx);
+                return Ok(responseModel);
             }
             return BadRequest(ModelState);
         }
 
         [HttpPost]
-        public async Task<ActionResult<TrainingProgramTestWork>> Post(TrainingProgramTestWork value)
+        public async Task<ActionResult<TrainingProgramTestWorkResponse>> Post(TrainingProgramTestWorkResponse responseModel)
         {
+            var model = new TrainingProgramTestWork()
+            {
+                Id = responseModel.Id,
+                TrainingProgramId = responseModel.TrainingProgramId,
+                ContentDocx = Encoding.UTF8.GetBytes(responseModel.Content)
+            };
+
             if (ModelState.IsValid)
             {
-                _context.TrainingProgramTestWorks.Add(value);
+                _context.TrainingProgramTestWorks.Add(model);
                 await _context.SaveChangesAsync();
-                return Ok(value);
+                responseModel.Id = model.Id;
+                responseModel.Content = Encoding.UTF8.GetString(model.ContentDocx);
+                return Ok(responseModel);
             }
             return BadRequest(ModelState);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<TrainingProgramTestWork>> Delete(int id)
-        {
-            var value = await _context.TrainingProgramTestWorks.FindAsync(id);
-            if (value == null)
-            {
-                return NotFound();
-            }
-
-            _context.TrainingProgramTestWorks.Remove(value);
-            await _context.SaveChangesAsync();
-
-            return value;
         }
     }
 }

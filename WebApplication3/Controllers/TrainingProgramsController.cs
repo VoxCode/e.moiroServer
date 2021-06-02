@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace e.moiroServer.Controllers
@@ -34,6 +32,7 @@ namespace e.moiroServer.Controllers
                           first.Id,
                           first.Name,
                           first.NumberOfHours,
+                          first.NumberOfWeeks,
                           first.IsDistanceLearning,
                           first.IsControlWork,
                           first.IsTestWork,
@@ -75,6 +74,7 @@ namespace e.moiroServer.Controllers
                              first.Id,
                              first.Name,
                              first.NumberOfHours,
+                             first.NumberOfWeeks,
                              first.IsDistanceLearning,
                              first.IsControlWork,
                              first.IsTestWork,
@@ -86,7 +86,8 @@ namespace e.moiroServer.Controllers
                              StudentCategoryName = third.Name,
                              CertificationTypeName = fourth.Name,
                              FormOfEducationName = fifth.Name,
-                             second.DepartmentHeadName
+                             second.DepartmentHeadName,
+                             StudentCategoryGenitiveName = third.GenitiveName
                          };
             var list = await values.ToListAsync().ConfigureAwait(false);
             if (list[0] == null)
@@ -102,7 +103,7 @@ namespace e.moiroServer.Controllers
             var departments = await _context.Departments
                 .Where(a => a.Teachers.Any(b => b.Users.Any(c => c.UserName == userName))).ToListAsync();
 
-            List<object> response = new List<object>();
+            List<object> response = new();
             foreach(var obj in departments)
             {
                 var tmp = from first in _context.TrainingPrograms.Where(a => a.DepartmentId == obj.Id)
@@ -115,6 +116,7 @@ namespace e.moiroServer.Controllers
                               first.Id,
                               first.Name,
                               first.NumberOfHours,
+                              first.NumberOfWeeks,
                               first.IsDistanceLearning,
                               first.IsControlWork,
                               first.IsTestWork,
@@ -125,7 +127,7 @@ namespace e.moiroServer.Controllers
                               DepartmentName = second.Name,
                               StudentCategoryName = third.Name,
                               CertificationTypeName = fourth.Name,
-                              FormOfEducationName = fifth.Name
+                              FormOfEducationName = fifth.Name,
                           };
                 response.AddRange(await tmp.ToListAsync());
             }

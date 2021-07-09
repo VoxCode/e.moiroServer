@@ -44,11 +44,11 @@ namespace e.moiroServer.Controllers
             return await _context.CurriculumTopics.Where(a => a.TrainingPrograms.Any(b => b.Id == trainingProgramId)).ToListAsync();
         }
 
-        [HttpGet("{studentCategoryId}/{departmentId}")]
-        public async Task<ActionResult<IEnumerable<CurriculumTopic>>> Get(int studentCategoryId, int departmentId)
+        [HttpGet("{studentCategoryId}/{departmentId}/{authorIndex}")]
+        public async Task<ActionResult<IEnumerable<CurriculumTopic>>> Get(int studentCategoryId, int departmentId, string authorIndex)
         {
-            var result = await _context.CurriculumTopics.Where(a => a.TrainingPrograms
-            .Any(r => r.StudentCategoryId == studentCategoryId && r.DepartmentId == departmentId)).ToListAsync();
+            var result = await _context.CurriculumTopics.Where(a => a.StudentCategories
+            .Any(r => r.Id == studentCategoryId) && a.Departments.Any(s => s.Id == departmentId) || a.AuthorIndex == authorIndex).ToListAsync();
             return result;
         }
 
@@ -77,6 +77,22 @@ namespace e.moiroServer.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpPost("PostTrainingProgram/{curriculumTopicId}")]
+        public async Task<ActionResult<CurriculumTopic>> PostTrainingProgram(
+            int curriculumTopicId, TrainingProgram trainingProgram)
+        {
+            var value = await _context.CurriculumTopics
+                .Include(y => y.StudentCategories)
+                .Include(z => z.Departments)
+                .FirstOrDefaultAsync(a => a.Id == curriculumTopicId);
+            var studentCategory = await _context.StudentCategories.FindAsync(trainingProgram.StudentCategoryId);
+            var department = await _context.Departments.FindAsync(trainingProgram.DepartmentId);
+            value.StudentCategories.Add(studentCategory);
+            value.Departments.Add(department);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<CurriculumTopic>> Delete(int id)
         {
@@ -88,7 +104,6 @@ namespace e.moiroServer.Controllers
 
             _context.CurriculumTopics.Remove(value);
             await _context.SaveChangesAsync();
-
             return value;
         }
     }

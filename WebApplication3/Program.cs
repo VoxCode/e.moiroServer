@@ -19,7 +19,11 @@ namespace e.moiroServer
                     webBuilder.ConfigureKestrel(options =>
                     {
                         options.Limits.MaxConcurrentConnections = 20;
-                        options.Listen(IPAddress.Loopback, 5009);
+                        options.Listen(IPAddress.Any, 5009, listenOptions =>
+                        {
+                            listenOptions.UseHttps("/etc/letsencrypt/live/api.smart.moiro.by/cert.pfx",
+                                "12345");
+                        });
                     });
                     webBuilder.UseStartup<Startup>();
                 });

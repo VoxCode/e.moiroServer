@@ -22,7 +22,7 @@ namespace e.moiroServer
                         options.Listen(IPAddress.Any, 5009, listenOptions =>
                         {
                             listenOptions.UseHttps("/etc/letsencrypt/live/api.smart.moiro.by/cert.pfx",
-                                "12345");
+                                "/etc/letsencrypt/live/api.smart.moiro.by/password");
                         });
                     });
                     webBuilder.UseStartup<Startup>();

@@ -34,6 +34,7 @@ namespace e.moiroServer.Models
         public DbSet<ClassRoom> ClassRooms { get; set; }
         public DbSet<ClassTime> ClassTimes { get; set; }
         public DbSet<InstituteStructure> InstituteStructures { get; set; }
+        public DbSet<GuidedTestWorkAssignment> GuidedTestWorkAssignments { get; set; }
 
         public DbSet<TrainingProgramAdditionalLiterature> TrainingProgramAdditionalLiteratures { get; set; }
         public DbSet<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }

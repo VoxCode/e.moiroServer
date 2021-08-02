@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace e.moiroServer.Data.Models
 {
@@ -15,6 +16,7 @@ namespace e.moiroServer.Data.Models
         public int CertificationTypeId { get; set; }
         public int FormOfEducationId { get; set; }
         public int NumberOfWeeks { get; set; }
+        public DateTime DateOfCreation { get; set; }
         public ICollection<Group> Groups { get; set; }
         public ICollection<TrainingProgramCurriculumSection> TrainingProgramCurriculumSections { get; set; }
         public ICollection<TrainingProgramTestWork> TrainingProgramTestWorks { get; set; }

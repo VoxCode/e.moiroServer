@@ -1,5 +1,4 @@
-﻿using e.moiroServer.Configurations;
-using e.moiroServer.Data.Models;
+﻿using e.moiroServer.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

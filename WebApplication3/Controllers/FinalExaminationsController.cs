@@ -41,6 +41,23 @@ namespace e.moiroServer.Controllers
             return await _context.FinalExaminations.Where(a => a.CertificationTypeId == id).ToListAsync();
         }
 
+        [HttpGet("Author{author}")]
+        public async Task<ActionResult<IEnumerable<object>>> Get(string author)
+        {
+            var tmp = from first in _context.FinalExaminations.Where(a => a.AuthorIndex == author)
+                      join second in _context.CertificationTypes on first.CertificationTypeId equals second.Id
+                      select new
+                      {
+                          first.Id,
+                          first.Content,
+                          first.CertificationTypeId,
+                          first.AuthorIndex,
+                          CertificationTypeName = second.Name
+                      };
+
+            return await tmp.ToListAsync();
+        }
+
         [HttpPut]
         public async Task<IActionResult> Put(FinalExamination value)
         {

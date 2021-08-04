@@ -38,6 +38,12 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
+        [HttpGet("Author{author}")]
+        public async Task<ActionResult<IEnumerable<Regulation>>> Get(string author)
+        {
+            return await _context.Regulations.Where(a => a.AuthorIndex == author).ToListAsync();
+        }
+
         [HttpPost("CurriculumTopics")]
         public async Task<ActionResult<IEnumerable<Regulation>>> GetByCurriculumTopics([FromBody] int[] curriculumTopicIdArray)
         {

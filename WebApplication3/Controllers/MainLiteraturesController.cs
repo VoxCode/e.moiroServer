@@ -38,6 +38,12 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
+        [HttpGet("Author{author}")]
+        public async Task<ActionResult<IEnumerable<MainLiterature>>> Get(string author)
+        {
+            return await _context.MainLiteratures.Where(a => a.AuthorIndex == author).ToListAsync();
+        }
+
         [HttpPut]
         public async Task<IActionResult> Put(MainLiterature value)
         {

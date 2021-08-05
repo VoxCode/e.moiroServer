@@ -63,18 +63,6 @@ namespace e.moiroServer.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPost("GetAdditionalLiterature")]
-        public async Task<ActionResult<IEnumerable<GuidedTestWorkAssignment>>> GetAdditionalLiterature([FromBody] int[] curriculumTopicIdArray)
-        {
-            IEnumerable<GuidedTestWorkAssignment> result = new List<GuidedTestWorkAssignment>();
-            foreach (var curriculumTopicId in curriculumTopicIdArray.AsParallel())
-            {
-                var res = await _context.GuidedTestWorkAssignments.Where(a => a.CurriculumTopicTrainingProgramId == curriculumTopicId).ToListAsync();
-                result = result.Union(res);
-            }
-            return result.ToList();
-        }
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<GuidedTestWorkAssignment>> Delete(int id)
         {

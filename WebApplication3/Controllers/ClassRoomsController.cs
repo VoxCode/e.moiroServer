@@ -9,11 +9,11 @@ namespace e.moiroServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassRoomController : ControllerBase
+    public class ClassRoomsController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
-        public ClassRoomController(ApplicationContext context)
+        public ClassRoomsController(ApplicationContext context)
         {
             _context = context;
         }

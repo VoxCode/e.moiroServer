@@ -41,7 +41,8 @@ namespace e.moiroServer.Controllers
         [HttpGet("FromTrainingProgram/{trainingProgramId}")]
         public async Task<ActionResult<IEnumerable<TrainingProgramCurriculumSection>>> GetFromTrainingProgram(int trainingProgramId)
         {
-            return await _context.TrainingProgramCurriculumSections.Where(a => a.TrainingProgramId == trainingProgramId).ToListAsync();
+            return await _context.TrainingProgramCurriculumSections
+                .Where(a => a.TrainingProgramId == trainingProgramId).OrderBy(b => b.SectionNumber).ToListAsync();
         }
 
         [HttpPut]

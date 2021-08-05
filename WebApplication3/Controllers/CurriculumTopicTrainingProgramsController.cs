@@ -42,7 +42,7 @@ namespace e.moiroServer.Controllers
         public async Task<ActionResult<IEnumerable<CurriculumTopicTrainingProgram>>> GetFromTrainingProgramCurriculumSection(int trainingProgramCurriculumSectionId)
         {
             return await _context.CurriculumTopicTrainingPrograms
-                .Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramCurriculumSectionId).ToListAsync();
+                .Where(a => a.TrainingProgramCurriculumSectionId == trainingProgramCurriculumSectionId).OrderBy(e => e.SerialNumber).ToListAsync();
         }
 
         [HttpPut]
@@ -83,6 +83,19 @@ namespace e.moiroServer.Controllers
                 return Ok(value);
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpPost("FromCurriculumSections")]
+        public async Task<ActionResult<IEnumerable<CurriculumTopicTrainingProgram>>> GetFromCurriculumSections([FromBody] int[] curriculumSectionIdArray)
+        {
+            IEnumerable<CurriculumTopicTrainingProgram> result = new List<CurriculumTopicTrainingProgram>();
+            foreach (var curriculumSectionId in curriculumSectionIdArray.AsParallel())
+            {
+                var res = await _context.CurriculumTopicTrainingPrograms
+                    .Where(a => a.TrainingProgramCurriculumSectionId == curriculumSectionId).OrderBy(b => b.SerialNumber).ToListAsync();
+                result = result.Union(res);
+            }
+            return result.ToList();
         }
 
         [HttpDelete("{id}")]

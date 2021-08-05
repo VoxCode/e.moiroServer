@@ -9,11 +9,11 @@ namespace e.moiroServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassTimeController : ControllerBase
+    public class ClassTimesController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
-        public ClassTimeController(ApplicationContext context)
+        public ClassTimesController(ApplicationContext context)
         {
             _context = context;
         }

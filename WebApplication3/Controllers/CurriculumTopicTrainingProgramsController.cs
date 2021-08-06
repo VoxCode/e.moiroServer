@@ -92,7 +92,8 @@ namespace e.moiroServer.Controllers
             foreach (var curriculumSectionId in curriculumSectionIdArray.AsParallel())
             {
                 var res = await _context.CurriculumTopicTrainingPrograms
-                    .Where(a => a.TrainingProgramCurriculumSectionId == curriculumSectionId).OrderBy(b => b.SerialNumber).ToListAsync();
+                    .Where(a => a.TrainingProgramCurriculumSectionId == curriculumSectionId && a.IsVariable == false)
+                    .OrderBy(b => b.SerialNumber).ToListAsync();
                 result = result.Union(res);
             }
             return result.ToList();

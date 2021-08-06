@@ -51,6 +51,21 @@ namespace e.moiroServer.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpPut("SerialNumbers")]
+        public async Task<ActionResult<GuidedTestWorkAssignment>> PutSerialNumbers([FromBody] List<GuidedTestWorkAssignment> values)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var value in values)
+                {
+                    _context.Update(value);
+                }
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
+
         [HttpPost]
         public async Task<ActionResult<GuidedTestWorkAssignment>> Post(GuidedTestWorkAssignment value)
         {
@@ -67,10 +82,11 @@ namespace e.moiroServer.Controllers
         public async Task<ActionResult<IEnumerable<GuidedTestWorkAssignment>>> GetFromCurriculumTopics([FromBody] int[] curriculumTopicIdArray)
         {
             IEnumerable<GuidedTestWorkAssignment> result = new List<GuidedTestWorkAssignment>();
-            foreach (var curriculumTopicId in curriculumTopicIdArray.AsParallel())
+            foreach (var curriculumTopicId in curriculumTopicIdArray)
             {
                 var res = await _context.GuidedTestWorkAssignments
-                    .Where(a => a.CurriculumTopicTrainingProgramId == curriculumTopicId).OrderBy(b => b.SerialNumber).ToListAsync();
+                    .Where(a => a.CurriculumTopicTrainingProgramId == curriculumTopicId && a.CurriculumTopicTrainingProgram.IsVariable == false)
+                    .OrderBy(b => b.SerialNumber).ToListAsync();
                 result = result.Union(res);
             }
             return result.ToList();

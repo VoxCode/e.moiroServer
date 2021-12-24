@@ -39,15 +39,21 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("FromScheduleBlock/{scheduleBlockId}")]
-        public async Task<ActionResult<IEnumerable<ScheduleBlockClassTime>>> GetFromScheduleBlock(int scheduleBlockId)
+        public async Task<ActionResult<IEnumerable<object>>> GetFromScheduleBlock(int scheduleBlockId)
         {
-            //_context.ClassTimes.Join(_context.ScheduleBlockClassTimes.Where(a => 
-            //a.ScheduleBlockId == scheduleBlockId).ToList(),
-            //e => e.Id, 
-            //o => o.ClassTimeId, 
-            //(e, o) => new { e }
-            //).ToList();
-            return await _context.ScheduleBlockClassTimes.Where(a => a.ScheduleBlockId == scheduleBlockId).ToListAsync();     
+
+            var tmp = from mixedInBlock in _context.ScheduleBlockClassTimes.Where(mixedInBlock => mixedInBlock.ScheduleBlockId == scheduleBlockId)
+                      join classTime in _context.ClassTimes on mixedInBlock.ClassTimeId equals classTime.Id
+                      select new
+                      {
+                          mixedInBlock.Id,
+                          mixedInBlock.ScheduleBlockId,
+                          mixedInBlock.ClassTimeId,
+                          classTime.ClassTimeStart,
+                          classTime.ClassTimeEnd,
+                          mixedInBlock.SerialNumber
+                      };
+            return await tmp.ToListAsync().ConfigureAwait(false);
         }
 
         [HttpPut]

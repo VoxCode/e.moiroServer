@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace e.moiroServer.Controllers
 {
@@ -19,9 +20,20 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> Get()
+        public async Task<ActionResult<IEnumerable<object>>> Get()
         {
-            return await _context.Groups.ToListAsync();
+            var tmp = from gr in _context.Groups
+                      join prog in _context.TrainingPrograms on gr.TrainingProgramId equals prog.Id
+                      select new
+                      {
+                          gr.Id,
+                          gr.CalendarYear,
+                          gr.ClassStartDate,
+                          gr.ClassEndDate,
+                          gr.GroupNumber,
+                          TrainingProgramName = prog.Name
+                      };
+            return await tmp.ToListAsync();
         }
 
         [HttpGet("{id}")]

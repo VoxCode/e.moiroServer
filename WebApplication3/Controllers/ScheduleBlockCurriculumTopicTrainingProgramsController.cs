@@ -41,23 +41,21 @@ namespace e.moiroServer.Controllers
         }
 
         [HttpGet("FromScheduleBlock/{scheduleBlockId}")]
-        public async Task<ActionResult<IEnumerable<ScheduleBlockCurriculumTopicTrainingProgram>>> GetFromScheduleBlock(int scheduleBlockId)
+        public async Task<ActionResult<IEnumerable<object>>> GetFromScheduleBlock(int scheduleBlockId)
         {
 
-            //var a = from topic in _context.CurriculumTopicTrainingPrograms
-            //        join aux in _context.ScheduleBlockCurriculumTopicTrainingPrograms on topic.Id equals aux.CurriculumTopicTrainingProgramId
-            //        where aux.ScheduleBlockId == scheduleBlockId
-            //        select topic;
-
-            //await _context.CurriculumTopicTrainingPrograms.
-            //    Join(_context.ScheduleBlockCurriculumTopicTrainingPrograms,
-            //        topic => topic.Id,
-            //        schedule => schedule.CurriculumTopicTrainingProgramId,
-            //        (topic, schedule) => new { topic, schedule }).
-            //    Where(x => x.schedule.ScheduleBlockId == scheduleBlockId).
-            //    Select(o => o.topic).ToListAsync();
-
-            return await _context.ScheduleBlockCurriculumTopicTrainingPrograms.Where(a => a.ScheduleBlockId == scheduleBlockId).ToListAsync();
+            var tmp = from mixedInBlock in _context.ScheduleBlockCurriculumTopicTrainingPrograms.Where(mixedInBlock => mixedInBlock.ScheduleBlockId == scheduleBlockId)
+                      join topic in _context.CurriculumTopicTrainingPrograms on mixedInBlock.CurriculumTopicTrainingProgramId equals topic.Id
+                      select new
+                      {
+                          mixedInBlock.Id,
+                          mixedInBlock.ScheduleBlockId,
+                          mixedInBlock.CurriculumTopicTrainingProgramId,
+                          topic.TopicTitle,
+                          topic.Annotation,
+                          mixedInBlock.SerialNumber
+                      };
+            return await tmp.ToListAsync().ConfigureAwait(false);
         }
 
         [HttpPut]

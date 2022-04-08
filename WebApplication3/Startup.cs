@@ -1,3 +1,4 @@
+using e.moiroServer.Converters;
 using e.moiroServer.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,13 +15,21 @@ namespace e.moiroServer
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-            => services
+        { 
+            services
                 .AddDatabase(Configuration)
                 .AddIdentity()
                 .AddJwtAuthentication(services.GetApplicationSettings(Configuration))
                 .AddApplicationServices()
                 .AddSwagger()
                 .AddApiControllers();
+
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+                });
+        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

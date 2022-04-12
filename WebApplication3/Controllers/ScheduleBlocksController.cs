@@ -54,7 +54,7 @@ namespace e.moiroServer.Controllers
                       join time in _context.ClassTimes on blockTime.ClassTimeId equals time.Id
                       select new
                       {
-                          dateBlock.Id,
+                          dateBlock.ScheduleDateId,
                           dateBlock.ScheduleBlockId,
                           topic.TopicTitle,
                           blockTopic.CurriculumTopicTrainingProgramId,
@@ -64,6 +64,7 @@ namespace e.moiroServer.Controllers
                           date.Group.GroupNumber,
                           date.GroupId,
                           block.SubgroupNumber,
+                          blockTime.ClassTimeId,
                           time.ClassTimeStart,
                           time.ClassTimeEnd,
                           room.Name,

@@ -58,6 +58,7 @@ namespace e.moiroServer.Controllers
                           dateBlock.ScheduleBlockId,
                           topic.TopicTitle,
                           blockTopic.CurriculumTopicTrainingProgramId,
+                          teacherobj = teacher,
                           teacherFullName = $"{teacher.LastName} {teacher.FirstName} {teacher.PatronymicName} ({teacher.Position})",
                           blockTeacher.TeacherId,
                           date.Date,

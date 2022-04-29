@@ -2,6 +2,7 @@
 using e.moiroServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -73,6 +74,40 @@ namespace e.moiroServer.Controllers
             return await tmp.ToListAsync().ConfigureAwait(false);
         }
 
+        [HttpGet("ScheduleElementsRange")]
+        public async Task<ActionResult<IEnumerable<object>>> GetScheduleElementsRange(DateTime s, DateTime e)
+        {
+            var tmp = from date in _context.ScheduleDates where date.Date.Date >= s.Date && date.Date.Date <= e.Date
+                      join dateBlock in _context.ScheduleDateScheduleBlocks on date.Id equals dateBlock.ScheduleDateId
+                      join block in _context.ScheduleBlocks on dateBlock.ScheduleBlockId equals block.Id
+                      join blockTopic in _context.ScheduleBlockCurriculumTopicTrainingPrograms on block.Id equals blockTopic.ScheduleBlockId
+                      join topic in _context.CurriculumTopicTrainingPrograms on blockTopic.CurriculumTopicTrainingProgramId equals topic.Id
+                      join blockTeacher in _context.ScheduleBlockTeachers on block.Id equals blockTeacher.ScheduleBlockId
+                      join teacher in _context.Teachers on blockTeacher.TeacherId equals teacher.Id
+                      join blockRoom in _context.ScheduleBlockClassRooms on block.Id equals blockRoom.ScheduleBlockId
+                      join room in _context.ClassRooms on blockRoom.ClassRoomId equals room.Id
+                      join blockTime in _context.ScheduleBlockClassTimes on block.Id equals blockTime.ScheduleBlockId
+                      join time in _context.ClassTimes on blockTime.ClassTimeId equals time.Id
+                      select new
+                      {
+                          dateBlock.ScheduleDateId,
+                          dateBlock.ScheduleBlockId,
+                          topic.TopicTitle,
+                          blockTopic.CurriculumTopicTrainingProgramId,
+                          teacherobj = new { teacher.Id, teacher.FirstName, teacher.PatronymicName, teacher.LastName, teacher.Position },
+                          //teacherFullName = $"{teacher.LastName} {teacher.FirstName} {teacher.PatronymicName} ({teacher.Position})",
+                          //blockTeacher.TeacherId,
+                          date.Date,
+                          date.Group.GroupNumber,
+                          date.GroupId,
+                          block.SubgroupNumber,
+                          //blockTime.ClassTimeId,
+                          time,
+                          room.Name,
+                          blockRoom.ClassRoomId,
+                      };
+            return await tmp.ToListAsync().ConfigureAwait(false);
+        }
         //[HttpDelete("ScheduleElement/{id}")]
         //public async Task<ActionResult<ScheduleBlock>> Delete(int id)
         //{

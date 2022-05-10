@@ -74,10 +74,49 @@ namespace e.moiroServer.Controllers
             return await tmp.ToListAsync().ConfigureAwait(false);
         }
 
+
+        [HttpGet("ScheduleElements/{id}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetScheduleElements(int id)
+        {
+            var tmp = from block in _context.ScheduleBlocks
+                      where block.Id == id
+                      join dateBlock in _context.ScheduleDateScheduleBlocks on block.Id equals dateBlock.ScheduleBlockId
+                      join date in _context.ScheduleDates on dateBlock.ScheduleDateId equals date.Id
+                      join blockTopic in _context.ScheduleBlockCurriculumTopicTrainingPrograms on block.Id equals blockTopic.ScheduleBlockId
+                      join topic in _context.CurriculumTopicTrainingPrograms on blockTopic.CurriculumTopicTrainingProgramId equals topic.Id
+                      join blockTeacher in _context.ScheduleBlockTeachers on block.Id equals blockTeacher.ScheduleBlockId
+                      join teacher in _context.Teachers on blockTeacher.TeacherId equals teacher.Id
+                      join blockRoom in _context.ScheduleBlockClassRooms on block.Id equals blockRoom.ScheduleBlockId
+                      join room in _context.ClassRooms on blockRoom.ClassRoomId equals room.Id
+                      join blockTime in _context.ScheduleBlockClassTimes on block.Id equals blockTime.ScheduleBlockId
+                      join time in _context.ClassTimes on blockTime.ClassTimeId equals time.Id
+                      select new
+                      {
+                          dateBlock.ScheduleDateId,
+                          dateBlock.ScheduleBlockId,
+                          topic.TopicTitle,
+                          blockTopic.CurriculumTopicTrainingProgramId,
+                          teacherobj = new { teacher.Id, teacher.FirstName, teacher.PatronymicName, teacher.LastName, teacher.Position },
+                          date.Date,
+                          date.Group.GroupNumber,
+                          date.GroupId,
+                          block.SubgroupNumber,
+                          time,
+                          room.Name,
+                          blockRoom.ClassRoomId,
+                      };
+            return await tmp.ToListAsync().ConfigureAwait(false);
+        }
+
+
+
         [HttpGet("ScheduleElementsRange")]
         public async Task<ActionResult<IEnumerable<object>>> GetScheduleElementsRange(DateTime s, DateTime e)
         {
-            var tmp = from date in _context.ScheduleDates where date.Date.Date >= s.Date && date.Date.Date <= e.Date
+            //if (s == null && e == null)
+            //    return BadRequest();
+            var tmp = from date in _context.ScheduleDates
+                      where date.Date.Date >= s.Date && date.Date.Date <= e.Date
                       join dateBlock in _context.ScheduleDateScheduleBlocks on date.Id equals dateBlock.ScheduleDateId
                       join block in _context.ScheduleBlocks on dateBlock.ScheduleBlockId equals block.Id
                       join blockTopic in _context.ScheduleBlockCurriculumTopicTrainingPrograms on block.Id equals blockTopic.ScheduleBlockId

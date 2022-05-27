@@ -31,6 +31,7 @@ namespace e.moiroServer.Controllers
                           gr.ClassStartDate,
                           gr.ClassEndDate,
                           gr.GroupNumber,
+                          TrainingProgramId = prog.Id,
                           TrainingProgramName = prog.Name
                       };
             return await tmp.ToListAsync();

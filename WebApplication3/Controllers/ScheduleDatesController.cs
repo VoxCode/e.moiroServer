@@ -39,6 +39,12 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
+        [HttpGet("FromGroup/{groupId}")]
+        public async Task<ActionResult<IEnumerable<ScheduleDate>>> GetFromScheduleDate(int groupId)
+        {
+            return await _context.ScheduleDates.Where(a => a.GroupId == groupId).ToListAsync();
+        }
+
         [HttpPut]
         public async Task<IActionResult> Put(ScheduleDate value)
         {

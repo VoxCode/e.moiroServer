@@ -51,6 +51,8 @@ namespace e.moiroServer.Controllers
                           mixedInBlock.ClassTimeId,
                           classTime.ClassTimeStart,
                           classTime.ClassTimeEnd,
+                          classTime.SecondTimeStart,
+                          classTime.SecondTimeEnd,
                           mixedInBlock.SerialNumber
                       };
             return await tmp.ToListAsync().ConfigureAwait(false);

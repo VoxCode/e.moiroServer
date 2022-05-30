@@ -38,10 +38,25 @@ namespace e.moiroServer.Controllers
             return value;
         }
 
+        //[HttpGet("FromScheduleDate/{scheduleDateId}")]
+        //public async Task<ActionResult<IEnumerable<ScheduleDateScheduleBlock>>> GetFromScheduleDate(int scheduleDateId)
+        //{
+        //    return await _context.ScheduleDateScheduleBlocks.Where(a => a.ScheduleDateId == scheduleDateId).ToListAsync();
+        //}
+
         [HttpGet("FromScheduleDate/{scheduleDateId}")]
-        public async Task<ActionResult<IEnumerable<ScheduleDateScheduleBlock>>> GetFromScheduleDate(int scheduleDateId)
+        public async Task<ActionResult<IEnumerable<object>>> GetFromScheduleDate(int scheduleDateId)
         {
-            return await _context.ScheduleDateScheduleBlocks.Where(a => a.ScheduleDateId == scheduleDateId).ToListAsync();
+            var tmp = from dateBlock in _context.ScheduleDateScheduleBlocks.Where(a => a.ScheduleDateId == scheduleDateId)
+                      join block in _context.ScheduleBlocks on dateBlock.ScheduleBlockId equals block.Id
+                      select new
+                      {
+                          scheduleDateId = dateBlock.ScheduleDateId,
+                          scheduleBlockId = dateBlock.ScheduleBlockId,
+                          subgroupNumber = block.SubgroupNumber
+                      };
+
+            return await tmp.ToListAsync().ConfigureAwait(false);
         }
 
         [HttpPut]

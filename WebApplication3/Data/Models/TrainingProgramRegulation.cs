@@ -1,4 +1,6 @@
-﻿namespace e.moiroServer.Data.Models
+﻿using System;
+
+namespace e.moiroServer.Data.Models
 {
     public class TrainingProgramRegulation
     {
@@ -6,5 +8,7 @@
         public int TrainingProgramId { get; set; }
         public int SerialNumber { get; set; }
         public string Content { get; set; }
+        public DateTime AccessDate { get; set; }
+        public Boolean AccessDateEnabled { get; set; }
     }
 }

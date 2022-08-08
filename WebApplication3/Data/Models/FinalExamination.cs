@@ -8,6 +8,7 @@ namespace e.moiroServer.Data.Models
         public string Content { get; set; }
         public int CertificationTypeId { get; set; }
         public string AuthorIndex { get; set; }
-        public ICollection<CurriculumTopic> CurriculumTopics { get; set; }
+        public ICollection<CurriculumTopic> CurriculumTopics { get; set; } // unused/deprecated
+        public ICollection<Department> Departments { get; set; }
     }
 }

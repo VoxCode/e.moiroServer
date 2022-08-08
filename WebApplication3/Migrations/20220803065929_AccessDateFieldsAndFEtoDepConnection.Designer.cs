@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using e.moiroServer.Models;
@@ -9,9 +10,10 @@ using e.moiroServer.Models;
 namespace e.moiroServer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220803065929_AccessDateFieldsAndFEtoDepConnection")]
+    partial class AccessDateFieldsAndFEtoDepConnection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,9 +311,6 @@ namespace e.moiroServer.Migrations
                     b.Property<DateTime>("AccessDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("AuthorIndex")
                         .HasColumnType("text");
 
@@ -457,24 +456,6 @@ namespace e.moiroServer.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("e.moiroServer.Data.Models.DepartmentFinalExamination", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FinalExaminationId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DepartmentFinalExaminations");
-                });
-
             modelBuilder.Entity("e.moiroServer.Data.Models.Expert", b =>
                 {
                     b.Property<int>("Id")
@@ -611,9 +592,6 @@ namespace e.moiroServer.Migrations
                     b.Property<DateTime>("AccessDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("AuthorIndex")
                         .HasColumnType("text");
 
@@ -697,9 +675,6 @@ namespace e.moiroServer.Migrations
 
                     b.Property<DateTime>("AccessDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("AuthorIndex")
                         .HasColumnType("text");
@@ -1001,12 +976,6 @@ namespace e.moiroServer.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("AccessDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
@@ -1122,12 +1091,6 @@ namespace e.moiroServer.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("AccessDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
@@ -1150,12 +1113,6 @@ namespace e.moiroServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("AccessDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Content")
                         .HasColumnType("text");

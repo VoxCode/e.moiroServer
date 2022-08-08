@@ -12,8 +12,14 @@ namespace e.moiroServer.Converters
     {
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            Debug.Assert(typeToConvert == typeof(DateTime));
-            return DateTime.Parse(reader.GetString());
+            try
+            {
+                Debug.Assert(typeToConvert == typeof(DateTime));
+                return DateTime.Parse(reader.GetString());
+            }
+            catch { }
+            return DateTime.Now;
+
         }
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)

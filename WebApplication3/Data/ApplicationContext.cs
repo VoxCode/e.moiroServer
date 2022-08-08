@@ -53,6 +53,7 @@ namespace e.moiroServer.Models
         public DbSet<ScheduleDateScheduleBlock> ScheduleDateScheduleBlocks { get; set; }
         public DbSet<OccupationFormClassHour> OccupationFormClassHours { get; set; }
         public DbSet<MaxVariableTopicTime> MaxVariableTopicTimes { get; set; }
+        public DbSet<DepartmentFinalExamination> DepartmentFinalExaminations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

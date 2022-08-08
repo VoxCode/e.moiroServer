@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using e.moiroServer.Models;
@@ -9,9 +10,10 @@ using e.moiroServer.Models;
 namespace e.moiroServer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220805064944_AccessDateForTrainingProgramTables")]
+    partial class AccessDateForTrainingProgramTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,9 +310,6 @@ namespace e.moiroServer.Migrations
 
                     b.Property<DateTime>("AccessDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("AuthorIndex")
                         .HasColumnType("text");
@@ -611,9 +610,6 @@ namespace e.moiroServer.Migrations
                     b.Property<DateTime>("AccessDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("AuthorIndex")
                         .HasColumnType("text");
 
@@ -697,9 +693,6 @@ namespace e.moiroServer.Migrations
 
                     b.Property<DateTime>("AccessDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("AuthorIndex")
                         .HasColumnType("text");
@@ -1004,9 +997,6 @@ namespace e.moiroServer.Migrations
                     b.Property<DateTime>("AccessDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
@@ -1125,9 +1115,6 @@ namespace e.moiroServer.Migrations
                     b.Property<DateTime>("AccessDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
@@ -1153,9 +1140,6 @@ namespace e.moiroServer.Migrations
 
                     b.Property<DateTime>("AccessDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("AccessDateEnabled")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Content")
                         .HasColumnType("text");

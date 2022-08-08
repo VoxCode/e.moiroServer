@@ -58,6 +58,25 @@ namespace e.moiroServer.Controllers
             return await tmp.ToListAsync();
         }
 
+
+        [HttpGet("FinalExaminationByDepartment/{department}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetByDepartment(int department)
+        {
+            var tmp = from dep in _context.DepartmentFinalExaminations.Where(x => x.DepartmentId == department)
+                      join finalEx in _context.FinalExaminations on dep.FinalExaminationId equals finalEx.Id
+                      join cert in _context.CertificationTypes on finalEx.CertificationTypeId equals cert.Id
+                      select new
+                      {
+                          finalEx.Id,
+                          finalEx.Content,
+                          finalEx.CertificationTypeId,
+                          finalEx.AuthorIndex,
+                          CertificationTypeName = cert.Name
+                      };
+
+            return await tmp.ToListAsync();
+        }
+
         [HttpPut]
         public async Task<IActionResult> Put(FinalExamination value)
         {

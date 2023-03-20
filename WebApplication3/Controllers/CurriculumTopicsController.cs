@@ -63,6 +63,11 @@ namespace e.moiroServer.Controllers
         {
             var result = await _context.CurriculumTopics.Where(a => a.StudentCategories
             .Any(r => r.Id == studentCategoryId) && a.Departments.Any(s => s.Id == departmentId)).ToListAsync();
+            if (result.Count == 0)
+            {
+                var onlyDeps = await _context.CurriculumTopics.Where(a => a.Departments.Any(s => s.Id == departmentId)).ToListAsync();
+                return onlyDeps;
+            }
             return result;
         }
 
@@ -77,6 +82,24 @@ namespace e.moiroServer.Controllers
 
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpPut("ConnectToDepartments/{curriculumTopicId}")]
+        public async Task<ActionResult<FinalExamination>> Post(int curriculumTopicId, [FromBody] List<Department> departments)
+        {
+            if (departments?.Count == 0)
+                return BadRequest();
+
+            var curriculumTopic = await _context.CurriculumTopics.Include(a => a.Departments).FirstOrDefaultAsync(fe => fe.Id == curriculumTopicId);
+
+            if (curriculumTopic == null)
+                return NotFound();
+
+            curriculumTopic.Departments.AddRange(departments);
+            var a = curriculumTopic.Departments.GroupBy(x => x.Id).Select(y => y.First());
+            curriculumTopic.Departments = new List<Department>(a);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         [HttpPost]

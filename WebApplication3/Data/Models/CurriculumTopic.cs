@@ -14,7 +14,7 @@ namespace e.moiroServer.Data.Models
         public ICollection<MainLiterature> MainLiteratures { get; set; }
         public ICollection<TestWork> TestWorks { get; set; }
         public ICollection<StudentCategory> StudentCategories { get; set; }
-        public ICollection<Department> Departments { get; set; }
+        public List<Department> Departments { get; set; }
         public ICollection<TrainingProgram> TrainingPrograms { get; set; }
 
     }

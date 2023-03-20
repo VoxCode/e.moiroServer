@@ -58,24 +58,35 @@ namespace e.moiroServer.Controllers
             return await tmp.ToListAsync();
         }
 
-
-        [HttpGet("FinalExaminationByDepartment/{department}")]
-        public async Task<ActionResult<IEnumerable<object>>> GetByDepartment(int department)
+        [HttpGet("GetByDepartment/{certificationTypeId}/{departmentId}")]
+        public async Task<ActionResult<IEnumerable<FinalExamination>>> Get(int certificationTypeId, int departmentId)
         {
-            var tmp = from dep in _context.DepartmentFinalExaminations.Where(x => x.DepartmentId == department)
-                      join finalEx in _context.FinalExaminations on dep.FinalExaminationId equals finalEx.Id
-                      join cert in _context.CertificationTypes on finalEx.CertificationTypeId equals cert.Id
-                      select new
-                      {
-                          finalEx.Id,
-                          finalEx.Content,
-                          finalEx.CertificationTypeId,
-                          finalEx.AuthorIndex,
-                          CertificationTypeName = cert.Name
-                      };
-
-            return await tmp.ToListAsync();
+            var result = await _context.FinalExaminations.Where(a => a.CertificationTypeId == certificationTypeId && a.Departments.Any(s => s.Id == departmentId)).ToListAsync();
+            if (result.Count == 0)
+            {
+                var onlyDeps = await _context.FinalExaminations.Where(a => a.Departments.Any(s => s.Id == departmentId)).ToListAsync();
+                return onlyDeps;
+            }
+            return result;
         }
+
+        //[HttpGet("FinalExaminationByDepartment/{department}")]
+        //public async Task<ActionResult<IEnumerable<object>>> GetByDepartment(int department)
+        //{
+        //    var tmp = from dep in _context.DepartmentFinalExaminations.Where(x => x.DepartmentId == department)
+        //              join finalEx in _context.FinalExaminations on dep.FinalExaminationId equals finalEx.Id
+        //              join cert in _context.CertificationTypes on finalEx.CertificationTypeId equals cert.Id
+        //              select new
+        //              {
+        //                  finalEx.Id,
+        //                  finalEx.Content,
+        //                  finalEx.CertificationTypeId,
+        //                  finalEx.AuthorIndex,
+        //                  CertificationTypeName = cert.Name
+        //              };
+
+        //    return await tmp.ToListAsync();
+        //}
 
         [HttpPut]
         public async Task<IActionResult> Put(FinalExamination value)
@@ -100,6 +111,24 @@ namespace e.moiroServer.Controllers
                 return Ok(value);
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpPut("ConnectToDepartments/{finalExaminationId}")]
+        public async Task<ActionResult<FinalExamination>> Post(int finalExaminationId, [FromBody] List<Department> departments)
+        {
+            if (departments?.Count == 0)
+                return BadRequest();
+
+            var finalExamination = await _context.FinalExaminations.Include(a => a.Departments).FirstOrDefaultAsync(fe => fe.Id == finalExaminationId);
+
+            if (finalExamination == null)
+                return NotFound();
+
+            finalExamination.Departments.AddRange(departments);
+            var a = finalExamination.Departments.GroupBy(x => x.Id).Select(y => y.First());//(List<Department>)finalExamination.Departments.Distinct();
+            finalExamination.Departments = new List<Department>(a);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         [HttpDelete("{id}")]

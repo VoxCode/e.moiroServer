@@ -37,6 +37,21 @@ namespace e.moiroServer.Controllers
 
             return value;
         }
+        [HttpGet("GetTeacherByUserId/{UserId}")]
+        public async Task<ActionResult<Teacher>> GetTeacherByUserId(string UserId)
+        {
+            var teacherId = _context.Users.Where(x => x.Id == UserId).Select(x => x.TeacherId).FirstOrDefault();
+            var teacher = await _context.Teachers.FindAsync(teacherId);
+
+
+
+            if (teacherId == null|| teacher == null)
+            {
+                return NotFound();
+            }
+
+            return teacher;
+        }
 
         [HttpPut]
         public async Task<IActionResult> Put(Teacher value)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Syncfusion.EJ2.DocumentEditor;
 using System;
@@ -43,5 +44,38 @@ namespace e.moiroServer.Controllers
                 _ => throw new NotSupportedException("EJ2 DocumentEditor does not support this file format."),
             };
         }
+        [AcceptVerbs("Post")]
+
+        [Route("SystemClipboard")]
+        public string SystemClipboard([FromBody] CustomParameter param)
+        {
+            if (param.content != null && param.content != "")
+            {
+                try
+                {
+                    //Hooks MetafileImageParsed event.
+                    //WordDocument.MetafileImageParsed += OnMetafileImageParsed;
+                    WordDocument document = WordDocument.LoadString(param.content, GetFormatType(param.type.ToLower()));
+                    //Unhooks MetafileImageParsed event.
+                    //WordDocument.MetafileImageParsed -= OnMetafileImageParsed;
+                    string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
+                    document.Dispose();
+                    return json;
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
+            }
+            return "";
+        }
+
+        public class CustomParameter
+        {
+            public string content { get; set; }
+            public string type { get; set; }
+        }
+
+        //Converts Metafile to raster image.
     }
 }

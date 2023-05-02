@@ -12,6 +12,8 @@ namespace e.moiroServer.Data.Models
         public string Annotation { get; set; }
         public int TrainingProgramCurriculumSectionId { get; set; }
         public int TestWorkHours { get; set; }
+        public int? CurriculumTopicTypeId { get; set; }
+        public CurriculumTopicType CurriculumTopicType { get; set; }
         public TrainingProgramCurriculumSection TrainingProgramCurriculumSection { get; set; }
         public ICollection<ScheduleBlockCurriculumTopicTrainingProgram> ScheduleBlockCurriculumTopicTrainingPrograms { get; set; }
         public ICollection<OccupationForm> OccupationForms { get; set; }

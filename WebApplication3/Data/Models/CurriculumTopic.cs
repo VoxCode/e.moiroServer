@@ -5,6 +5,8 @@ namespace e.moiroServer.Data.Models
     public class CurriculumTopic
     {
         public int Id { get; set; }
+        public int? CurriculumTopicTypeId { get; set; }
+        public CurriculumTopicType CurriculumTopicType { get; set; }
         public string TopicTitle { get; set; }
         public string Annotation { get; set; }
         public string AuthorIndex { get; set; }
